@@ -15,7 +15,7 @@ public class LoanApplicationWindow extends JFrame{
 
 
         TopBlueBar bar = new TopBlueBar();
-        this.add(bar,BorderLayout.NORTH);
+        this.add(bar,BorderLayout.WEST);
         bar.setVisible(true);
         this.add(loanPanel, BorderLayout.CENTER);
         this.setVisible(true);
