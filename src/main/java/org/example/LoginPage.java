@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class LoginPage extends JFrame{
     // Create the frame (the window)
+    GUI ui = new GUI();
+
     public LoginPage() {
         this.setSize(1000, 700);
 
@@ -37,34 +39,31 @@ public class LoginPage extends JFrame{
         loginBox.add(logo);
 
         //username label
-        JLabel userLabel = new JLabel("Username:"); // 把label做出来
-        userLabel.setBounds(50,150,150,10);
-        userLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        JLabel userLabel = ui.createLabel("Username :", 50, 150, 150, 10); // 把label做出来
 
         //password label
-        JLabel password = new JLabel("Password :");
-        password.setBounds(50,200,150,10);
-        password.setFont(new Font("Arial", Font.PLAIN, 14));
+        JLabel passwordLabel = ui.createLabel("Password :", 50, 200, 150, 10);
 
-        //username textfield
-        JTextField userTextField = new JTextField(15);
-        userTextField.setBounds(140 , 150, 200, 20);
+        //username text field
+        JTextField userTextField = ui.createTextField(15, 140, 150, 200, 20);
 
-        //password textfield
-        JTextField passwordTextField = new JTextField(15);
-        passwordTextField.setBounds(140,200,200,20);
+        //password text field
+        JTextField passwordTextField = ui.createTextField(15, 140,200,200, 20);
 
         //Sign Up Button
-        JButton SignUp_Button = new JButton("Sign Up");
-        SignUp_Button.setBounds(180,240,100,30);
+        JButton SignUp_Button = ui.createButton("Sign Up", 75,240,100,30);
 
+        //Sign In Button
+        JButton SignIn_Button  = ui.createButton("Sign In",225, 240, 100, 30);
 
-
+        // add elements to the gray box
         loginBox.add(userLabel);
         loginBox.add(userTextField);
-        loginBox.add(password);
+        loginBox.add(passwordLabel);
         loginBox.add(passwordTextField);
         loginBox.add(SignUp_Button);
+        loginBox.add(SignIn_Button);
+
         // Add the box to the wrapper 把刚才的灰色格子放在frame前面
         containerPanel.add(loginBox); // put the white panel inside wrapper
 
