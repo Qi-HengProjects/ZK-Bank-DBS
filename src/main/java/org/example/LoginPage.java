@@ -10,6 +10,7 @@ public class LoginPage extends JFrame{
     public LoginPage() {
         this.setSize(1000, 700);
 
+
         // wrapper for login panel 中间那个方块的背景
         JPanel containerPanel = new JPanel(new GridBagLayout());
         containerPanel.setBackground(Color.WHITE); //那个frame的背景 可以叫wrapper
@@ -51,14 +52,14 @@ public class LoginPage extends JFrame{
         loginBox.add(password);
 
         //username textfield
-        JTextField userTextField = new JTextField(15);
-        userTextField.setBounds(140 , 150, 200, 20);
-        loginBox.add(userTextField);
+        JTextField userTextField_S = new JTextField(15);
+        userTextField_S.setBounds(140 , 150, 200, 20);
+        loginBox.add(userTextField_S);
 
         //password textfield
-        JTextField passwordTextField = new JTextField(15);
-        passwordTextField.setBounds(140,200,200,20);
-        loginBox.add(passwordTextField);
+        JTextField passwordTextField_S = new JTextField(15);
+        passwordTextField_S.setBounds(140,200,200,20);
+        loginBox.add(passwordTextField_S);
 
         //Log In Button
         JButton LogIn_Button = new JButton("Log In");
