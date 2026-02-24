@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class LoginPage extends JFrame{
     // Create the frame (the window)
+    TopBlueBar bar = new TopBlueBar();
     public LoginPage() {
         this.setSize(1000, 700);
 
@@ -84,9 +85,16 @@ public class LoginPage extends JFrame{
         // Add the box to the wrapper 把刚才的灰色格子放在frame前面
         containerPanel.add(loginBox); // put the white panel inside wrapper
 
-        TopBlueBar bar = new TopBlueBar();
+
         this.add(bar,BorderLayout.WEST);
         bar.setVisible(true);
+
+        LogIn_Button.addActionListener(e ->{
+            Main.account_status = "Signed In";
+            bar.LockLogic();
+            System.out.print("Unlocked");
+        });
+
 
         // add the top and login panel to the frame (InfoFrame) 排版
         this.add(bar, BorderLayout.WEST);
