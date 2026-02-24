@@ -3,7 +3,7 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginPanel extends JFrame{
+public class LoginPanel extends JPanel{
     // Create the frame (the window)
     GUI ui = new GUI();
     TopBlueBar bar = new TopBlueBar();
@@ -15,12 +15,13 @@ public class LoginPanel extends JFrame{
         JPanel containerPanel = new JPanel(new GridBagLayout());
         containerPanel.setBackground(Color.WHITE); //那个frame的背景 可以叫wrapper
 
+
         // login panel setup 那个灰色方块的setup
         JPanel loginBox = new JPanel();
         loginBox.setPreferredSize(new Dimension(400, 300));
         loginBox.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2)); // 灰色边线
         loginBox.setLayout(null);
-
+        loginBox.setBounds(500,350,400,300); //--------------------------------------------fix
         //Image
         ImageIcon image = new ImageIcon("logo_Icon.jpg");
         Image logo_icon_1 = image.getImage();
@@ -80,8 +81,8 @@ public class LoginPanel extends JFrame{
         containerPanel.add(loginBox); // put the white panel inside wrapper
 
 
-        this.add(bar,BorderLayout.WEST);
-        bar.setVisible(true);
+
+
 
         LogIn_Button.addActionListener(e ->{
             Main.account_status = "Signed In";
@@ -91,7 +92,6 @@ public class LoginPanel extends JFrame{
 
 
         // add the top and login panel to the frame (InfoFrame) 排版
-        this.add(bar, BorderLayout.WEST);
         this.add(containerPanel, BorderLayout.CENTER); //把那个wrapper放进那个frame
 
 

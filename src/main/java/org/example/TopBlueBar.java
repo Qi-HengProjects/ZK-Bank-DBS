@@ -44,6 +44,7 @@ public class TopBlueBar extends JPanel {
         Personal.setEnabled(Main.toggle_status);
         Personal.addActionListener(e -> {
             System.out.println("Personal");
+
         });
         this.add(Personal);
 
