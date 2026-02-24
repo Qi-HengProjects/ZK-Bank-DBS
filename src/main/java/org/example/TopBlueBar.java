@@ -6,15 +6,15 @@ import java.awt.*;
 
 public class TopBlueBar extends JPanel {
     private HeaderButton Home;
-    private HeaderButton Report;
-    private HeaderButton LoanApp;
+    private HeaderButton Personal;
+    //private HeaderButton LoanApp;
     private HeaderButton Contact;
 
     public TopBlueBar() {
         //Var for the name of the window, call it from other classes.
 
         this.setBackground(new Color(0, 51, 102));
-        this.setPreferredSize(new Dimension(120, 800));
+        this.setPreferredSize(new Dimension(130, 800));
         this.setLayout(null);
 
 
@@ -26,46 +26,42 @@ public class TopBlueBar extends JPanel {
         ImageIcon scaled_logo = new ImageIcon(scaled_img);
 
         JLabel logo = new JLabel(scaled_logo);
-        logo.setForeground(Color.YELLOW);
-        logo.setFont(new Font("Arial", Font.BOLD, 18));
-        logo.setBounds(0, 10, 120, 100);
+        logo.setBounds(0, 10, 130, 100);
         this.add(logo);
 
         // Home button
         Home = new HeaderButton("Home");
-        Home.setBounds(0, 150, 100, 40);
-        Home.setEnabled(Main.toggle_status);
+        Home.setBounds(0, 150, 130, 40);
         Home.addActionListener(e -> {
             System.out.println("home");
         });
         this.add(Home);
 
 
-        // Report button
-        Report = new HeaderButton("Report");
-        Report.setBounds(0, 250, 100, 40);
-        Report.setEnabled(Main.toggle_status);
-        Report.addActionListener(e -> {
-            System.out.println("report");
+        // Personal button
+        Personal = new HeaderButton("Personal");
+        Personal.setBounds(0, 250, 130, 40);
+        Personal.setEnabled(Main.toggle_status);
+        Personal.addActionListener(e -> {
+            System.out.println("Personal");
         });
-        this.add(Report);
+        this.add(Personal);
 
 
         // Loan Application button
-        LoanApp = new HeaderButton("Loan");
-        LoanApp.setBounds(0, 350, 100, 80);
-        LoanApp.setEnabled(Main.toggle_status);
-        LoanApp.addActionListener(e -> {
-            System.out.println("LA");
-            new LoanApplicationPanel();
-        });
-        this.add(LoanApp);
+        //LoanApp = new HeaderButton("Loan");
+        //LoanApp.setBounds(0, 350, 100, 80);
+        //LoanApp.setEnabled(Main.toggle_status);
+        //LoanApp.addActionListener(e -> {
+        //    System.out.println("LA");
+        //    new LoanApplicationPanel();
+        //});
+        //this.add(LoanApp);
 
 
         // Contact button
         Contact = new HeaderButton("Contact");
-        Contact.setBounds(0, 490 , 110, 40);
-        Contact.setEnabled(Main.toggle_status);
+        Contact.setBounds(0, 350 , 130, 40);
         Contact.addActionListener(e -> {
             System.out.println("C");
         });
@@ -99,12 +95,7 @@ public class TopBlueBar extends JPanel {
             Main.toggle_status = false;
         }
 
-
-        Home.setEnabled(Main.toggle_status);
-        Report.setEnabled(Main.toggle_status);
-        LoanApp.setEnabled(Main.toggle_status);
-        Contact.setEnabled(Main.toggle_status);
-
+        Personal.setEnabled(Main.toggle_status);
         this.revalidate();
         this.repaint();
 
