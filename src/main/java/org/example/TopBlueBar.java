@@ -33,7 +33,7 @@ public class TopBlueBar extends JPanel {
 
         // Home button
         Home = new HeaderButton("Home");
-        Home.setPosition(0, 150, 100, 40);
+        Home.setBounds(0, 150, 100, 40);
         Home.setEnabled(Main.toggle_status);
         Home.addActionListener(e -> {
             System.out.println("home");
@@ -43,7 +43,7 @@ public class TopBlueBar extends JPanel {
 
         // Report button
         Report = new HeaderButton("Report");
-        Report.setPosition(0, 250, 100, 40);
+        Report.setBounds(0, 250, 100, 40);
         Report.setEnabled(Main.toggle_status);
         Report.addActionListener(e -> {
             System.out.println("report");
@@ -53,7 +53,7 @@ public class TopBlueBar extends JPanel {
 
         // Loan Application button
         LoanApp = new HeaderButton("<html><center>Apply<br>Loan</center></html>");
-        LoanApp.setPosition(0, 350, 100, 80);
+        LoanApp.setBounds(0, 350, 100, 80);
         LoanApp.setEnabled(Main.toggle_status);
         LoanApp.addActionListener(e -> {
             System.out.println("LA");
@@ -64,7 +64,7 @@ public class TopBlueBar extends JPanel {
 
         // Contact button
         Contact = new HeaderButton("Contact");
-        Contact.setPosition(0, 490 , 110, 40);
+        Contact.setBounds(0, 490 , 110, 40);
         Contact.setEnabled(Main.toggle_status);
         Contact.addActionListener(e -> {
             System.out.println("C");
@@ -100,9 +100,7 @@ public class TopBlueBar extends JPanel {
             this.setFont(new Font("Arial", Font.BOLD, 18));
         }
 
-        public void setPosition(int x, int y, int width, int height) {
-            this.setBounds(x, y, width, height);
-        }
+
 
         @Override
         public void setEnabled(boolean enabled) {
