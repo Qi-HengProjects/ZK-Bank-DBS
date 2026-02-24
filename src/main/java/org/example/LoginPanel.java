@@ -1,15 +1,15 @@
 package org.example;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.util.Scanner;
 
-public class LoginPage extends JFrame{
+public class LoginPanel extends JFrame{
     // Create the frame (the window)
+    GUI ui = new GUI();
     TopBlueBar bar = new TopBlueBar();
-    public LoginPage() {
+    public LoginPanel() {
         this.setSize(1000, 700);
+        Main.showPage("LoanApp");
 
         // wrapper for login panel 中间那个方块的背景
         JPanel containerPanel = new JPanel(new GridBagLayout());
@@ -40,25 +40,19 @@ public class LoginPage extends JFrame{
         loginBox.add(ZKBank);
 
         //username label
-        JLabel userLabel = new JLabel("Username:"); // 把label做出来
-        userLabel.setBounds(50,150,150,10);
-        userLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        JLabel userLabel = ui.createLabel("Username :", 50, 150, 150, 10); // 把label做出来
         loginBox.add(userLabel);
 
         //password label
-        JLabel password = new JLabel("Password :");
-        password.setBounds(50,200,150,10);
-        password.setFont(new Font("Arial", Font.PLAIN, 14));
-        loginBox.add(password);
+        JLabel passwordLabel = ui.createLabel("Password :", 50, 200, 150, 10);
+        loginBox.add(passwordLabel);
 
-        //username textfield
-        JTextField userTextField = new JTextField(15);
-        userTextField.setBounds(140 , 150, 200, 20);
+        //username text field
+        JTextField userTextField = ui.createTextField(15, 140, 150, 200, 20);
         loginBox.add(userTextField);
 
-        //password textfield
-        JTextField passwordTextField = new JTextField(15);
-        passwordTextField.setBounds(140,200,200,20);
+        //password text field
+        JTextField passwordTextField = ui.createTextField(15, 140,200,200, 20);
         loginBox.add(passwordTextField);
 
         //Log In Button

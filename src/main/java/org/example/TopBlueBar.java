@@ -52,12 +52,12 @@ public class TopBlueBar extends JPanel {
 
 
         // Loan Application button
-        LoanApp = new HeaderButton("<html><center>Apply<br>Loan</center></html>");
+        LoanApp = new HeaderButton("Loan");
         LoanApp.setBounds(0, 350, 100, 80);
         LoanApp.setEnabled(Main.toggle_status);
         LoanApp.addActionListener(e -> {
             System.out.println("LA");
-            new LoanApplicationWindow();
+            new LoanApplicationPanel();
         });
         this.add(LoanApp);
 
@@ -71,48 +71,21 @@ public class TopBlueBar extends JPanel {
         });
         this.add(Contact);
 
-
-        //Making the frame visible and positioning
-
-
     }
 
 
     private static class HeaderButton extends JButton {
-        private final String rawText;
-        private final boolean isHtml;
-
-        private static final Color ENABLED_COLOR  = Color.WHITE;
-        private static final Color DISABLED_COLOR = new Color(150, 160, 175);
-
         public HeaderButton(String text) {
             super(text);
-            this.isHtml = text.startsWith("<html>");
-            // Strip html tags to store just the core content
-            this.rawText = text;
 
             this.setBorderPainted(false);
             this.setContentAreaFilled(false);
             this.setFocusPainted(false);
-            this.setForeground(ENABLED_COLOR);
             this.setBackground(new Color(0, 51, 102));
+            this.setForeground(Color.WHITE);
             this.setCursor(new Cursor(Cursor.HAND_CURSOR));
             this.setFont(new Font("Arial", Font.BOLD, 18));
-        }
 
-
-
-        @Override
-        public void setEnabled(boolean enabled) {
-            super.setEnabled(enabled);
-            String hex = enabled ? "#FFFFFF" : "#969FB0";
-            if (isHtml) {
-                // Wrap the inner content with a font color tag
-                String inner = rawText.replace("<html>", "").replace("</html>", "");
-                setText("<html><font color='" + hex + "'>" + inner + "</font></html>");
-            } else {
-                setForeground(enabled ? ENABLED_COLOR : DISABLED_COLOR);
-            }
         }
     }
     public void LockLogic(){

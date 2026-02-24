@@ -3,12 +3,12 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
-public class LoanApplicationWindow extends JFrame{
-    public LoanApplicationWindow() {
+public class LoanApplicationPanel extends JFrame{
+    public LoanApplicationPanel() {
         JPanel loanPanel = new JPanel();
         this.setTitle("Loan Application");
         this.setSize(1000,700);
-        this.setDefaultCloseOperation((JFrame.EXIT_ON_CLOSE));
+        this.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));
         this.setLayout(new BorderLayout());
         loanPanel.setBackground(Color.YELLOW);
 
