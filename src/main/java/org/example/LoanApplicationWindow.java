@@ -21,3 +21,4 @@ public class LoanApplicationWindow extends JFrame{
         this.setVisible(true);
     }
 }
+

@@ -7,13 +7,9 @@ import java.util.Scanner;
 
 public class LoginPage extends JFrame{
     // Create the frame (the window)
-    GUI ui = new GUI();
-
+    TopBlueBar bar = new TopBlueBar();
     public LoginPage() {
         this.setSize(1000, 700);
-
-
-
 
         // wrapper for login panel 中间那个方块的背景
         JPanel containerPanel = new JPanel(new GridBagLayout());
@@ -23,7 +19,6 @@ public class LoginPage extends JFrame{
         JPanel loginBox = new JPanel();
         loginBox.setPreferredSize(new Dimension(400, 300));
         loginBox.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2)); // 灰色边线
-        //loginBox.setBounds(50, 100, 50 ,10);
         loginBox.setLayout(null);
 
         //Image
@@ -38,38 +33,69 @@ public class LoginPage extends JFrame{
         logo.setBounds(50, 10, 120, 100);
         loginBox.add(logo);
 
+        //Next to icon label (ZK BANK)
+        JLabel ZKBank = new JLabel("ZK BANK");
+        ZKBank.setFont(new Font("Arial", Font.BOLD, 30));
+        ZKBank.setBounds(190, 40, 300, 50);
+        loginBox.add(ZKBank);
+
         //username label
-        JLabel userLabel = ui.createLabel("Username :", 50, 150, 150, 10); // 把label做出来
+        JLabel userLabel = new JLabel("Username:"); // 把label做出来
+        userLabel.setBounds(50,150,150,10);
+        userLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        loginBox.add(userLabel);
 
         //password label
-        JLabel passwordLabel = ui.createLabel("Password :", 50, 200, 150, 10);
+        JLabel password = new JLabel("Password :");
+        password.setBounds(50,200,150,10);
+        password.setFont(new Font("Arial", Font.PLAIN, 14));
+        loginBox.add(password);
 
-        //username text field
-        JTextField userTextField = ui.createTextField(15, 140, 150, 200, 20);
+        //username textfield
+        JTextField userTextField = new JTextField(15);
+        userTextField.setBounds(140 , 150, 200, 20);
+        loginBox.add(userTextField);
 
-        //password text field
-        JTextField passwordTextField = ui.createTextField(15, 140,200,200, 20);
+        //password textfield
+        JTextField passwordTextField = new JTextField(15);
+        passwordTextField.setBounds(140,200,200,20);
+        loginBox.add(passwordTextField);
+
+        //Log In Button
+        JButton LogIn_Button = new JButton("Log In");
+        LogIn_Button.setBounds(150,240,100,30);
+        loginBox.add(LogIn_Button);
 
         //Sign Up Button
-        JButton SignUp_Button = ui.createButton("Sign Up", 75,240,100,30);
-
-        //Sign In Button
-        JButton SignIn_Button  = ui.createButton("Sign In",225, 240, 100, 30);
-
-        // add elements to the gray box
-        loginBox.add(userLabel);
-        loginBox.add(userTextField);
-        loginBox.add(passwordLabel);
-        loginBox.add(passwordTextField);
+        JButton SignUp_Button = new JButton("<html><u>Sign Up?</u></html>");
+        SignUp_Button.setFont(new Font("Arial",Font.ITALIC, 15));
+        SignUp_Button.setBorderPainted(false);
+        SignUp_Button.setContentAreaFilled(false);
+        SignUp_Button.setFocusPainted(false);
+        SignUp_Button.setForeground(Color.BLUE);
+        SignUp_Button.setBounds(20,260,100,30);
         loginBox.add(SignUp_Button);
-        loginBox.add(SignIn_Button);
+        //Pop to Sign Up pop up window
+        SignUp_Button.addActionListener( e -> {
+            new SignUp();
+
+        });
+
 
         // Add the box to the wrapper 把刚才的灰色格子放在frame前面
         containerPanel.add(loginBox); // put the white panel inside wrapper
 
-        TopBlueBar bar = new TopBlueBar();
+
         this.add(bar,BorderLayout.WEST);
         bar.setVisible(true);
+
+        LogIn_Button.addActionListener(e ->{
+            Main.account_status = "Signed In";
+            bar.LockLogic();
+            System.out.print("Unlocked");
+        });
+
+
         // add the top and login panel to the frame (InfoFrame) 排版
         this.add(bar, BorderLayout.WEST);
         this.add(containerPanel, BorderLayout.CENTER); //把那个wrapper放进那个frame
@@ -78,6 +104,7 @@ public class LoginPage extends JFrame{
         this.setVisible(true);
     }
 }
+
 
 
 
