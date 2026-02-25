@@ -41,5 +41,3 @@ public class Main extends JFrame {
 }
 
 
-//bug list
-//exit_on)close problem

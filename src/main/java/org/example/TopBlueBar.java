@@ -41,11 +41,28 @@ public class TopBlueBar extends JPanel {
         // Personal button
         Personal = new HeaderButton("Personal");
         Personal.setBounds(0, 250, 130, 40);
-        Personal.setEnabled(Main.toggle_status);
         Personal.addActionListener(e -> {
-            System.out.println("Personal");
 
+
+            if (Main.toggle_status == false) {
+
+                // Show the pop-up warning
+                JOptionPane.showMessageDialog(
+                        this, // or null
+                        "Access Denied. Please log in first.",
+                        "Access Denied",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+            } else {
+                // They are logged in! Let them through.
+                System.out.println("in");
+                new LoanApplicationPanel();
+
+
+            }
         });
+
         this.add(Personal);
 
 
@@ -100,6 +117,16 @@ public class TopBlueBar extends JPanel {
         this.revalidate();
         this.repaint();
 
+    }
+    public class SignUpFirst extends JOptionPane{
+        public SignUpFirst(){
+            SignUpFirst.showMessageDialog(
+                    null,
+                    "Please log in first.",
+                    "Access Denied",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 }
 

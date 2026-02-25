@@ -9,6 +9,7 @@ public class LoginPanel extends JPanel{
     TopBlueBar bar = new TopBlueBar();
     public LoginPanel() {
         this.setSize(1000, 700);
+        this.setLayout(new BorderLayout());
         Main.showPage("LoanApp");
 
         // wrapper for login panel 中间那个方块的背景
@@ -21,7 +22,7 @@ public class LoginPanel extends JPanel{
         loginBox.setPreferredSize(new Dimension(400, 300));
         loginBox.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2)); // 灰色边线
         loginBox.setLayout(null);
-        loginBox.setBounds(500,350,400,300); //--------------------------------------------fix
+
         //Image
         ImageIcon image = new ImageIcon("logo_Icon.jpg");
         Image logo_icon_1 = image.getImage();
@@ -41,7 +42,7 @@ public class LoginPanel extends JPanel{
         loginBox.add(ZKBank);
 
         //username label
-        JLabel userLabel = ui.createLabel("Username :", 50, 150, 150, 10); // 把label做出来
+        JLabel userLabel = ui.createLabel("Username :", 50, 150, 150, 15); // 把label做出来
         loginBox.add(userLabel);
 
         //password label
@@ -77,19 +78,14 @@ public class LoginPanel extends JPanel{
         });
 
 
-        // Add the box to the wrapper 把刚才的灰色格子放在frame前面
-        containerPanel.add(loginBox); // put the white panel inside wrapper
-
-
-
-
-
         LogIn_Button.addActionListener(e ->{
             Main.account_status = "Signed In";
             bar.LockLogic();
             System.out.print("Unlocked");
         });
 
+        // Add the box to the wrapper 把刚才的灰色格子放在frame前面
+        containerPanel.add (loginBox);
 
         // add the top and login panel to the frame (InfoFrame) 排版
         this.add(containerPanel, BorderLayout.CENTER); //把那个wrapper放进那个frame
