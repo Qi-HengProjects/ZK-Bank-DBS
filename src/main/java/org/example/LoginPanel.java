@@ -2,11 +2,15 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class LoginPanel extends JPanel{
     // Create the frame (the window)
     GUI ui = new GUI();
     TopBlueBar bar = new TopBlueBar();
+    JTextField userTextField = ui.createTextField(15, 140, 150, 200, 20);
+    JTextField passwordTextField = ui.createTextField(15, 140,200,200, 20);
     public LoginPanel() {
         this.setSize(1000, 700);
         this.setLayout(new BorderLayout());
@@ -50,17 +54,19 @@ public class LoginPanel extends JPanel{
         loginBox.add(passwordLabel);
 
         //username text field
-        JTextField userTextField = ui.createTextField(15, 140, 150, 200, 20);
+        //JTextField userTextField = ui.createTextField(15, 140, 150, 200, 20);
+        // The line before cannot put here need to put up to make sure the method work
         loginBox.add(userTextField);
 
         //password text field
-        JTextField passwordTextField = ui.createTextField(15, 140,200,200, 20);
+        //JTextField passwordTextField = ui.createTextField(15, 140,200,200, 20);
         loginBox.add(passwordTextField);
 
         //Log In Button
-        JButton LogIn_Button = new JButton("Log In");
-        LogIn_Button.setBounds(150,240,100,30);
-        loginBox.add(LogIn_Button);
+        JButton LogInButton = new JButton("Log In");
+        LogInButton.setBounds(150,240,100,30);
+        loginBox.add(LogInButton);
+        LogInButton.addActionListener(this::LoginButtonClicked);
 
         //Sign Up Button
         JButton SignUp_Button = new JButton("<html><u>Sign Up?</u></html>");
@@ -78,7 +84,7 @@ public class LoginPanel extends JPanel{
         });
 
 
-        LogIn_Button.addActionListener(e ->{
+        LogInButton.addActionListener(e ->{
             Main.account_status = "Signed In";
             bar.LockLogic();
             System.out.print("Unlocked");
@@ -92,6 +98,20 @@ public class LoginPanel extends JPanel{
 
 
         this.setVisible(true);
+    }
+
+    private void LoginButtonClicked(ActionEvent e) {
+        String UsernameInput = userTextField.getText();
+        String PasswordInput = passwordTextField.getText();
+
+        DataManager searchUserAndPwd = new DataManager();
+        List<User> users = searchUserAndPwd.loadUsers(); // load json file
+        for (User user : users) {
+            if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {
+                boolean loginSuccess = true;
+                break;
+            }
+        }
     }
 }
 

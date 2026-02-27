@@ -36,6 +36,10 @@ public class User {
         return this.username;
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+
     public List<Account> getAccounts() {
         return this.accounts;
     }
