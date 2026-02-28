@@ -68,6 +68,7 @@ public class LoginPanel extends JPanel{
         loginBox.add(LogInButton);
         LogInButton.addActionListener(this::LoginButtonClicked);
 
+
         //Sign Up Button
         JButton SignUp_Button = new JButton("<html><u>Sign Up?</u></html>");
         SignUp_Button.setFont(new Font("Arial",Font.ITALIC, 15));
@@ -84,12 +85,6 @@ public class LoginPanel extends JPanel{
         });
 
 
-        LogInButton.addActionListener(e ->{
-            Main.account_status = "Signed In";
-            bar.LockLogic();
-            System.out.print("Unlocked");
-        });
-
         // Add the box to the wrapper 把刚才的灰色格子放在frame前面
         containerPanel.add (loginBox);
 
@@ -100,17 +95,27 @@ public class LoginPanel extends JPanel{
         this.setVisible(true);
     }
 
+    boolean loginSuccess = false;
     private void LoginButtonClicked(ActionEvent e) {
         String UsernameInput = userTextField.getText();
         String PasswordInput = passwordTextField.getText();
 
         DataManager searchUserAndPwd = new DataManager();
         List<User> users = searchUserAndPwd.loadUsers(); // load json file
+
         for (User user : users) {
             if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {
-                boolean loginSuccess = true;
+                loginSuccess = true;
                 break;
             }
+        }
+
+        if (loginSuccess) {
+            System.out.println("Login Successfully!");
+            Main.account_status = "Signed In";
+            bar.LockLogic();
+        } else {
+            JOptionPane.showMessageDialog(this, "Username or Password incorrect!");
         }
     }
 }

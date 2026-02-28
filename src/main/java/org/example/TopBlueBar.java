@@ -2,6 +2,7 @@ package org.example;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
+import java.util.Objects;
 
 
 public class TopBlueBar extends JPanel {
@@ -44,7 +45,7 @@ public class TopBlueBar extends JPanel {
         Personal.addActionListener(e -> {
 
 
-            if (Main.toggle_status == false) {
+            if (!Main.toggle_status) {
 
                 // Show the pop-up warning
                 JOptionPane.showMessageDialog(
@@ -104,12 +105,12 @@ public class TopBlueBar extends JPanel {
     }
     public void LockLogic(){
         //setEnable toggle logic core
-        if ("Signed Out".equals(Main.account_status)){
+        if (Objects.equals("Signed Out", Main.account_status)){
             Main.toggle_status = false;
-        } else if ("Signed In".equals(Main.account_status)){
+        } else if (Objects.equals("Signed In", Main.account_status)){
             Main.toggle_status = true;
 
-        } else if ("Frozen".equals(Main.account_status)) {
+        } else if (Objects.equals("Frozen", Main.account_status)) {
             Main.toggle_status = false;
         }
 
