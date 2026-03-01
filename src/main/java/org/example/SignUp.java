@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SignUp extends JFrame {
     GUI ui = new GUI();
@@ -9,6 +10,11 @@ public class SignUp extends JFrame {
         SignUp.setSize(600,600);
         SignUp.setVisible(true);
         SignUp.setLayout(null);
+
+        JPanel sideBlueBar = new JPanel();
+        sideBlueBar.setBackground(new Color(0, 51, 102));
+        ui.setPosition(sideBlueBar, 0, 0, 50, 600);
+        SignUp.add(sideBlueBar);
 
         JLabel userRegister = new JLabel("Username :");
         ui.setPosition(userRegister, 80, 60, 150, 15);
