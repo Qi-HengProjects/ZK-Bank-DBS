@@ -9,8 +9,8 @@ public class LoginPanel extends JPanel{
     // Create the frame (the window)
     GUI ui = new GUI();
     TopBlueBar bar = new TopBlueBar();
-    JTextField userTextField = ui.createTextField(15, 140, 150, 200, 20);
-    JTextField passwordTextField = ui.createTextField(15, 140,200,200, 20);
+    JTextField userTextField = new JTextField(15);
+    JTextField passwordTextField = new JTextField(15);
     public LoginPanel() {
         this.setSize(1000, 700);
         this.setLayout(new BorderLayout());
@@ -46,20 +46,24 @@ public class LoginPanel extends JPanel{
         loginBox.add(ZKBank);
 
         //username label
-        JLabel userLabel = ui.createLabel("Username :", 50, 150, 150, 15); // 把label做出来
+        JLabel userLabel = new JLabel("Username :");// 把label做出来
+        ui.setPosition(userLabel,50, 150, 150, 15);
         loginBox.add(userLabel);
 
         //password label
-        JLabel passwordLabel = ui.createLabel("Password :", 50, 200, 150, 10);
+        JLabel passwordLabel = new JLabel("Password :");
+        ui.setPositionRelative(userLabel, passwordLabel, 0, 50, 150, 15);
         loginBox.add(passwordLabel);
 
         //username text field
         //JTextField userTextField = ui.createTextField(15, 140, 150, 200, 20);
         // The line before cannot put here need to put up to make sure the method work
+        ui.setPosition(userTextField, 140, 150, 200, 20);
         loginBox.add(userTextField);
 
         //password text field
         //JTextField passwordTextField = ui.createTextField(15, 140,200,200, 20);
+        ui.setPositionRelative(userTextField, passwordTextField, 0,50,200, 20);
         loginBox.add(passwordTextField);
 
         //Log In Button

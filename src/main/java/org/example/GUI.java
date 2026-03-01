@@ -11,13 +11,30 @@ public class GUI {
     // rectangle data type that contain 4 piece of data
     private Rectangle box = new Rectangle();
 
+
+
     public void setPosition (Component comp, int x, int y, int w, int h) {
-        box.x = x;
-        box.y = y;
-        box.width = w;
-        box.height = h;
+        box.setRect(x, y, w, h);
         comp.setBounds(box);
     }
+
+
+    public void setPositionCenter(Component comp, Container parent, int w, int h) {
+        int pW = parent.getWidth();
+        int pH = parent.getHeight();
+        int x = (pW - w) / 2;
+        int y = (pH - h) / 2;
+        setPosition(comp, x, y, w, h);
+    }
+
+    public void setPositionRelative(Component target, Component newComp, int offsetX, int offsetY, int w, int h) {
+        int x = target.getX() + offsetX;
+        int y = target.getY() + offsetY;
+
+        setPosition(newComp, x, y, w, h);
+    }
+
+/*
     //Label method (with font and font size)
     public JLabel createLabel(String text, int x, int y, int w, int h, String font, int size, int style) {
         JLabel label = new JLabel(text);
@@ -32,7 +49,15 @@ public class GUI {
         setPosition(label, x, y, w, h);
         return label;
     }
+    //Label method center
+
+
+
+
+
+
     //Text field method
+
     public JTextField createTextField(int col, int x, int y, int w, int h){
         JTextField textField = new JTextField(col);
         setPosition(textField, x, y, w, h);
@@ -44,4 +69,6 @@ public class GUI {
         setPosition(button, x, y, w, h);
         return button;
     }
+*/
 }
+
