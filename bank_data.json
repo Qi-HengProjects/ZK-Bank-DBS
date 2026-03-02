@@ -1,0 +1,19 @@
+[
+  {
+    "userID": "990101-14-5555",
+    "username": "test_user",
+    "password": "password123",
+    "accounts": [
+      {
+        "accountNumber": "ACC-001",
+        "type": "SAVINGS",
+        "balance": 1500.0
+      },
+      {
+        "accountNumber": "ACC-002",
+        "type": "INVESTMENT",
+        "balance": 5500.5
+      }
+    ]
+  }
+]
