@@ -16,9 +16,12 @@ public class Main extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
+        // Create the one and only data manager
+        DataManager dataManager = new DataManager("bank_data.json");
+
         // Register all your pages here
-        mainPanel.add(new LoginPanel(), "Login");
-        mainPanel.add(new LoanApplicationPanel(), "LoanApp");
+        mainPanel.add(new LoginPanel(dataManager), "Login");
+        mainPanel.add(new LoanApplicationPanel(dataManager), "LoanApp");
         // mainPanel.add(new HomePanel(), "Home");
         // add more panels as you build them...
 
