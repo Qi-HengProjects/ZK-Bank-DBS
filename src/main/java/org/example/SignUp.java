@@ -52,30 +52,33 @@ public class SignUp extends JFrame {
         ui.setPositionRelative(DOBRegister, genderRegister, 0, 30, 150, 15);
         SignUp.add(genderRegister);
 
-        //gender textfield
-        JTextField genderRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(DOBRegisterTextField, genderRegisterTextField, 0, 30, 250,20);
-        SignUp.add(genderRegisterTextField);
+        //gender ComboBox
+        String[] GenderChoices = {"Male", "Female"};
+        JComboBox<String> genderComboBox = new JComboBox<>(GenderChoices);
+        ui.setPositionRelative(DOBRegisterTextField, genderComboBox, 0, 30, 250,20);
+        SignUp.add(genderComboBox);
 
         //nationality label
         JLabel nationalityRegister = new JLabel("Nationality :");
         ui.setPositionRelative(genderRegister, nationalityRegister, 0, 30, 150, 15);
         SignUp.add(nationalityRegister);
 
-        //nationality textfield
-        JTextField nationalityRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(genderRegisterTextField, nationalityRegisterTextField, 0, 30, 250,20);
-        SignUp.add(nationalityRegisterTextField);
+        //nationality ComboBox
+        String[] NationalityChoices = {"Malaysia","Singapore","Indonesia","Thailand","Vietnam"};
+        JComboBox<String> nationalityComboBox = new JComboBox<>(NationalityChoices);
+        ui.setPositionRelative(genderComboBox, nationalityComboBox, 0, 30, 250,20);
+        SignUp.add(nationalityComboBox);
 
         //Race label
         JLabel RaceRegister = new JLabel("Race :");
         ui.setPositionRelative(nationalityRegister, RaceRegister, 0, 30, 150, 15);
         SignUp.add(RaceRegister);
 
-        //Race textfield
-        JTextField RaceRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(nationalityRegisterTextField, RaceRegisterTextField, 0, 30, 250,20);
-        SignUp.add(RaceRegisterTextField);
+        //Race ComboBox
+        String[] RaceChoices = {"Malay","Chinese","Indian","Thai","Vietnamese"};
+        JComboBox<String> RaceRegisterComboBox = new JComboBox<>(RaceChoices);
+        ui.setPositionRelative(nationalityComboBox, RaceRegisterComboBox, 0, 30, 250,20);
+        SignUp.add(RaceRegisterComboBox);
 
         //Religion label
         JLabel ReligionRegister = new JLabel("Religion :");
@@ -84,7 +87,7 @@ public class SignUp extends JFrame {
 
         //Religion textfield
         JTextField ReligionRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(RaceRegisterTextField, ReligionRegisterTextField, 0, 30, 250,20);
+        ui.setPositionRelative(RaceRegisterComboBox, ReligionRegisterTextField, 0, 30, 250,20);
         SignUp.add(ReligionRegisterTextField);
 
         //Tel No. label
