@@ -4,10 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import org.jdatepicker.impl.DateComponentFormatter;
+import java.util.Properties;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class SignUp extends JDialog {
     GUI ui = new GUI();
     List<JTextField> FieldsStatus = new ArrayList<>();
+    UtilDateModel CalendarPop = new UtilDateModel();
     public  SignUp(Frame owner){
         super(owner, "Sign Up", true);
         this.setSize(600,600);
@@ -22,6 +30,7 @@ public class SignUp extends JDialog {
 
         //name registration label
         JLabel nameRegister = new JLabel("Name (as per IC) :");
+        nameRegister.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPosition(nameRegister, 80, 60, 150, 15);
         this.add(nameRegister);
 
@@ -33,6 +42,7 @@ public class SignUp extends JDialog {
 
         //IC No. label
         JLabel ICnoLabel = new JLabel("IC No. : ");
+        ICnoLabel.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(nameRegister, ICnoLabel, 0, 30, 150, 15);
         this.add(ICnoLabel);
 
@@ -44,28 +54,36 @@ public class SignUp extends JDialog {
 
         //DOB label
         JLabel DOBRegister = new JLabel("Date of Birth :");
-        ui.setPositionRelative(ICnoLabel, DOBRegister, 0, 30, 150, 15);
+        DOBRegister.setForeground(Color.decode(GUI.BlackColorCode));
+        ui.setPositionRelative(ICnoLabel, DOBRegister, 0, 30, 150, 25);
         this.add(DOBRegister);
 
-        //DOB textfield
-        JTextField DOBRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(ICNoTextField, DOBRegisterTextField, 0, 30, 250, 20); //fix
-        this.add(DOBRegisterTextField);
-        FieldsStatus.add(DOBRegisterTextField);
+        //DOB JDatePicker
+        Properties p = new Properties();
+        p.put("text.today","Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        JDatePanelImpl CalenderPanel = new JDatePanelImpl(CalendarPop, p);
+        JDatePickerImpl CalenderPicker = new JDatePickerImpl(CalenderPanel, new DateComponentFormatter());
+        ui.setPositionRelative(ICNoTextField, CalenderPicker, 0, 30, 250, 30);
+        this.add(CalenderPicker);
+
 
         //gender label
         JLabel genderRegister = new JLabel("Gender :");
-        ui.setPositionRelative(DOBRegister, genderRegister, 0, 30, 150, 15);
+        genderRegister.setForeground(Color.decode(GUI.BlackColorCode));
+        ui.setPositionRelative(DOBRegister, genderRegister, 0, 40, 150, 15);
         this.add(genderRegister);
 
         //gender ComboBox
         String[] GenderChoices = {"Male", "Female"};
         JComboBox<String> genderComboBox = new JComboBox<>(GenderChoices);
-        ui.setPositionRelative(DOBRegisterTextField, genderComboBox, 0, 30, 250,20);
+        ui.setPositionRelative(CalenderPicker, genderComboBox, 0, 40, 250,20);
         this.add(genderComboBox);
 
         //nationality label
         JLabel nationalityRegister = new JLabel("Nationality :");
+        nationalityRegister.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(genderRegister, nationalityRegister, 0, 30, 150, 15);
         this.add(nationalityRegister);
 
@@ -77,6 +95,7 @@ public class SignUp extends JDialog {
 
         //Race label
         JLabel RaceRegister = new JLabel("Race :");
+        RaceRegister.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(nationalityRegister, RaceRegister, 0, 30, 150, 15);
         this.add(RaceRegister);
 
@@ -88,28 +107,31 @@ public class SignUp extends JDialog {
 
         //Religion label
         JLabel ReligionRegister = new JLabel("Religion :");
+        ReligionRegister.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(RaceRegister, ReligionRegister, 0, 30, 150, 15);
         this.add(ReligionRegister);
 
-        //Religion textfield
-        JTextField ReligionRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(RaceRegisterComboBox, ReligionRegisterTextField, 0, 30, 250,20);
-        this.add(ReligionRegisterTextField);
-        FieldsStatus.add(ReligionRegisterTextField);
+        //Religion ComboBox
+        String[] ReligionChoices = {"Islam", "Christian", "Buddhist", "Taoism", "Hindu"};
+        JComboBox<String> ReligionComboBox = new JComboBox<>(ReligionChoices);
+        ui.setPositionRelative(RaceRegisterComboBox, ReligionComboBox, 0, 30, 250,20);
+        this.add(ReligionComboBox);
 
         //Tel No. label
         JLabel TelNoRegister = new JLabel("Tel No. :");
+        TelNoRegister.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(ReligionRegister, TelNoRegister, 0, 30, 150, 15);
         this.add(TelNoRegister);
 
         //Tel No. textfield
         JTextField TelNoRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(ReligionRegisterTextField, TelNoRegisterTextField, 0, 30, 250,20);
+        ui.setPositionRelative(ReligionComboBox, TelNoRegisterTextField, 0, 30, 250,20);
         this.add(TelNoRegisterTextField);
         FieldsStatus.add(TelNoRegisterTextField);
 
         //Address label
         JLabel AddressRegister = new JLabel("Address :");
+        AddressRegister.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(TelNoRegister, AddressRegister, 0, 30, 150, 15);
         this.add(AddressRegister);
 
@@ -121,6 +143,7 @@ public class SignUp extends JDialog {
 
         //Username label
         JLabel UsernameRegister = new JLabel("Username :");
+        UsernameRegister.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(AddressRegister, UsernameRegister, 0, 30, 150, 15);
         this.add(UsernameRegister);
 
@@ -132,6 +155,7 @@ public class SignUp extends JDialog {
 
         //Password label
         JLabel PasswordRegister = new JLabel("Password :");
+        PasswordRegister.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(UsernameRegister, PasswordRegister, 0, 30, 150, 15);
         this.add(PasswordRegister);
 
@@ -143,6 +167,7 @@ public class SignUp extends JDialog {
 
         //Confirm Password label
         JLabel ConfirmPasswordRegister = new JLabel("Confirm Password :");
+        ConfirmPasswordRegister.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(PasswordRegister, ConfirmPasswordRegister, 0, 30, 150, 15);
         this.add(ConfirmPasswordRegister);
 
@@ -155,6 +180,7 @@ public class SignUp extends JDialog {
 
         //Sign Up button
         JButton SignUpButtonReal = new JButton("Sign Up");
+        SignUpButtonReal.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPosition(SignUpButtonReal, 250, 450, 100, 30);
         this.add(SignUpButtonReal);
         SignUpButtonReal.addActionListener(e ->{
@@ -164,8 +190,15 @@ public class SignUp extends JDialog {
                         "All text fields must be filled in!",
                         "Validation Error",
                         JOptionPane.ERROR_MESSAGE);
+            } else if (isUnderage()){
+                JOptionPane.showMessageDialog(this,
+                        "You must be at least 18 years old to create a ZK Bank account.",
+                        "Age Requirement",
+                        JOptionPane.WARNING_MESSAGE);
+
             } else {
                 this.dispose();
+
             }
 
         });
@@ -179,7 +212,27 @@ public class SignUp extends JDialog {
                 return true;
             }
         }
+        if (CalendarPop.getValue() == null) {
+            return true;
+        }
         return false;
+    }
+
+    private boolean isUnderage() {
+        //get yr mth and day from JDatePicker
+        int year = CalendarPop.getYear();
+        int month = CalendarPop.getMonth() + 1;
+        int day = CalendarPop.getDay();
+
+        //Convert to a LocalDate Object
+        LocalDate birthDate = LocalDate.of(year, month, day);
+        LocalDate today = LocalDate.now();
+
+        //Calculate the period between birth and today
+        int age = Period.between(birthDate, today).getYears();
+        return age < 18;
+
+
     }
 
 

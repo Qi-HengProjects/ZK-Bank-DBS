@@ -6,7 +6,7 @@ import java.awt.*;
 public class LoanApplicationPanel extends JPanel{
     public LoanApplicationPanel() {
         JPanel loanPanel = new JPanel();
-        this.setSize(1000,700);
+        this.setSize(500,700);
         this.setLayout(new BorderLayout());
         loanPanel.setBackground(Color.YELLOW);
 

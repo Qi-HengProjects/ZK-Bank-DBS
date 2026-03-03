@@ -1,23 +1,24 @@
 package org.example;
+
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.util.Objects;
 
 
 public class TopBlueBar extends JPanel {
-    private HeaderButton Home;
-    private HeaderButton Personal;
+    private final HeaderButton Home;
+    private final HeaderButton Personal;
     //private HeaderButton LoanApp;
-    private HeaderButton Contact;
+    private final HeaderButton Contact;
+    private final HeaderButton Theme;
+    GUI ui = new GUI();
 
     public TopBlueBar() {
         //Var for the name of the window, call it from other classes.
 
-        this.setBackground(new Color(0, 51, 102));
+        this.setBackground(Color.decode(GUI.DarkBlueColorCode));
         this.setPreferredSize(new Dimension(130, 800));
         this.setLayout(null);
-
 
 
         //Top Blue Header
@@ -48,12 +49,8 @@ public class TopBlueBar extends JPanel {
             if (!Main.toggle_status) {
 
                 // Show the pop-up warning
-                JOptionPane.showMessageDialog(
-                        this, // or null
-                        "Access Denied. Please log in first.",
-                        "Access Denied",
-                        JOptionPane.WARNING_MESSAGE
-                );
+                JOptionPane.showMessageDialog(this, // or null
+                        "Access Denied. Please log in first.", "Access Denied", JOptionPane.WARNING_MESSAGE);
 
             } else {
                 // They are logged in! Let them through.
@@ -66,48 +63,33 @@ public class TopBlueBar extends JPanel {
 
         this.add(Personal);
 
-
-        // Loan Application button
-        //LoanApp = new HeaderButton("Loan");
-        //LoanApp.setBounds(0, 350, 100, 80);
-        //LoanApp.setEnabled(Main.toggle_status);
-        //LoanApp.addActionListener(e -> {
-        //    System.out.println("LA");
-        //    new LoanApplicationPanel();
-        //});
-        //this.add(LoanApp);
-
-
         // Contact button
         Contact = new HeaderButton("Contact");
-        Contact.setBounds(0, 350 , 130, 40);
+        Contact.setBounds(0, 350, 130, 40);
         Contact.addActionListener(e -> {
             System.out.println("C");
         });
         this.add(Contact);
 
+        // Theme Changer button
+        Theme = new HeaderButton(GUI.ThemeButton);
+        Theme.setFont(new Font("Arial", Font.PLAIN, 14));
+        Theme.setBounds(0, 600, 150, 40);
+        Theme.addActionListener(e -> {
+            Main.Theme_status = true;
+        });
+        this.add(Theme);
+
+
+
+
     }
 
-
-    private static class HeaderButton extends JButton {
-        public HeaderButton(String text) {
-            super(text);
-
-            this.setBorderPainted(false);
-            this.setContentAreaFilled(false);
-            this.setFocusPainted(false);
-            this.setBackground(new Color(0, 51, 102));
-            this.setForeground(Color.WHITE);
-            this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            this.setFont(new Font("Arial", Font.BOLD, 18));
-
-        }
-    }
-    public void LockLogic(){
+    public void LockLogic() {
         //setEnable toggle logic core
-        if (Objects.equals("Signed Out", Main.account_status)){
+        if (Objects.equals("Signed Out", Main.account_status)) {
             Main.toggle_status = false;
-        } else if (Objects.equals("Signed In", Main.account_status)){
+        } else if (Objects.equals("Signed In", Main.account_status)) {
             Main.toggle_status = true;
 
         } else if (Objects.equals("Frozen", Main.account_status)) {
@@ -119,16 +101,30 @@ public class TopBlueBar extends JPanel {
         this.repaint();
 
     }
-    public class SignUpFirst extends JOptionPane{
-        public SignUpFirst(){
-            SignUpFirst.showMessageDialog(
-                    null,
-                    "Please log in first.",
-                    "Access Denied",
-                    JOptionPane.ERROR_MESSAGE
-            );
+
+    private static class HeaderButton extends JButton {
+        public HeaderButton(String text) {
+            super(text);
+
+            this.setBorderPainted(false);
+            this.setContentAreaFilled(false);
+            this.setFocusPainted(false);
+            this.setBackground(Color.decode(GUI.DarkBlueColorCode));
+            this.setForeground(Color.decode(GUI.WhiteColorCode));
+            this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            this.setFont(new Font("Arial", Font.BOLD, 18));
+
+
+
         }
     }
+
+    public class SignUpFirst extends JOptionPane {
+        public SignUpFirst() {
+            SignUpFirst.showMessageDialog(null, "Please log in first.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }
 
 

@@ -18,7 +18,7 @@ public class LoginPanel extends JPanel{
 
         // wrapper for login panel 中间那个方块的背景
         JPanel containerPanel = new JPanel(new GridBagLayout());
-        containerPanel.setBackground(Color.WHITE); //那个frame的背景 可以叫wrapper
+        containerPanel.setBackground(Color.decode(GUI.WhiteColorCode)); //那个frame的背景 可以叫wrapper
 
 
         // login panel setup 那个灰色方块的setup
@@ -41,6 +41,7 @@ public class LoginPanel extends JPanel{
 
         //Next to icon label (ZK BANK)
         JLabel ZKBank = new JLabel("ZK BANK");
+        ZKBank.setForeground(Color.decode(GUI.BlackColorCode));
         ZKBank.setFont(new Font("Arial", Font.BOLD, 30));
         ZKBank.setBounds(190, 40, 300, 50);
         loginBox.add(ZKBank);
@@ -84,7 +85,8 @@ public class LoginPanel extends JPanel{
         loginBox.add(SignUp_Button);
         //Pop to Sign Up pop up window
         SignUp_Button.addActionListener( e -> {
-            new SignUp();
+            Window parentWindow = SwingUtilities.getWindowAncestor(this);
+            new SignUp((Frame) parentWindow);
 
         });
 
@@ -123,7 +125,3 @@ public class LoginPanel extends JPanel{
         }
     }
 }
-
-
-
-
