@@ -144,6 +144,9 @@ public class SignUp extends JFrame {
         JButton SignUpButtonReal = new JButton("Sign Up");
         ui.setPosition(SignUpButtonReal, 250, 450, 100, 30);
         SignUp.add(SignUpButtonReal);
+        SignUpButtonReal.addActionListener(e ->{
+            //Write Data and return to Login Page
+        });
 
 
 
