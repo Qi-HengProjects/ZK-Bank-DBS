@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoanApplicationPanel extends JPanel{
+    private DataManager dataManager;
+
     public LoanApplicationPanel() {
+
         JPanel loanPanel = new JPanel();
         this.setLayout(new BorderLayout());
         loanPanel.setBackground(Color.YELLOW);

@@ -5,13 +5,18 @@ import java.awt.*;
 
 
 public class Main extends JFrame {
+    // Create the one and only data manager
     public static DataManager dataManager = new DataManager("bank_data.json");
-    public static String account_status = "Signed Out";
+    public static AccountStatus account_status = AccountStatus.SignedOut;
     public static Boolean toggle_status = false;
     public static Boolean Theme_status = false;
 
     private static final CardLayout cardLayout = new CardLayout();
     private static final JPanel mainPanel = new JPanel(cardLayout);
+
+    public enum AccountStatus {
+        SignedIn, SignedOut, Freeze
+    }
 
     public Main() {
         this.setSize(1000, 700);
