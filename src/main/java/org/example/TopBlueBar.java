@@ -87,12 +87,12 @@ public class TopBlueBar extends JPanel {
 
     public void LockLogic() {
         //setEnable toggle logic core
-        if (Objects.equals("Signed Out", Main.account_status)) {
+        if (Main.account_status == Main.AccountStatus.SignedOut) {
             Main.toggle_status = false;
-        } else if (Objects.equals("Signed In", Main.account_status)) {
+        } else if (Main.account_status == Main.AccountStatus.SignedIn){
             Main.toggle_status = true;
 
-        } else if (Objects.equals("Frozen", Main.account_status)) {
+        } else if (Main.account_status == Main.AccountStatus.Freeze) {
             Main.toggle_status = false;
         }
 

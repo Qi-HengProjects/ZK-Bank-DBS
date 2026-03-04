@@ -116,7 +116,7 @@ public class LoginPanel extends JPanel{
 
         if (loginSuccess) {
             System.out.println("Login Successfully!");
-            Main.account_status = "Signed In";
+            Main.account_status = Main.AccountStatus.SignedIn;
             bar.LockLogic();
             Main.showPage("Home");
         } else {

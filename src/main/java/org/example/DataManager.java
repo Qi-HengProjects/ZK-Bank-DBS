@@ -1,19 +1,16 @@
 package org.example;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.Type;
 
-
-
 public class DataManager {
     private static final Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
     private String fileName;
     private Gson gson; // Java 和 json 的google translate
-
-
 
     // setup 一个data manager
     public DataManager(String fileName) {
@@ -43,7 +40,7 @@ public class DataManager {
 
     }
 
-     public void saveUser(User user) {
+     /*public void saveUser(User user) {
         try {
             checkFile(new File(fileName));
             JsonObject father = new JsonObject();
