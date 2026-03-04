@@ -82,6 +82,7 @@ public class SignUp extends JDialog {
         JComboBox<String> genderComboBox = new JComboBox<>(GenderChoices);
         ui.setPositionRelative(CalenderPicker, genderComboBox, 0, 40, 250,20);
         this.add(genderComboBox);
+        System.out.println(genderComboBox);
 
         //nationality label
         JLabel nationalityRegister = new JLabel("Nationality :");
@@ -205,6 +206,19 @@ public class SignUp extends JDialog {
 
         });
         this.setVisible(true);
+        String nameRegisterInput = nameRegisterTextField.getText();
+        String IC_NoRegisterInput = ICNoTextField.getText();
+        String birthdayRegisterInput = DOBRegister.getText();
+        /*String genderRegisterInput = genderCh.getText();
+        String nameRegisterInput = nameRegisterTextField.getText();
+        String nameRegisterInput = nameRegisterTextField.getText();
+        String nameRegisterInput = nameRegisterTextField.getText();
+        String nameRegisterInput = nameRegisterTextField.getText();
+        String nameRegisterInput = nameRegisterTextField.getText();
+        String nameRegisterInput = nameRegisterTextField.getText();
+        String nameRegisterInput = nameRegisterTextField.getText();
+        */
+
 
     }
 
@@ -241,6 +255,4 @@ public class SignUp extends JDialog {
         // re-apply whatever colors that panel uses
         this.repaint();
     }
-
-
 }

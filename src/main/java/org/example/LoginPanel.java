@@ -104,9 +104,8 @@ public class LoginPanel extends JPanel{
     private void LoginButtonClicked(ActionEvent e) {
         String UsernameInput = userTextField.getText();
         String PasswordInput = passwordTextField.getText();
-
-        //DataManager searchUserAndPwd = new DataManager();
         List<User> users = Main.dataManager.loadUsers();
+        //dataManager.saveUser(new User("111", "nigga", "nanda"));
         for (User user : users) {
             if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {
                 loginSuccess = true;

@@ -1,6 +1,7 @@
 package org.example;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class DataManager {
 
     }
 
-     /*public void saveUser(User user) {
+     public void saveUser(User user) {
         try {
             checkFile(new File(fileName));
             JsonObject father = new JsonObject();
@@ -51,7 +52,17 @@ public class DataManager {
             father.addProperty("gender", user.getGender());
             father.addProperty("nationality", user.getNationality());
             father.addProperty("race", user.getRace());
-            father.addProperty("name", user.getName());
+            father.addProperty("religion" , user.getReligion());
+            father.addProperty("telNo" , user.getTelNo());
+            father.addProperty("address" , user.getAddress());
+            father.addProperty("username" , user.getUsername());
+            father.addProperty("password" , user.getPassword());
+            father.addProperty("userID" , user.getUserID());
+            father.add("accounts", stuff);
+
+            PrintWriter saveJSon= new PrintWriter(new FileWriter(fileName));
+            saveJSon.println(gsonPretty.toJson(father));
+            saveJSon.close();
 
         } catch (Exception e) {
             System.out.println("Error while saving user!");
