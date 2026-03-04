@@ -25,8 +25,6 @@ public class Main extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-
-
         // Register all your pages here
         mainPanel.add(new LoginPanel(), "Login");
         mainPanel.add(new LoanApplicationPanel(), "LoanApp");
