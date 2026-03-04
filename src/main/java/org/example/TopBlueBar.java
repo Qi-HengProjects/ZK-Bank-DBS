@@ -2,7 +2,6 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
 
 public class TopBlueBar extends JPanel {
@@ -75,10 +74,10 @@ public class TopBlueBar extends JPanel {
         TempLbtn = new HeaderButton("Login/SignUp");
         TempLbtn.setFont(new Font("Arial", Font.PLAIN, 14));
         TempLbtn.setBounds(0, 550, 120, 40);
-        TempLbtn.addActionListener(e ->{
+        TempLbtn.addActionListener(e -> {
             Main.showPage("Login");
         });
-        if (Main.account_status == Main.AccountStatus.SignedIn){
+        if (Main.account_status == Main.AccountStatus.SignedIn) {
             this.remove(TempLbtn);
         } else {
             this.add(TempLbtn);
@@ -128,18 +127,13 @@ public class TopBlueBar extends JPanel {
         //Open Temp Login button
 
 
-
-
-
-
-
     }
 
     public void LockLogic() {
         //setEnable toggle logic core
         if (Main.account_status == Main.AccountStatus.SignedOut) {
             Main.toggle_status = false;
-        } else if (Main.account_status == Main.AccountStatus.SignedIn){
+        } else if (Main.account_status == Main.AccountStatus.SignedIn) {
             Main.toggle_status = true;
 
         } else if (Main.account_status == Main.AccountStatus.Freeze) {
@@ -165,10 +159,8 @@ public class TopBlueBar extends JPanel {
             this.setFont(new Font("Arial", Font.BOLD, 18));
 
 
-
         }
     }
-
 
 
     public class SignUpFirst extends JOptionPane {
