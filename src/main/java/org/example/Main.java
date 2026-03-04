@@ -5,23 +5,24 @@ import java.awt.*;
 
 
 public class Main extends JFrame {
+    public static DataManager dataManager = new DataManager("bank_data.json");
     public static String account_status = "Signed Out";
     public static Boolean toggle_status = false;
+    public static Boolean Theme_status = false;
 
-    private static CardLayout cardLayout = new CardLayout();
-    private static JPanel mainPanel = new JPanel(cardLayout);
+    private static final CardLayout cardLayout = new CardLayout();
+    private static final JPanel mainPanel = new JPanel(cardLayout);
 
     public Main() {
         this.setSize(1000, 700);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-        // Create the one and only data manager
-        DataManager dataManager = new DataManager("bank_data.json");
+
 
         // Register all your pages here
-        mainPanel.add(new LoginPanel(dataManager), "Login");
-        mainPanel.add(new LoanApplicationPanel(dataManager), "LoanApp");
+        mainPanel.add(new LoginPanel(), "Login");
+        mainPanel.add(new LoanApplicationPanel(), "LoanApp");
         // mainPanel.add(new HomePanel(), "Home");
         // add more panels as you build them...
 
@@ -36,6 +37,8 @@ public class Main extends JFrame {
     // Call this from anywhere to navigate
     public static void showPage(String pageName) {
         cardLayout.show(mainPanel, pageName);
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 
     public static void main(String[] args) {

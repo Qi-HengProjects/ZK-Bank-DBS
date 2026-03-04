@@ -6,13 +6,13 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class LoginPanel extends JPanel{
-    // Create the frame (the window)
+    // Create the panel
     GUI ui = new GUI();
     TopBlueBar bar = new TopBlueBar();
     JTextField userTextField = new JTextField(15);
     JTextField passwordTextField = new JTextField(15);
     public LoginPanel() {
-        this.setSize(1000, 700);
+
         this.setLayout(new BorderLayout());
         Main.showPage("LoanApp");
 
@@ -98,7 +98,6 @@ public class LoginPanel extends JPanel{
         this.add(containerPanel, BorderLayout.CENTER); //把那个wrapper放进那个frame
 
 
-        this.setVisible(true);
     }
 
     boolean loginSuccess = false;
@@ -106,9 +105,8 @@ public class LoginPanel extends JPanel{
         String UsernameInput = userTextField.getText();
         String PasswordInput = passwordTextField.getText();
 
-        DataManager searchUserAndPwd = new DataManager();
-        List<User> users = searchUserAndPwd.loadUsers(); // load json file
-
+        //DataManager searchUserAndPwd = new DataManager();
+        List<User> users = Main.dataManager.loadUsers();
         for (User user : users) {
             if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {
                 loginSuccess = true;
@@ -120,6 +118,7 @@ public class LoginPanel extends JPanel{
             System.out.println("Login Successfully!");
             Main.account_status = "Signed In";
             bar.LockLogic();
+            Main.showPage("Home");
         } else {
             JOptionPane.showMessageDialog(this, "Username or Password incorrect!");
         }

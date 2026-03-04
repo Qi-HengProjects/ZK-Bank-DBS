@@ -36,6 +36,7 @@ public class TopBlueBar extends JPanel {
         Home.setBounds(0, 150, 130, 40);
         Home.addActionListener(e -> {
             System.out.println("home");
+            Main.showPage("Login");
         });
         this.add(Home);
 
@@ -44,8 +45,6 @@ public class TopBlueBar extends JPanel {
         Personal = new HeaderButton("Personal");
         Personal.setBounds(0, 250, 130, 40);
         Personal.addActionListener(e -> {
-
-
             if (!Main.toggle_status) {
 
                 // Show the pop-up warning
@@ -55,7 +54,7 @@ public class TopBlueBar extends JPanel {
             } else {
                 // They are logged in! Let them through.
                 System.out.println("in");
-                new LoanApplicationPanel();
+                Main.showPage("LoanApp");
 
 
             }
@@ -68,6 +67,7 @@ public class TopBlueBar extends JPanel {
         Contact.setBounds(0, 350, 130, 40);
         Contact.addActionListener(e -> {
             System.out.println("C");
+            Main.showPage("Contact");
         });
         this.add(Contact);
 
