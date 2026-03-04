@@ -11,20 +11,20 @@ public class LoginPanel extends JPanel{
     TopBlueBar bar = new TopBlueBar();
     JTextField userTextField = new JTextField(15);
     JTextField passwordTextField = new JTextField(15);
+    JPanel containerPanel = new JPanel(new GridBagLayout());
     public LoginPanel() {
 
         this.setLayout(new BorderLayout());
-        Main.showPage("LoanApp");
 
         // wrapper for login panel 中间那个方块的背景
-        JPanel containerPanel = new JPanel(new GridBagLayout());
+
         containerPanel.setBackground(Color.decode(GUI.WhiteColorCode)); //那个frame的背景 可以叫wrapper
 
 
         // login panel setup 那个灰色方块的setup
         JPanel loginBox = new JPanel();
         loginBox.setPreferredSize(new Dimension(400, 300));
-        loginBox.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2)); // 灰色边线
+        loginBox.setBorder(BorderFactory.createLineBorder(Color.decode(GUI.LightGreyColorCode), 2)); // 灰色边线
         loginBox.setLayout(null);
 
         //Image
@@ -41,7 +41,7 @@ public class LoginPanel extends JPanel{
 
         //Next to icon label (ZK BANK)
         JLabel ZKBank = new JLabel("ZK BANK");
-        ZKBank.setForeground(Color.decode(GUI.BlackColorCode));
+        ZKBank.setForeground(Color.decode("#000000"));
         ZKBank.setFont(new Font("Arial", Font.BOLD, 30));
         ZKBank.setBounds(190, 40, 300, 50);
         loginBox.add(ZKBank);
@@ -122,5 +122,9 @@ public class LoginPanel extends JPanel{
         } else {
             JOptionPane.showMessageDialog(this, "Username or Password incorrect!");
         }
+    }
+    public void applyTheme() {
+        containerPanel.setBackground(Color.decode(GUI.WhiteColorCode));
+        this.repaint();
     }
 }

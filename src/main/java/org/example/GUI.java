@@ -6,9 +6,14 @@ import java.awt.*;
 public class GUI {
     public static String ThemeButton = "Dark Theme";
     public static String WhiteColorCode = "#FFFFFF";
-    public static String BlackColorCode = "#121212";
+    public static String BlackColorCode = "#22222B";
     public static String DarkBlueColorCode = "#003366";
     public static String LightBlueColorCode = "#027EFA";
+    public static String LightGreyColorCode = "#919090";
+    public static String DarkGreyColorCode = "#525151";
+
+
+
 
 
     // rectangle data type that contain 4 piece of data
@@ -75,7 +80,7 @@ public class GUI {
         //if Theme_status == false (default) then light mode else dar mode
         if (Main.Theme_status) {
             ThemeButton = "Dark Theme";
-            WhiteColorCode = "#121212";
+            WhiteColorCode = "#22222B";
             BlackColorCode = "#FFFFFF";
             DarkBlueColorCode = "#027EFA";
             LightBlueColorCode = "#003366";
@@ -83,7 +88,7 @@ public class GUI {
         } else {
             ThemeButton = "Light Theme";
             WhiteColorCode = "#FFFFFF";
-            BlackColorCode = "#121212";
+            BlackColorCode = "#22222B";
             DarkBlueColorCode = "#003366";
             LightBlueColorCode = "#027EFA";
         }

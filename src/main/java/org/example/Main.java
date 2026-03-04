@@ -12,7 +12,9 @@ public class Main extends JFrame {
     public static Boolean Theme_status = false;
 
     private static final CardLayout cardLayout = new CardLayout();
-    private static final JPanel mainPanel = new JPanel(cardLayout);
+    public static final JPanel mainPanel = new JPanel(cardLayout);
+    public static String currentPage = "Login";
+
 
     public enum AccountStatus {
         SignedIn, SignedOut, Freeze
@@ -28,7 +30,7 @@ public class Main extends JFrame {
         // Register all your pages here
         mainPanel.add(new LoginPanel(), "Login");
         mainPanel.add(new LoanApplicationPanel(), "LoanApp");
-        // mainPanel.add(new HomePanel(), "Home");
+        mainPanel.add(new Home(), "Home");
         // add more panels as you build them...
 
         TopBlueBar bar = new TopBlueBar();
@@ -41,9 +43,10 @@ public class Main extends JFrame {
 
     // Call this from anywhere to navigate
     public static void showPage(String pageName) {
+        currentPage = pageName;
         cardLayout.show(mainPanel, pageName);
-        mainPanel.revalidate();
-        mainPanel.repaint();
+        Window window = SwingUtilities.getWindowAncestor(mainPanel);
+        if (window != null) window.repaint();
     }
 
     public static void main(String[] args) {

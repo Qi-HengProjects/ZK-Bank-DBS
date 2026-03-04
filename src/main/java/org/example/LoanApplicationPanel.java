@@ -8,11 +8,13 @@ public class LoanApplicationPanel extends JPanel{
 
     public LoanApplicationPanel() {
 
-        JPanel loanPanel = new JPanel();
         this.setLayout(new BorderLayout());
-        loanPanel.setBackground(Color.YELLOW);
 
-        this.add(loanPanel, BorderLayout.CENTER);
+    }
+    public void applyTheme() {
+        this.setBackground(Color.decode(GUI.WhiteColorCode));
+        // re-apply whatever colors that panel uses
+        this.repaint();
     }
 }
 

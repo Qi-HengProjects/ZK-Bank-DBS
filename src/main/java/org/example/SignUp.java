@@ -20,6 +20,8 @@ public class SignUp extends JDialog {
         super(owner, "Sign Up", true);
         this.setSize(600,600);
         this.setLayout(null);
+        this.getContentPane().setBackground(Color.decode(GUI.WhiteColorCode));
+
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         //Side Blue Bar
@@ -180,7 +182,7 @@ public class SignUp extends JDialog {
 
         //Sign Up button
         JButton SignUpButtonReal = new JButton("Sign Up");
-        SignUpButtonReal.setForeground(Color.decode(GUI.BlackColorCode));
+        SignUpButtonReal.setForeground(Color.BLACK);
         ui.setPosition(SignUpButtonReal, 250, 450, 100, 30);
         this.add(SignUpButtonReal);
         SignUpButtonReal.addActionListener(e ->{
@@ -233,6 +235,11 @@ public class SignUp extends JDialog {
         return age < 18;
 
 
+    }
+    public void applyTheme() {
+        this.setBackground(Color.decode(GUI.WhiteColorCode));
+        // re-apply whatever colors that panel uses
+        this.repaint();
     }
 
 

@@ -11,6 +11,7 @@ public class TopBlueBar extends JPanel {
     //private HeaderButton LoanApp;
     private final HeaderButton Contact;
     private final HeaderButton Theme;
+    private final HeaderButton TempLbtn;
     GUI ui = new GUI();
 
     public TopBlueBar() {
@@ -36,7 +37,7 @@ public class TopBlueBar extends JPanel {
         Home.setBounds(0, 150, 130, 40);
         Home.addActionListener(e -> {
             System.out.println("home");
-            Main.showPage("Login");
+            Main.showPage("Home");
         });
         this.add(Home);
 
@@ -71,14 +72,63 @@ public class TopBlueBar extends JPanel {
         });
         this.add(Contact);
 
+        TempLbtn = new HeaderButton("Login/SignUp");
+        TempLbtn.setFont(new Font("Arial", Font.PLAIN, 14));
+        TempLbtn.setBounds(0, 550, 120, 40);
+        TempLbtn.addActionListener(e ->{
+            Main.showPage("Login");
+        });
+        if (Main.account_status == Main.AccountStatus.SignedIn){
+            this.remove(TempLbtn);
+        } else {
+            this.add(TempLbtn);
+        }
+
         // Theme Changer button
         Theme = new HeaderButton(GUI.ThemeButton);
         Theme.setFont(new Font("Arial", Font.PLAIN, 14));
-        Theme.setBounds(0, 600, 150, 40);
+        Theme.setBounds(0, 600, 120, 40);
         Theme.addActionListener(e -> {
-            Main.Theme_status = true;
+            Main.Theme_status = !Main.Theme_status; // toggle
+            ui.ThemeChange(); // update the color strings
+
+            // re-apply colors to TopBlueBar
+            this.setBackground(Color.decode(GUI.DarkBlueColorCode));
+            Home.setForeground(Color.decode(GUI.WhiteColorCode));
+            Personal.setForeground(Color.decode(GUI.WhiteColorCode));
+            Contact.setForeground(Color.decode(GUI.WhiteColorCode));
+            TempLbtn.setForeground(Color.decode(GUI.WhiteColorCode));
+            Theme.setForeground(Color.decode(GUI.WhiteColorCode));
+            Theme.setText(GUI.ThemeButton);
+
+
+            // re-apply colors to the current center panel
+            Component current = null;
+            for (Component c : Main.mainPanel.getComponents()) {
+                if (c.isVisible()) {
+                    current = c;
+                    break;
+                }
+            }
+            if (current instanceof LoginPanel lp) {
+                lp.applyTheme();
+            } else if (current instanceof Home h) {
+                h.applyTheme();
+            } else if (current instanceof LoanApplicationPanel lap) {
+                lap.applyTheme();
+            } else if (current instanceof SignUp su) {
+                su.applyTheme();
+            }
+
+            Main.showPage(Main.currentPage); // repaint
         });
         this.add(Theme);
+
+
+        //Open Temp Login button
+
+
+
 
 
 
@@ -118,6 +168,8 @@ public class TopBlueBar extends JPanel {
 
         }
     }
+
+
 
     public class SignUpFirst extends JOptionPane {
         public SignUpFirst() {
