@@ -11,6 +11,7 @@ public class LoginPanel extends JPanel{
     TopBlueBar bar = new TopBlueBar();
     JTextField userTextField = new JTextField(15);
     JTextField passwordTextField = new JTextField(15);
+
     public LoginPanel() {
         this.setSize(1000, 700);
         this.setLayout(new BorderLayout());
@@ -84,8 +85,8 @@ public class LoginPanel extends JPanel{
         loginBox.add(SignUp_Button);
         //Pop to Sign Up pop up window
         SignUp_Button.addActionListener( e -> {
-            new SignUp();
-
+            Window parentWindow = SwingUtilities.getWindowAncestor(this);
+            new SignUp((Frame) parentWindow);
         });
 
 
@@ -104,8 +105,11 @@ public class LoginPanel extends JPanel{
         String UsernameInput = userTextField.getText();
         String PasswordInput = passwordTextField.getText();
 
-        DataManager searchUserAndPwd = new DataManager();
-        List<User> users = searchUserAndPwd.loadUsers(); // load json file
+        //dataManager.saveUser(new User("111", "nigga", "nanda"));
+        //if (1 == 1) return;
+
+
+        List<User> users = Main.dataManager.loadUsers(); // load json file
 
         for (User user : users) {
             if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {
@@ -116,12 +120,13 @@ public class LoginPanel extends JPanel{
 
         if (loginSuccess) {
             System.out.println("Login Successfully!");
-            Main.account_status = "Signed In";
+            Main.account_status = Main.AccountStatus.SignedIn;
             bar.LockLogic();
         } else {
             JOptionPane.showMessageDialog(this, "Username or Password incorrect!");
         }
     }
+
 }
 
 

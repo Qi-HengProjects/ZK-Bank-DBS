@@ -5,23 +5,26 @@ import java.awt.*;
 
 
 public class Main extends JFrame {
-    public static String account_status = "Signed Out";
+    // Create the one and only data manager
+    public static DataManager dataManager = new DataManager("bank_data.json");
+    public static AccountStatus account_status = AccountStatus.SignedOut;
     public static Boolean toggle_status = false;
 
     private static CardLayout cardLayout = new CardLayout();
     private static JPanel mainPanel = new JPanel(cardLayout);
+
+    public enum AccountStatus {
+        SignedIn, SignedOut, Freeze
+    }
 
     public Main() {
         this.setSize(1000, 700);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-        // Create the one and only data manager
-        DataManager dataManager = new DataManager("bank_data.json");
-
         // Register all your pages here
-        mainPanel.add(new LoginPanel(dataManager), "Login");
-        mainPanel.add(new LoanApplicationPanel(dataManager), "LoanApp");
+        mainPanel.add(new LoginPanel(), "Login");
+        mainPanel.add(new LoanApplicationPanel(), "LoanApp");
         // mainPanel.add(new HomePanel(), "Home");
         // add more panels as you build them...
 

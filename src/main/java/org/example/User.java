@@ -4,18 +4,45 @@ import java.util.List;
 
 public class User {
     //Encapsulation so other class cannot access directly
-    private String userID; // IC number
+    private String name;
+    private String IC_No;
+    private String birthday;
+    private String gender;
+    private String nationality;
+    private String race;
+    private String religion;
+    private String telNo;
+    private String address;
     private String username;
     private String password;
+    private String userID;
 
     private List<Account> accounts;
 
-    public User(String userID, String username, String password) {
+    public User(String name, String IC_No, String birthday, String gender, String nationality, String race, String religion, String telNo, String address, String username, String password, String userID) {
+        this.name = name;
+        this.IC_No = IC_No;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.nationality = nationality;
+        this.race = race;
+        this.religion = religion;
+        this.telNo = telNo;
+        this.address = address;
+        this.username = username;
+        this.password = password;
+        this.userID = userID;
+        this.accounts = new ArrayList<>();
+    }
+
+    /*public User(String userID, String username, String password) {
         this.userID = userID;
         this.username = username;
         this.password = password;
         this.accounts = new ArrayList<>();
     }
+
+     */
 
     public void addAccount(Account newAccount) {
         this.accounts.add(newAccount);
@@ -32,13 +59,29 @@ public class User {
     }
 
     // Getter
-    public String getUsername() {
-        return this.username;
-    }
+    public String getName() {return this.name;}
 
-    public String getPassword() {
-        return this.password;
-    }
+    public String getIC_No() {return this.IC_No;}
+
+    public String getBirthday() {return this.birthday;}
+
+    public String getGender() {return this.gender;}
+
+    public String getNationality() {return this.nationality;}
+
+    public String getRace() {return this.race;}
+
+    public String getReligion() {return this.religion;}
+
+    public String getTelNo() {return this.telNo;}
+
+    public String getAddress() {return this.address;}
+
+    public String getUsername() {return this.username;}
+
+    public String getPassword() {return this.password;}
+
+    public String getUserID() {return this.userID;}
 
     public List<Account> getAccounts() {
         return this.accounts;

@@ -58,7 +58,6 @@ public class TopBlueBar extends JPanel {
             } else {
                 // They are logged in! Let them through.
                 System.out.println("in");
-                new LoanApplicationPanel();
 
 
             }
