@@ -9,8 +9,6 @@ public class LoanApplicationPanel extends JPanel{
         this.setLayout(new BorderLayout());
         loanPanel.setBackground(Color.YELLOW);
 
-
-
         this.add(loanPanel, BorderLayout.CENTER);
     }
 }
