@@ -42,6 +42,7 @@ public class SignUp extends JDialog {
         this.add(nameRegisterTextField);
         FieldsStatus.add(nameRegisterTextField);
 
+
         //IC No. label
         JLabel ICnoLabel = new JLabel("IC No. : ");
         ICnoLabel.setForeground(Color.decode(GUI.BlackColorCode));
@@ -186,40 +187,58 @@ public class SignUp extends JDialog {
         SignUpButtonReal.setForeground(Color.BLACK);
         ui.setPosition(SignUpButtonReal, 250, 450, 100, 30);
         this.add(SignUpButtonReal);
-        SignUpButtonReal.addActionListener(e ->{
-            //Write Data and return to Login Page
+        SignUpButtonReal.addActionListener(e -> {
             if (isAnyFieldsEmpty()) {
-                JOptionPane.showMessageDialog(this,
-                        "All text fields must be filled in!",
-                        "Validation Error",
-                        JOptionPane.ERROR_MESSAGE);
-            } else if (isUnderage()){
-                JOptionPane.showMessageDialog(this,
-                        "You must be at least 18 years old to create a ZK Bank account.",
-                        "Age Requirement",
-                        JOptionPane.WARNING_MESSAGE);
-
+                JOptionPane.showMessageDialog(this, "All text fields must be filled in!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            } else if (isUnderage()) {
+                JOptionPane.showMessageDialog(this, "You must be at least 18 years old.", "Age Requirement", JOptionPane.WARNING_MESSAGE);
+            } else if (!isValidInput(
+                    nameRegisterTextField.getText(),
+                    ICNoTextField.getText(),
+                    TelNoRegisterTextField.getText())) {
+                // message already shown inside isValidInput
             } else {
+                // all good, save and close
                 this.dispose();
-
             }
-
         });
+
         this.setVisible(true);
         String nameRegisterInput = nameRegisterTextField.getText();
         String IC_NoRegisterInput = ICNoTextField.getText();
         String birthdayRegisterInput = DOBRegister.getText();
-        /*String genderRegisterInput = genderCh.getText();
-        String nameRegisterInput = nameRegisterTextField.getText();
-        String nameRegisterInput = nameRegisterTextField.getText();
-        String nameRegisterInput = nameRegisterTextField.getText();
-        String nameRegisterInput = nameRegisterTextField.getText();
-        String nameRegisterInput = nameRegisterTextField.getText();
-        String nameRegisterInput = nameRegisterTextField.getText();
-        String nameRegisterInput = nameRegisterTextField.getText();
-        */
+        String genderComboBoxInput = (String) genderComboBox.getSelectedItem();        //String nameRegisterInput = nameRegisterTextField.getText();
+        String nationalityComboBoxInput = (String) nationalityComboBox.getSelectedItem();
+        String RaceRegisterComboBoxInput = (String) RaceRegisterComboBox.getSelectedItem();
+        String ReligionComboBoxInput = (String) ReligionComboBox.getSelectedItem();
+        String TelNoRegisterInput = TelNoRegisterTextField.getText();
+        String AddressRegisterInput = AddressRegisterTextField.getText();
+        String UsernameRegisterInput = UsernameRegisterTextField.getText();
+        String PasswordRegisterInput = PasswordRegisterTextField.getText();
+        String ConfirmPasswordRegisterInput = ConfirmPasswordRegisterTextField.getText();
 
+    }
 
+    private boolean isValidInput(String name, String icNo, String telNo) {
+        // Name should only contain letters and spaces
+        if (!name.matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(this, "Name must contain letters only!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // IC No should only contain digits (12 digits for Malaysian IC)
+        if (!icNo.matches("[0-9]{12}")) {
+            JOptionPane.showMessageDialog(this, "IC No. must be exactly 12 digits!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Tel No should only contain digits
+        if (!telNo.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(this, "Tel No. must contain digits only!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 
     private boolean isAnyFieldsEmpty() {
