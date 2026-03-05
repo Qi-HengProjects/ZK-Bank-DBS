@@ -8,7 +8,6 @@
     public class LoginPanel extends JPanel{
         // Create the panel
         GUI ui = new GUI();
-        TopBlueBar bar = new TopBlueBar();
         JTextField userTextField = new JTextField(15);
         JTextField passwordTextField = new JTextField(15);
         JPanel containerPanel = new JPanel(new GridBagLayout());
@@ -124,7 +123,7 @@
             if (loginSuccess) {
                 System.out.println("Login Successfully!");
                 Main.account_status = Main.AccountStatus.SignedIn;
-                bar.LockLogic();
+                Main.bar.LockLogic();
                 Main.showPage("Home");
             } else {
                 JOptionPane.showMessageDialog(this, "Username or Password incorrect!");

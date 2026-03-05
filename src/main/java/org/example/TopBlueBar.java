@@ -169,6 +169,14 @@ public class TopBlueBar extends JPanel {
             Main.toggle_status = false;
         }
 
+        if (Main.account_status == Main.AccountStatus.SignedIn) {
+            this.remove(TempLbtn);
+        } else {
+            if (!isAncestorOf(TempLbtn)) { // only add if not already added
+                this.add(TempLbtn);
+            }
+        }
+
         this.revalidate();
         this.repaint();
 
