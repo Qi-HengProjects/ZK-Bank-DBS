@@ -16,22 +16,22 @@ public class Home extends JPanel {
         this.add(Hello);
 
         //Transfer Button
-        JButton TransferBtn = new JButton("Transfer");
+        GUI.GlassButton TransferBtn = new GUI.GlassButton("Transfer");
         ui.setPosition(TransferBtn, 80,300,100,100);
         this.add(TransferBtn);
 
         //Loan Application Button
-        JButton LoanApplicationBtn = new JButton("<html><center>Loan<br>Application</center></html>");
+        GUI.GlassButton LoanApplicationBtn = new GUI.GlassButton("<html><center>Loan<br>Application</center></html>");
         ui.setPositionRelative(TransferBtn, LoanApplicationBtn, 200,0,100,100);
         this.add(LoanApplicationBtn);
 
         //Currency Exchange Button
-        JButton CurrencyExchangeBtn = new JButton("<html><center>Currency<br>Exchange</center></html>");
+        GUI.GlassButton CurrencyExchangeBtn = new GUI.GlassButton("<html><center>Currency<br>Exchange</center></html>");
         ui.setPositionRelative(LoanApplicationBtn, CurrencyExchangeBtn, 200,0,100,100);
         this.add(CurrencyExchangeBtn);
 
         //Profile Button
-        JButton ProfileBtn = new JButton("Profile");
+        GUI.GlassButton ProfileBtn = new GUI.GlassButton("Profile");
         ui.setPositionRelative(CurrencyExchangeBtn, ProfileBtn, 200,0,100,100);
         this.add(ProfileBtn);
 

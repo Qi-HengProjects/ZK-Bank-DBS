@@ -168,7 +168,6 @@ public class TopBlueBar extends JPanel {
             SignUpFirst.showMessageDialog(null, "Please log in first.", "Access Denied", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 }
 
 
