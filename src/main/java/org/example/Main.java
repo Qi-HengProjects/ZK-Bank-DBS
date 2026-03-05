@@ -10,6 +10,7 @@ public class Main extends JFrame {
     public static AccountStatus account_status = AccountStatus.SignedOut;
     public static Boolean toggle_status = false;
     public static Boolean Theme_status = false;
+    public static TopBlueBar bar = new TopBlueBar();
 
     private static final CardLayout cardLayout = new CardLayout();
     public static final JPanel mainPanel = new JPanel(cardLayout);
@@ -25,15 +26,14 @@ public class Main extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-
-
         // Register all your pages here
         mainPanel.add(new LoginPanel(), "Login");
         mainPanel.add(new LoanApplicationPanel(), "LoanApp");
         mainPanel.add(new Home(), "Home");
+        mainPanel.add(new Contact(), "Contact");
+
         // add more panels as you build them...
 
-        TopBlueBar bar = new TopBlueBar();
         this.add(bar, BorderLayout.WEST);
         this.add(mainPanel, BorderLayout.CENTER);
 
