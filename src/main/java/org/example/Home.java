@@ -1,20 +1,50 @@
 package org.example;
 import java.awt.*;
+import javax.naming.Name;
 import javax.swing.*;
 
 public class Home extends JPanel {
     GUI ui = new GUI();
 
+    Image chinabackground3 = new ImageIcon("ChinaBackground3.jpg").getImage();
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(chinabackground3, 0, 0, getWidth(), getHeight(), this);
+    }
+
     public Home(){
         this.setLayout(new BorderLayout());
         this.setLayout(null);
 
+
+
         //Hello Label
-        JLabel Hello = new JLabel("Hello ");
-        Hello.setFont(new Font("Arial", Font.BOLD, 100));
-        Hello.setForeground(Color.decode(GUI.BlackColorCode));
-        ui.setPosition(Hello, 150,50,500,200);
-        this.add(Hello);
+        JLabel HelloLabel = new JLabel("Hello ");
+        HelloLabel.setFont(new Font("Arial", Font.PLAIN, 50));
+        HelloLabel.setForeground(Color.decode(GUI.BlackColorCode));
+        this.add(HelloLabel);
+
+        //Name Label
+        String NameOfUser = "Jayden Lai Quan Qing"; //write name from json file stop at first spacebar. Default 'User' when not logged in. can use the enum to check account status
+        JLabel NameLabel = new JLabel(NameOfUser);
+        NameLabel.setFont(new Font("Arial", Font.ITALIC, 50));
+        NameLabel.setForeground(Color.decode(GUI.BlackColorCode));
+        this.add(NameLabel);
+
+        //Name position 的算法
+        FontMetrics fmPlain = HelloLabel.getFontMetrics(HelloLabel.getFont());
+        FontMetrics fmItalic = NameLabel.getFontMetrics(NameLabel.getFont());
+        int helloWidth = fmPlain.stringWidth("Hello ");
+        int nameWidth = fmItalic.stringWidth(NameOfUser);
+        int totalWidth = helloWidth + nameWidth;
+
+        int startX = 425 - (totalWidth / 2); // center around x=385
+
+        HelloLabel.setBounds(startX, 100, helloWidth + 10, 100);
+        NameLabel.setBounds(startX + helloWidth, 100, nameWidth + 20, 100);
+
 
         //Transfer Button
         GUI.GlassButton TransferBtn = new GUI.GlassButton("Transfer");
@@ -35,15 +65,6 @@ public class Home extends JPanel {
         GUI.GlassButton ProfileBtn = new GUI.GlassButton("Profile");
         ui.setPositionRelative(CurrencyExchangeBtn, ProfileBtn, 200,0,120,120);
         this.add(ProfileBtn);
-
-
-
-
-
-
-
-
-
 
 
     }

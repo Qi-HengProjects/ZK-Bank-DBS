@@ -6,11 +6,13 @@ import java.awt.*;
 
 public class TopBlueBar extends JPanel {
     private final HeaderButton Home;
-    private final HeaderButton Personal;
+
     //private HeaderButton LoanApp;
     private final HeaderButton Contact;
     private final HeaderButton Theme;
     private final HeaderButton TempLbtn;
+    private final JButton dropdownBtn = new JButton("Personal ▼");
+
     GUI ui = new GUI();
 
     public TopBlueBar() {
@@ -41,10 +43,18 @@ public class TopBlueBar extends JPanel {
         this.add(Home);
 
 
-        // Personal button
-        Personal = new HeaderButton("Personal");
-        Personal.setBounds(0, 250, 130, 40);
-        Personal.addActionListener(e -> {
+        // Personal button (PopupMenu)
+        JPopupMenu dropdown = new JPopupMenu("Personal");
+
+        JMenuItem TransferOption = new JMenuItem("Transfer");
+        JMenuItem LoanApplicationOption = new JMenuItem("Loan Application");
+        JMenuItem CurrencyExchangeOption = new JMenuItem("Currency Exchange");
+
+        dropdown.add(TransferOption);
+        dropdown.add(LoanApplicationOption);
+        dropdown.add(CurrencyExchangeOption);
+
+        dropdownBtn.addActionListener(e -> {
             if (!Main.toggle_status) {
 
                 // Show the pop-up warning
@@ -52,15 +62,34 @@ public class TopBlueBar extends JPanel {
                         "Access Denied. Please log in first.", "Access Denied", JOptionPane.WARNING_MESSAGE);
 
             } else {
-                // They are logged in! Let them through.
-                System.out.println("in");
-                Main.showPage("LoanApp");
-
-
+                dropdown.show(dropdownBtn, 0, dropdownBtn.getHeight());
             }
         });
 
-        this.add(Personal);
+        TransferOption.addActionListener(e -> {
+            System.out.println("Transfer Option clicked");
+            //Main.showPage("Transfer");
+        });
+
+        LoanApplicationOption.addActionListener(e -> {
+            System.out.println("Loan Application clicked");
+            Main.showPage("LoanApp");
+        });
+
+        CurrencyExchangeOption.addActionListener(e -> {
+            System.out.println("Currency Exchange");
+            //Main.showPage("SomePage");
+        });
+
+        dropdownBtn.setBorderPainted(false);
+        dropdownBtn.setContentAreaFilled(false);
+        dropdownBtn.setFocusPainted(false);
+        dropdownBtn.setForeground(Color.decode(GUI.WhiteColorCode));
+        dropdownBtn.setFont(new Font("Arial", Font.BOLD, 18));
+        dropdownBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        dropdownBtn.setBounds(0, 250, 140, 40);
+
+        this.add(dropdownBtn);
 
         // Contact button
         Contact = new HeaderButton("Contact");
@@ -94,7 +123,7 @@ public class TopBlueBar extends JPanel {
             // re-apply colors to TopBlueBar
             this.setBackground(Color.decode(GUI.DarkBlueColorCode));
             Home.setForeground(Color.decode(GUI.WhiteColorCode));
-            Personal.setForeground(Color.decode(GUI.WhiteColorCode));
+            dropdownBtn.setForeground(Color.decode(GUI.WhiteColorCode));
             Contact.setForeground(Color.decode(GUI.WhiteColorCode));
             TempLbtn.setForeground(Color.decode(GUI.WhiteColorCode));
             Theme.setForeground(Color.decode(GUI.WhiteColorCode));
@@ -140,7 +169,6 @@ public class TopBlueBar extends JPanel {
             Main.toggle_status = false;
         }
 
-        Personal.setEnabled(Main.toggle_status);
         this.revalidate();
         this.repaint();
 
