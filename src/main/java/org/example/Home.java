@@ -12,27 +12,28 @@ public class Home extends JPanel {
         //Hello Label
         JLabel Hello = new JLabel("Hello ");
         Hello.setFont(new Font("Arial", Font.BOLD, 100));
+        Hello.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPosition(Hello, 150,50,500,200);
         this.add(Hello);
 
         //Transfer Button
         GUI.GlassButton TransferBtn = new GUI.GlassButton("Transfer");
-        ui.setPosition(TransferBtn, 80,300,100,100);
+        ui.setPosition(TransferBtn, 70,300,120,120);
         this.add(TransferBtn);
 
         //Loan Application Button
         GUI.GlassButton LoanApplicationBtn = new GUI.GlassButton("<html><center>Loan<br>Application</center></html>");
-        ui.setPositionRelative(TransferBtn, LoanApplicationBtn, 200,0,100,100);
+        ui.setPositionRelative(TransferBtn, LoanApplicationBtn, 200,0,120,120);
         this.add(LoanApplicationBtn);
 
         //Currency Exchange Button
         GUI.GlassButton CurrencyExchangeBtn = new GUI.GlassButton("<html><center>Currency<br>Exchange</center></html>");
-        ui.setPositionRelative(LoanApplicationBtn, CurrencyExchangeBtn, 200,0,100,100);
+        ui.setPositionRelative(LoanApplicationBtn, CurrencyExchangeBtn, 200,0,120,120);
         this.add(CurrencyExchangeBtn);
 
         //Profile Button
         GUI.GlassButton ProfileBtn = new GUI.GlassButton("Profile");
-        ui.setPositionRelative(CurrencyExchangeBtn, ProfileBtn, 200,0,100,100);
+        ui.setPositionRelative(CurrencyExchangeBtn, ProfileBtn, 200,0,120,120);
         this.add(ProfileBtn);
 
 
