@@ -31,6 +31,14 @@ public class Account {
         this.balance = balance;
     }
 
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return type + " (" + accountNumber + "): RM " + balance;

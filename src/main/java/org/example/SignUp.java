@@ -188,6 +188,7 @@ public class SignUp extends JDialog {
         ui.setPosition(SignUpButtonReal, 250, 450, 100, 30);
         this.add(SignUpButtonReal);
         SignUpButtonReal.addActionListener(e -> {
+            //validator
             if (isAnyFieldsEmpty()) {
                 JOptionPane.showMessageDialog(this, "All text fields must be filled in!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             } else if (isUnderage()) {
@@ -198,24 +199,29 @@ public class SignUp extends JDialog {
                     TelNoRegisterTextField.getText())) {
                 // message already shown inside isValidInput
             } else {
+                String nameRegisterInput = nameRegisterTextField.getText();
+                String IC_NoRegisterInput = ICNoTextField.getText();
+                String birthdayRegisterInput = DOBRegister.getText();
+                String genderComboBoxInput = (String) genderComboBox.getSelectedItem();
+                String nationalityComboBoxInput = (String) nationalityComboBox.getSelectedItem();
+                String RaceRegisterComboBoxInput = (String) RaceRegisterComboBox.getSelectedItem();
+                String ReligionComboBoxInput = (String) ReligionComboBox.getSelectedItem();
+                String TelNoRegisterInput = TelNoRegisterTextField.getText();
+                String AddressRegisterInput = AddressRegisterTextField.getText();
+                String UsernameRegisterInput = UsernameRegisterTextField.getText();
+                String PasswordRegisterInput = PasswordRegisterTextField.getText();
+                String ConfirmPasswordRegisterInput = ConfirmPasswordRegisterTextField.getText();
+                Main.dataManager.SaveUser(new User(nameRegisterInput, IC_NoRegisterInput, birthdayRegisterInput,
+                        genderComboBoxInput,nationalityComboBoxInput, RaceRegisterComboBoxInput, ReligionComboBoxInput,
+                        TelNoRegisterInput, AddressRegisterInput, UsernameRegisterInput,PasswordRegisterInput,ConfirmPasswordRegisterInput));
+
                 // all good, save and close
                 this.dispose();
             }
+            //anything else put below here
         });
 
         this.setVisible(true);
-        String nameRegisterInput = nameRegisterTextField.getText();
-        String IC_NoRegisterInput = ICNoTextField.getText();
-        String birthdayRegisterInput = DOBRegister.getText();
-        String genderComboBoxInput = (String) genderComboBox.getSelectedItem();        //String nameRegisterInput = nameRegisterTextField.getText();
-        String nationalityComboBoxInput = (String) nationalityComboBox.getSelectedItem();
-        String RaceRegisterComboBoxInput = (String) RaceRegisterComboBox.getSelectedItem();
-        String ReligionComboBoxInput = (String) ReligionComboBox.getSelectedItem();
-        String TelNoRegisterInput = TelNoRegisterTextField.getText();
-        String AddressRegisterInput = AddressRegisterTextField.getText();
-        String UsernameRegisterInput = UsernameRegisterTextField.getText();
-        String PasswordRegisterInput = PasswordRegisterTextField.getText();
-        String ConfirmPasswordRegisterInput = ConfirmPasswordRegisterTextField.getText();
 
     }
 
@@ -266,7 +272,6 @@ public class SignUp extends JDialog {
         //Calculate the period between birth and today
         int age = Period.between(birthDate, today).getYears();
         return age < 18;
-
 
     }
     public void applyTheme() {

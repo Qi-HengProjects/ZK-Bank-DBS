@@ -35,14 +35,6 @@ public class User {
         this.accounts = new ArrayList<>();
     }
 
-    /*public User(String userID, String username, String password) {
-        this.userID = userID;
-        this.username = username;
-        this.password = password;
-        this.accounts = new ArrayList<>();
-    }
-
-     */
 
     public void addAccount(Account newAccount) {
         this.accounts.add(newAccount);
@@ -57,6 +49,7 @@ public class User {
 
         return total;
     }
+
 
     // Getter
     public String getName() {return this.name;}
@@ -90,5 +83,54 @@ public class User {
     @Override
     public String toString() {
         return "User: " + username + " | Total Accounts: " + accounts.size();
+    }
+
+    // setter
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIC_No(String IC_No) {
+        this.IC_No = IC_No;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
+    }
+
+    public void setReligion(String religion) {
+        this.religion = religion;
+    }
+
+    public void setTelNo(String telNo) {
+        this.telNo = telNo;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }

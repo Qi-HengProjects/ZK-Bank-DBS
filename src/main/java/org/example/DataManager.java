@@ -7,6 +7,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.Type;
+import java.util.function.Function;
+import java.util.function.Consumer;
 
 public class DataManager {
     private static final Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
@@ -33,7 +35,8 @@ public class DataManager {
 
         try (FileReader reader = new FileReader(fileName)) { // 把file开起来读取
             Type listType = new TypeToken<ArrayList<User>>(){}.getType(); // list的蓝图
-            return gson.fromJson(reader, listType); // translate 了根据list的蓝图build出来
+            List<User> users = gson.fromJson(reader, listType);// translate 了根据list的蓝图build出来
+            return  users != null ? users : new ArrayList<>();
         } catch (IOException e) {
             e.printStackTrace(); // 确保有什么error的话code不会crash
             return new ArrayList<>();
@@ -41,35 +44,40 @@ public class DataManager {
 
     }
 
-     public void saveUser(User user) {
+     public void SaveUser(User user) {
         try {
-            checkFile(new File(fileName));
-            JsonObject father = new JsonObject();
-            JsonObject stuff = new JsonObject();
-            father.addProperty("name", user.getName());
-            father.addProperty("IC_No", user.getIC_No());
-            father.addProperty("birthday", user.getBirthday());
-            father.addProperty("gender", user.getGender());
-            father.addProperty("nationality", user.getNationality());
-            father.addProperty("race", user.getRace());
-            father.addProperty("religion" , user.getReligion());
-            father.addProperty("telNo" , user.getTelNo());
-            father.addProperty("address" , user.getAddress());
-            father.addProperty("username" , user.getUsername());
-            father.addProperty("password" , user.getPassword());
-            father.addProperty("userID" , user.getUserID());
-            father.add("accounts", stuff);
-
-            PrintWriter saveJSon= new PrintWriter(new FileWriter(fileName));
-            saveJSon.println(gsonPretty.toJson(father));
-            saveJSon.close();
-
-        } catch (Exception e) {
+            List<User> users = loadUsers();
+            users.add(user);
+            PrintWriter writer = new PrintWriter(new FileWriter(fileName));
+            writer.println(gsonPretty.toJson(users));
+            writer.close();
+        } catch (Exception e){
             System.out.println("Error while saving user!");
             e.printStackTrace();
         }
-     }
+    }
 
+    public void updateData(String targetID, Function<User, String> getter, Consumer<User> setter) {
+        try{
+            List<User> users = loadUsers();
+
+            for (User user : users) {
+                if (user.getUserID().equals(targetID)) {
+                    String before = getter.apply(user);
+                    System.out.println("Before" + before);
+                    setter.accept(user);
+                    System.out.println("After: " + getter.apply(user));
+                    break;
+                }
+            }
+            PrintWriter writer = new PrintWriter(new FileWriter(fileName));
+            writer.println(gsonPretty.toJson(users));
+            writer.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     /*
     public void saveUser(User user) {
         try {
