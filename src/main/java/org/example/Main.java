@@ -6,7 +6,9 @@ import java.awt.*;
 
 public class Main extends JFrame {
     // Create the one and only data manager
+
     public static DataManager dataManager = new DataManager("bank_data.json");
+
     public static AccountStatus account_status = AccountStatus.SignedOut;
     public static Boolean toggle_status = false;
     public static Boolean Theme_status = false;
@@ -47,6 +49,13 @@ public class Main extends JFrame {
         cardLayout.show(mainPanel, pageName);
         Window window = SwingUtilities.getWindowAncestor(mainPanel);
         if (window != null) window.repaint();
+    }
+    public String generateUserID() {
+        String text = "U000";
+        String[] id = text.substring(0,1).split("");
+        int idNum = Integer.parseInt(id[1].trim());
+        idNum = idNum + 1;
+        return "U" + String.valueOf(idNum);
     }
 
     public static void main(String[] args) {

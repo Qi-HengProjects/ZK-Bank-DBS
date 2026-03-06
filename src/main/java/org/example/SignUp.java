@@ -210,10 +210,10 @@ public class SignUp extends JDialog {
                 String AddressRegisterInput = AddressRegisterTextField.getText();
                 String UsernameRegisterInput = UsernameRegisterTextField.getText();
                 String PasswordRegisterInput = PasswordRegisterTextField.getText();
-                String ConfirmPasswordRegisterInput = ConfirmPasswordRegisterTextField.getText();
+                String GenerateNewUserID = Main.dataManager.generateUserID(); // need to change to generating the userID
                 Main.dataManager.SaveUser(new User(nameRegisterInput, IC_NoRegisterInput, birthdayRegisterInput,
                         genderComboBoxInput,nationalityComboBoxInput, RaceRegisterComboBoxInput, ReligionComboBoxInput,
-                        TelNoRegisterInput, AddressRegisterInput, UsernameRegisterInput,PasswordRegisterInput,ConfirmPasswordRegisterInput));
+                        TelNoRegisterInput, AddressRegisterInput, UsernameRegisterInput,PasswordRegisterInput,GenerateNewUserID));
 
                 // all good, save and close
                 this.dispose();

@@ -7,8 +7,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.Type;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Consumer;
+import static java.lang.Integer.parseInt;
 
 public class DataManager {
     private static final Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
@@ -111,6 +113,20 @@ public class DataManager {
             return false;
         }
         return file.exists();
+    }
+
+    public String generateUserID() {
+        List<User> users = loadUsers();
+        int largestIDnum = 0;
+        for (User user : users) {
+            String id = user.getUserID().substring(1);
+            int idNum = Integer.parseInt(id.trim());
+            if (idNum > largestIDnum) {
+                largestIDnum = idNum;
+            }
+        }
+        int newIDnum = largestIDnum +1;
+        return "U" + String.format("%03d", newIDnum);
     }
 }
 

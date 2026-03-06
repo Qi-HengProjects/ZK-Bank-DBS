@@ -50,7 +50,6 @@ public class User {
         return total;
     }
 
-
     // Getter
     public String getName() {return this.name;}
 
@@ -133,4 +132,5 @@ public class User {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
 }
