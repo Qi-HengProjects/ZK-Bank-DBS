@@ -26,7 +26,7 @@
 
             // wrapper for login panel 中间那个方块的背景
             JPanel containerPanel = new JPanel(new GridBagLayout());
-            containerPanel.setOpaque(false); // add this
+            containerPanel.setOpaque(false);
 
             // login panel setup 那个灰色方块的setup
             JPanel loginBox = new JPanel();

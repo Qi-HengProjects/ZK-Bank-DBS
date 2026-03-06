@@ -30,6 +30,7 @@ public class LoanApplicationPanel extends JPanel{
 
 
 
+
     }
     public void applyTheme() {
         // re-apply whatever colors that panel uses
