@@ -1,5 +1,6 @@
 package org.example;
 import java.awt.*;
+import java.util.Objects;
 import javax.naming.Name;
 import javax.swing.*;
 
@@ -18,8 +19,6 @@ public class Home extends JPanel {
         this.setLayout(new BorderLayout());
         this.setLayout(null);
 
-
-
         //Hello Label
         JLabel HelloLabel = new JLabel("Hello ");
         HelloLabel.setFont(new Font("Arial", Font.PLAIN, 50));
@@ -27,23 +26,28 @@ public class Home extends JPanel {
         this.add(HelloLabel);
 
         //Name Label
-        String NameOfUser = "Jayden Lai Quan Qing"; //write name from json file stop at first spacebar. Default 'User' when not logged in. can use the enum to check account status
+        String NameOfUser = LoginPanel.UsernameValue;//write name from json file stop at first spacebar. Default 'User' when not logged in. can use the enum to check account status
         JLabel NameLabel = new JLabel(NameOfUser);
         NameLabel.setFont(new Font("Arial", Font.ITALIC, 50));
         NameLabel.setForeground(Color.decode(GUI.BlackColorCode));
-        this.add(NameLabel);
+
 
         //Name position 的算法
         FontMetrics fmPlain = HelloLabel.getFontMetrics(HelloLabel.getFont());
         FontMetrics fmItalic = NameLabel.getFontMetrics(NameLabel.getFont());
         int helloWidth = fmPlain.stringWidth("Hello ");
-        int nameWidth = fmItalic.stringWidth(NameOfUser);
-        int totalWidth = helloWidth + nameWidth;
+        if (LoginPanel.UsernameValue != null) {
+            int nameWidth = fmItalic.stringWidth(LoginPanel.UsernameValue);
+            int totalWidth = helloWidth + nameWidth;
+            int startX = 425 - (totalWidth / 2); // center around x=385
+            HelloLabel.setBounds(startX, 100, helloWidth + 10, 100);
+            NameLabel.setBounds(startX + helloWidth, 100, nameWidth + 20, 100);
+        }
 
-        int startX = 425 - (totalWidth / 2); // center around x=385
+        this.add(NameLabel);
 
-        HelloLabel.setBounds(startX, 100, helloWidth + 10, 100);
-        NameLabel.setBounds(startX + helloWidth, 100, nameWidth + 20, 100);
+
+
 
 
         //Transfer Button

@@ -11,6 +11,7 @@
         JTextField userTextField = new JTextField(15);
         JTextField passwordTextField = new JTextField(15);
         JPanel containerPanel = new JPanel(new GridBagLayout());
+        public static String UsernameValue;
 
         Image chinabackground1 = new ImageIcon("ChinaBackground1.jpg").getImage();
 
@@ -110,6 +111,7 @@
         boolean loginSuccess = false;
         private void LoginButtonClicked(ActionEvent e) {
             String UsernameInput = userTextField.getText();
+            LoginPanel.UsernameValue = UsernameInput;
             String PasswordInput = passwordTextField.getText();
             List<User> users = Main.dataManager.loadUsers();
             //dataManager.saveUser(new User("111", "nigga", "nanda"));
