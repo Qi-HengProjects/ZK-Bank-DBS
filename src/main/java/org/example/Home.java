@@ -64,6 +64,9 @@ public class Home extends JPanel {
         //Profile Button
         GUI.GlassButton ProfileBtn = new GUI.GlassButton("Profile");
         ui.setPositionRelative(CurrencyExchangeBtn, ProfileBtn, 200,0,120,120);
+        ProfileBtn.addActionListener(e ->{
+            Main.showPage("Profile");
+        });
         this.add(ProfileBtn);
 
 
