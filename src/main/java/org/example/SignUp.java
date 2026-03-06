@@ -11,14 +11,18 @@ import org.jdatepicker.impl.DateComponentFormatter;
 import java.util.Properties;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 public class SignUp extends JDialog {
     GUI ui = new GUI();
     List<JTextField> FieldsStatus = new ArrayList<>();
     UtilDateModel CalendarPop = new UtilDateModel();
-    public  SignUp(Frame owner){
+
+    public SignUp(Frame owner) {
         super(owner, "Sign Up", true);
-        this.setSize(600,600);
+        this.setSize(600, 600);
         this.setLayout(null);
         this.getContentPane().setBackground(Color.decode(GUI.WhiteColorCode));
 
@@ -63,7 +67,7 @@ public class SignUp extends JDialog {
 
         //DOB JDatePicker
         Properties p = new Properties();
-        p.put("text.today","Today");
+        p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");
         JDatePanelImpl CalenderPanel = new JDatePanelImpl(CalendarPop, p);
@@ -81,7 +85,7 @@ public class SignUp extends JDialog {
         //gender ComboBox
         String[] GenderChoices = {"Male", "Female"};
         JComboBox<String> genderComboBox = new JComboBox<>(GenderChoices);
-        ui.setPositionRelative(CalenderPicker, genderComboBox, 0, 40, 250,20);
+        ui.setPositionRelative(CalenderPicker, genderComboBox, 0, 40, 250, 20);
         this.add(genderComboBox);
         System.out.println(genderComboBox);
 
@@ -92,9 +96,9 @@ public class SignUp extends JDialog {
         this.add(nationalityRegister);
 
         //nationality ComboBox
-        String[] NationalityChoices = {"Malaysia","Singapore","Indonesia","Thailand","Vietnam"};
+        String[] NationalityChoices = {"Malaysia", "Singapore", "Indonesia", "Thailand", "Vietnam"};
         JComboBox<String> nationalityComboBox = new JComboBox<>(NationalityChoices);
-        ui.setPositionRelative(genderComboBox, nationalityComboBox, 0, 30, 250,20);
+        ui.setPositionRelative(genderComboBox, nationalityComboBox, 0, 30, 250, 20);
         this.add(nationalityComboBox);
 
         //Race label
@@ -104,9 +108,9 @@ public class SignUp extends JDialog {
         this.add(RaceRegister);
 
         //Race ComboBox
-        String[] RaceChoices = {"Malay","Chinese","Indian","Thai","Vietnamese"};
+        String[] RaceChoices = {"Malay", "Chinese", "Indian", "Thai", "Vietnamese"};
         JComboBox<String> RaceRegisterComboBox = new JComboBox<>(RaceChoices);
-        ui.setPositionRelative(nationalityComboBox, RaceRegisterComboBox, 0, 30, 250,20);
+        ui.setPositionRelative(nationalityComboBox, RaceRegisterComboBox, 0, 30, 250, 20);
         this.add(RaceRegisterComboBox);
 
         //Religion label
@@ -118,7 +122,7 @@ public class SignUp extends JDialog {
         //Religion ComboBox
         String[] ReligionChoices = {"Islam", "Christian", "Buddhist", "Taoism", "Hindu"};
         JComboBox<String> ReligionComboBox = new JComboBox<>(ReligionChoices);
-        ui.setPositionRelative(RaceRegisterComboBox, ReligionComboBox, 0, 30, 250,20);
+        ui.setPositionRelative(RaceRegisterComboBox, ReligionComboBox, 0, 30, 250, 20);
         this.add(ReligionComboBox);
 
         //Tel No. label
@@ -129,7 +133,7 @@ public class SignUp extends JDialog {
 
         //Tel No. textfield
         JTextField TelNoRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(ReligionComboBox, TelNoRegisterTextField, 0, 30, 250,20);
+        ui.setPositionRelative(ReligionComboBox, TelNoRegisterTextField, 0, 30, 250, 20);
         this.add(TelNoRegisterTextField);
         FieldsStatus.add(TelNoRegisterTextField);
 
@@ -141,7 +145,7 @@ public class SignUp extends JDialog {
 
         //Address textfield
         JTextField AddressRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(TelNoRegisterTextField, AddressRegisterTextField, 0, 30, 250,20);
+        ui.setPositionRelative(TelNoRegisterTextField, AddressRegisterTextField, 0, 30, 250, 20);
         this.add(AddressRegisterTextField);
         FieldsStatus.add(AddressRegisterTextField);
 
@@ -153,7 +157,7 @@ public class SignUp extends JDialog {
 
         //Username textfield
         JTextField UsernameRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(AddressRegisterTextField, UsernameRegisterTextField, 0, 30, 250,20);
+        ui.setPositionRelative(AddressRegisterTextField, UsernameRegisterTextField, 0, 30, 250, 20);
         this.add(UsernameRegisterTextField);
         FieldsStatus.add(UsernameRegisterTextField);
 
@@ -165,7 +169,7 @@ public class SignUp extends JDialog {
 
         //Password textfield
         JTextField PasswordRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(UsernameRegisterTextField, PasswordRegisterTextField, 0, 30, 250,20);
+        ui.setPositionRelative(UsernameRegisterTextField, PasswordRegisterTextField, 0, 30, 250, 20);
         this.add(PasswordRegisterTextField);
         FieldsStatus.add(PasswordRegisterTextField);
 
@@ -177,7 +181,7 @@ public class SignUp extends JDialog {
 
         //Confirm Password textfield
         JTextField ConfirmPasswordRegisterTextField = new JTextField(15);
-        ui.setPositionRelative(PasswordRegisterTextField, ConfirmPasswordRegisterTextField, 0, 30, 250,20);
+        ui.setPositionRelative(PasswordRegisterTextField, ConfirmPasswordRegisterTextField, 0, 30, 250, 20);
         this.add(ConfirmPasswordRegisterTextField);
         FieldsStatus.add(ConfirmPasswordRegisterTextField);
 
@@ -193,11 +197,10 @@ public class SignUp extends JDialog {
                 JOptionPane.showMessageDialog(this, "All text fields must be filled in!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             } else if (isUnderage()) {
                 JOptionPane.showMessageDialog(this, "You must be at least 18 years old.", "Age Requirement", JOptionPane.WARNING_MESSAGE);
-            } else if (!isValidInput(
-                    nameRegisterTextField.getText(),
-                    ICNoTextField.getText(),
-                    TelNoRegisterTextField.getText())) {
-                // message already shown inside isValidInput
+            } else if (!usernameCheck(UsernameRegisterTextField.getText())) {
+            } else if (!PasswordConfirmation(PasswordRegisterTextField.getText(), ConfirmPasswordRegisterTextField.getText())) {
+            } else if (!isValidInput(nameRegisterTextField.getText(), ICNoTextField.getText(), TelNoRegisterTextField.getText())) {
+
             } else {
                 String nameRegisterInput = nameRegisterTextField.getText();
                 String IC_NoRegisterInput = ICNoTextField.getText();
@@ -253,10 +256,7 @@ public class SignUp extends JDialog {
                 return true;
             }
         }
-        if (CalendarPop.getValue() == null) {
-            return true;
-        }
-        return false;
+        return CalendarPop.getValue() == null;
     }
 
     private boolean isUnderage() {
@@ -274,9 +274,29 @@ public class SignUp extends JDialog {
         return age < 18;
 
     }
+
     public void applyTheme() {
         this.setBackground(Color.decode(GUI.WhiteColorCode));
         // re-apply whatever colors that panel uses
         this.repaint();
+    }
+
+    private boolean PasswordConfirmation(String password, String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean usernameCheck(String username) {
+        List<User> users = Main.dataManager.loadUsers();
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                JOptionPane.showMessageDialog(this, "Username already taken!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return false; // username already exists
+            }
+        }
+        return true; // username is available
     }
 }

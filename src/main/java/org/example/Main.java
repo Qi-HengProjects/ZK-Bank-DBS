@@ -33,6 +33,7 @@ public class Main extends JFrame {
         mainPanel.add(new LoanApplicationPanel(), "LoanApp");
         mainPanel.add(new Home(), "Home");
         mainPanel.add(new Contact(), "Contact");
+        mainPanel.add(new Profile(), "Profile");
 
         // add more panels as you build them...
 

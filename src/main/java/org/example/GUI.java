@@ -118,15 +118,62 @@ public class GUI {
             int h = getHeight();
             int arc = 30;
 
-            g2.setColor(new Color(0, 80, 180, 200));
+            // dark transparent base
+            g2.setColor(new Color(0, 0, 0, 60));
             g2.fillRoundRect(0, 0, w, h, arc, arc);
 
-            g2.setColor(new Color(255, 255, 255, 60));
-            g2.fillRoundRect(0, 0, w, h / 2, arc, arc);
+            // top shine (bright white streak)
+            g2.setColor(new Color(255, 255, 255, 80));
+            g2.fillRoundRect(4, 4, w - 8, h / 3, arc, arc);
 
-            g2.setColor(new Color(255, 255, 255, 100));
+            // bottom subtle reflection
+            g2.setColor(new Color(255, 255, 255, 20));
+            g2.fillRoundRect(4, h / 2, w - 8, h / 2 - 4, arc, arc);
+
+            // border
+            g2.setColor(new Color(255, 255, 255, 120));
             g2.setStroke(new BasicStroke(1.5f));
-            g2.drawRoundRect(0, 0, w - 1, h - 1, arc, arc);
+            g2.drawRoundRect(1, 1, w - 2, h - 2, arc, arc);
+
+            g2.dispose();
+            super.paintComponent(g);
+        }
+
+        @Override
+        protected void paintBorder(Graphics g) {}
+    }
+
+    public static class GlassPanel extends JPanel {
+        public GlassPanel() {
+            setOpaque(false);
+            setLayout(null);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            int w = getWidth();
+            int h = getHeight();
+            int arc = 30;
+
+            // dark transparent base
+            g2.setColor(new Color(0, 0, 0, 60));
+            g2.fillRoundRect(0, 0, w, h, arc, arc);
+
+            // top shine (bright white streak)
+            g2.setColor(new Color(255, 255, 255, 80));
+            g2.fillRoundRect(4, 4, w - 8, h / 3, arc, arc);
+
+            // dark transparent base
+            g2.setColor(new Color(255, 255, 255, 70));
+            g2.fillRoundRect(0, 0, w, h, arc, arc);
+
+            // border
+            g2.setColor(new Color(255, 255, 255, 120));
+            g2.setStroke(new BasicStroke(1.5f));
+            g2.drawRoundRect(1, 1, w - 2, h - 2, arc, arc);
 
             g2.dispose();
             super.paintComponent(g);

@@ -38,7 +38,14 @@ public class TopBlueBar extends JPanel {
         Home.setBounds(0, 150, 130, 40);
         Home.addActionListener(e -> {
             System.out.println("home");
-            Main.showPage("Home");
+            if (!Main.toggle_status) {
+                // Show the pop-up warning
+                JOptionPane.showMessageDialog(this, // or null
+                        "Access Denied. Please log in first.", "Access Denied", JOptionPane.WARNING_MESSAGE);
+
+            } else {
+                Main.showPage("Home");            }
+
         });
         this.add(Home);
 
