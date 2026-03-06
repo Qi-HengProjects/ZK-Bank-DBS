@@ -13,5 +13,20 @@
     "password": "password",
     "userID": "U001",
     "accounts": []
+  },
+  {
+    "name": "kai xiang",
+    "IC_No": "123123123123",
+    "birthday": "Date of Birth :",
+    "gender": "Male",
+    "nationality": "Malaysia",
+    "race": "Indian",
+    "religion": "Hindu",
+    "telNo": "676767",
+    "address": "maluri",
+    "username": "kaven",
+    "password": "password",
+    "userID": "U002",
+    "accounts": []
   }
 ]
