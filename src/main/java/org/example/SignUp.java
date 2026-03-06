@@ -193,11 +193,13 @@ public class SignUp extends JDialog {
                 JOptionPane.showMessageDialog(this, "All text fields must be filled in!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             } else if (isUnderage()) {
                 JOptionPane.showMessageDialog(this, "You must be at least 18 years old.", "Age Requirement", JOptionPane.WARNING_MESSAGE);
+            } else if (!PasswordConfirmation(PasswordRegisterTextField.getText(), ConfirmPasswordRegisterTextField.getText())){
+
             } else if (!isValidInput(
                     nameRegisterTextField.getText(),
                     ICNoTextField.getText(),
                     TelNoRegisterTextField.getText())) {
-                // message already shown inside isValidInput
+
             } else {
                 String nameRegisterInput = nameRegisterTextField.getText();
                 String IC_NoRegisterInput = ICNoTextField.getText();
@@ -278,5 +280,13 @@ public class SignUp extends JDialog {
         this.setBackground(Color.decode(GUI.WhiteColorCode));
         // re-apply whatever colors that panel uses
         this.repaint();
+    }
+
+    private boolean PasswordConfirmation(String password, String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 }

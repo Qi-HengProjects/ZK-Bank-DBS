@@ -13,7 +13,7 @@ public class Profile extends JPanel {
         JLabel ProfileLabel = new JLabel("Profile");
         ProfileLabel.setFont(new Font("Arial", Font.BOLD, 50));
         FontMetrics fmPlain = ProfileLabel.getFontMetrics(ProfileLabel.getFont());
-        int contactUsWidth = fmPlain.stringWidth("Contact Us");
+        int contactUsWidth = fmPlain.stringWidth("Profile Us");
         ui.setPosition(ProfileLabel, 350, 0,contactUsWidth +10, 100);
         this.add(ProfileLabel);
 

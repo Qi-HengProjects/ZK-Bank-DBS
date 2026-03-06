@@ -54,6 +54,10 @@ public class Home extends JPanel {
         //Loan Application Button
         GUI.GlassButton LoanApplicationBtn = new GUI.GlassButton("<html><center>Loan<br>Application</center></html>");
         ui.setPositionRelative(TransferBtn, LoanApplicationBtn, 200,0,120,120);
+        LoanApplicationBtn.addActionListener(e -> {
+            Main.showPage("LoanApp");
+        });
+
         this.add(LoanApplicationBtn);
 
         //Currency Exchange Button
