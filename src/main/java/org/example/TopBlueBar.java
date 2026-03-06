@@ -13,6 +13,7 @@ public class TopBlueBar extends JPanel {
     private final HeaderButton TempLbtn;
     private final JButton dropdownBtn = new JButton("Personal ▼");
 
+
     GUI ui = new GUI();
 
     public TopBlueBar() {

@@ -28,5 +28,20 @@
     "password": "password",
     "userID": "U002",
     "accounts": []
+  },
+  {
+    "name": "jayden",
+    "IC_No": "121212121222",
+    "birthday": "Date of Birth :",
+    "gender": "Male",
+    "nationality": "Malaysia",
+    "race": "Malay",
+    "religion": "Islam",
+    "telNo": "12121212121211",
+    "address": "1212121ff",
+    "username": "Jydls",
+    "password": "123",
+    "userID": "U003",
+    "accounts": []
   }
 ]

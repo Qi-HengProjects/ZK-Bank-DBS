@@ -28,15 +28,6 @@ public class Main extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-        // Register all your pages here
-        mainPanel.add(new LoginPanel(), "Login");
-        mainPanel.add(new LoanApplicationPanel(), "LoanApp");
-        mainPanel.add(new Home(), "Home");
-        mainPanel.add(new Contact(), "Contact");
-        mainPanel.add(new Profile(), "Profile");
-
-        // add more panels as you build them...
-
         this.add(bar, BorderLayout.WEST);
         this.add(mainPanel, BorderLayout.CENTER);
 
@@ -47,9 +38,21 @@ public class Main extends JFrame {
     // Call this from anywhere to navigate
     public static void showPage(String pageName) {
         currentPage = pageName;
+
+        // remove old panel and add fresh one each time
+        mainPanel.removeAll();
+
+        switch (pageName) {
+            case "Login" -> mainPanel.add(new LoginPanel(), "Login");
+            case "LoanApp" -> mainPanel.add(new LoanApplicationPanel(), "LoanApp");
+            case "Home" -> mainPanel.add(new Home(), "Home");
+            case "Contact" -> mainPanel.add(new Contact(), "Contact");
+            case "Profile" -> mainPanel.add(new Profile(), "Profile");
+        }
+
         cardLayout.show(mainPanel, pageName);
-        Window window = SwingUtilities.getWindowAncestor(mainPanel);
-        if (window != null) window.repaint();
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 
     public static void main(String[] args) {

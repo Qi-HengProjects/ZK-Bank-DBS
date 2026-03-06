@@ -200,7 +200,6 @@ public class SignUp extends JDialog {
             } else if (!usernameCheck(UsernameRegisterTextField.getText())) {
             } else if (!PasswordConfirmation(PasswordRegisterTextField.getText(), ConfirmPasswordRegisterTextField.getText())) {
             } else if (!isValidInput(nameRegisterTextField.getText(), ICNoTextField.getText(), TelNoRegisterTextField.getText())) {
-
             } else {
                 String nameRegisterInput = nameRegisterTextField.getText();
                 String IC_NoRegisterInput = ICNoTextField.getText();

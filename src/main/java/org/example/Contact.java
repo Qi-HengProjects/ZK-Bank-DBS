@@ -40,14 +40,14 @@ public class Contact extends JPanel{
         ContactBlackBox.add(BankingEnquiries);
 
         //Contact Phone Number
-        JLabel ContactPhoneNumber = new JLabel("Tel No.   :  +6011-10891492");
+        JLabel ContactPhoneNumber = new JLabel("Tel No.   :  +6011-10081475");
         ContactPhoneNumber.setFont(new Font("Arial", Font.PLAIN + Font.ITALIC, 20));
         ContactPhoneNumber.setForeground(Color.decode("#000000"));
         ui.setPositionRelative(BankingEnquiries, ContactPhoneNumber, 20, 70, 400,30);
         ContactBlackBox.add(ContactPhoneNumber);
 
         //Email Address
-        JLabel EmailAddress = new JLabel("Email     :   fooqh@gmail.com");
+        JLabel EmailAddress = new JLabel("Email     :   orangeteacher@gmail.com");
         EmailAddress.setFont(new Font("Arial", Font.PLAIN + Font.ITALIC, 20));
         EmailAddress.setForeground(Color.decode("#000000"));
         ui.setPositionRelative(ContactPhoneNumber, EmailAddress, 0, 40, 400,30);
