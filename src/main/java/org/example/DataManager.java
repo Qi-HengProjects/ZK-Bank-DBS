@@ -27,8 +27,6 @@ public class DataManager {
 
     }
 
-
-
     // LOAD ssd --> ram
 
     public List<User> loadUsers() {
@@ -38,7 +36,17 @@ public class DataManager {
         try (FileReader reader = new FileReader(fileName)) { // 把file开起来读取
             Type listType = new TypeToken<ArrayList<User>>(){}.getType(); // list的蓝图
             List<User> users = gson.fromJson(reader, listType);// translate 了根据list的蓝图build出来
-            return  users != null ? users : new ArrayList<>();
+
+            if (users == null) {
+                return new ArrayList<>();
+            }
+
+            for (User u : users) {
+                u.convertAccounts();
+            }
+
+            return users;
+
         } catch (IOException e) {
             e.printStackTrace(); // 确保有什么error的话code不会crash
             return new ArrayList<>();
@@ -46,10 +54,16 @@ public class DataManager {
 
     }
 
-     public void SaveUser(User user) {
+     public void SaveUser(User newUser){
         try {
             List<User> users = loadUsers();
-            users.add(user);
+            for (User user : users) {
+                if (Objects.equals(newUser.getUsername(), user.getUsername())){
+                    System.out.println("This username has been used");
+                    return;
+                }
+            }
+            users.add(newUser);
             PrintWriter writer = new PrintWriter(new FileWriter(fileName));
             writer.println(gsonPretty.toJson(users));
             writer.close();
@@ -59,12 +73,23 @@ public class DataManager {
         }
     }
 
+    public void saveAll(List<User> u) {
+        try {
+
+            PrintWriter writer = new PrintWriter(new File(fileName));
+            writer.println(gsonPretty.toJson(u));
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void updateData(String targetID, Function<User, String> getter, Consumer<User> setter) {
         try{
             List<User> users = loadUsers();
 
             for (User user : users) {
-                if (user.getUserID().equals(targetID)) {
+                if (Objects.equals(user.getUserID(), targetID)) {
                     String before = getter.apply(user);
                     System.out.println("Before" + before);
                     setter.accept(user);
@@ -128,9 +153,40 @@ public class DataManager {
         int newIDnum = largestIDnum +1;
         return "U" + String.format("%03d", newIDnum);
     }
+
+    public String generateAccountID(List<User> u) {
+        int largestAccNum = 0;
+        for (User user : u) {
+            if (user.getAccounts() != null) {
+                for (Account acc : user.getAccounts()){
+                    if (acc != null) {
+                        try {
+                            int accNum = Integer.parseInt(acc.getAccountNumber().trim());
+                            if (accNum > largestAccNum) {
+                                largestAccNum = accNum;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            System.out.println("skipping this invalid account number: " + acc.getAccountNumber());
+                        }
+                    }
+                }
+            }
+        }
+        int newAccNum = largestAccNum +1;
+        return String.format("%08d", newAccNum);
+    }
+
+    public void addNewAccount(String type, double balance) {
+        List<User> users = loadUsers();
+        for (User user : users) {
+            if (Objects.equals(user.getUserID(), Main.currentSession)) {
+                user.addAccount(new Account(generateAccountID(users), type, balance));
+                break;
+            }
+        }
+        saveAll(users);
+    }
 }
 
-// 运作原理：(need update)
-// 1. 把整个file打开 读里面的data
-// 2. 把file的data和最新要加的东西 copy进ram 然后清空file
-// 3. 把在ram里面的新版data写进file
+

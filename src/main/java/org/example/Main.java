@@ -18,6 +18,7 @@ public class Main extends JFrame {
     public static final JPanel mainPanel = new JPanel(cardLayout);
     public static String currentPage = "Login";
 
+    public static String currentSession;
 
     public enum AccountStatus {
         SignedIn, SignedOut, Freeze

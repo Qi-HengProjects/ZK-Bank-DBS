@@ -114,10 +114,10 @@
             LoginPanel.UsernameValue = UsernameInput;
             String PasswordInput = passwordTextField.getText();
             List<User> users = Main.dataManager.loadUsers();
-            //dataManager.saveUser(new User("111", "nigga", "nanda"));
             for (User user : users) {
                 if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {
                     loginSuccess = true;
+                    Main.currentSession = user.getUserID();
                     break;
                 }
             }

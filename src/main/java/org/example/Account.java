@@ -11,6 +11,10 @@ public class Account {
         this.balance = balance;
     }
 
+    public void addInterest() {
+
+    }
+
     // getter accountNumber
     public String getAccountNumber() {
         return this.accountNumber;
@@ -35,9 +39,6 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {

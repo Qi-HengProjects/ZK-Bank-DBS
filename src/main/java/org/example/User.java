@@ -133,4 +133,16 @@ public class User {
         this.userID = userID;
     }
 
+    public void convertAccounts() {
+        if (this.accounts == null ) return;
+
+        for (int i = 0; i < accounts.size(); i++) {
+            Account current = accounts.get(i);
+            if ("Savings".equalsIgnoreCase(current.getType()) && !(current instanceof SavingsAccount)) {
+                SavingsAccount smartAcc = new SavingsAccount(current.getAccountNumber(), current.getBalance());
+                accounts.set(i, smartAcc);
+            }
+
+        }
+    }
 }
