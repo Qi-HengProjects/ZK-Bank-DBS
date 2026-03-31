@@ -19,6 +19,7 @@ public class Main extends JFrame {
     public static String currentPage = "Login";
 
     public static String currentSession;
+    public static Object currentObject;
 
     public enum AccountStatus {
         SignedIn, SignedOut, Freeze
@@ -49,6 +50,7 @@ public class Main extends JFrame {
             case "Home" -> mainPanel.add(new Home(), "Home");
             case "Contact" -> mainPanel.add(new Contact(), "Contact");
             case "Profile" -> mainPanel.add(new Profile(), "Profile");
+
         }
 
         cardLayout.show(mainPanel, pageName);

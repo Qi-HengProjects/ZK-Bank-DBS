@@ -24,8 +24,15 @@ public class LoanApplicationPanel extends JPanel{
         LoanApplicationLabelCenter.setFont(new Font("Arial", Font.BOLD, 50));
         FontMetrics fmPlain = LoanApplicationLabelCenter.getFontMetrics(LoanApplicationLabelCenter.getFont());
         int contactUsWidth = fmPlain.stringWidth("Loan Application");
-        ui.setPosition(LoanApplicationLabelCenter, 300, 100,contactUsWidth +10, 100);
+        ui.setPosition(LoanApplicationLabelCenter, 240, 100,contactUsWidth +10, 100);
         this.add(LoanApplicationLabelCenter);
+
+        //Scroll Panel
+        JScrollPane LA_SP = new JScrollPane();
+        LA_SP.setSize(800, 500);
+        ui.setPosition(LA_SP, 50, 200, 750, 400);
+
+        this.add(LA_SP);
 
 
 

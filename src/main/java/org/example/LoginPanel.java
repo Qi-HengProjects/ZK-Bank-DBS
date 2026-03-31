@@ -118,6 +118,7 @@
                 if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {
                     loginSuccess = true;
                     Main.currentSession = user.getUserID();
+                    Main.currentObject = user;
                     break;
                 }
             }

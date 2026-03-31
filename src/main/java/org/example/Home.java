@@ -53,6 +53,16 @@ public class Home extends JPanel {
             Main.showPage("Profile");
         });
         this.add(ProfileBtn);
+
+        //Create Account Button
+        GUI.GlassButton CreateAccBtn = new GUI.GlassButton("Create Account");
+        ui.setPositionRelative(ProfileBtn, CreateAccBtn, -50, -250, 200, 50);
+        CreateAccBtn.addActionListener(e -> {
+            Window parentWindow = SwingUtilities.getWindowAncestor(this);
+            new CreateAccount((Frame) parentWindow);
+        });
+
+        this.add(CreateAccBtn);
     }
 
     public void refresh() {

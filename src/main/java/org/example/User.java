@@ -16,6 +16,11 @@ public class User {
     private String username;
     private String password;
     private String userID;
+    /*private String company;
+    private String occupation;
+    private String incomeSource;
+    private String grossIncome;
+    private String netIncome;*/
 
     private List<SavingsAccount> savingsAccounts;
     private List<CurrentAccount>currentAccounts;
@@ -40,6 +45,18 @@ public class User {
         this.transactions = new ArrayList<>();
         this.loans = new ArrayList<>();
     }
+
+    /* Short constructor - used by createAccount form
+    public User(String company, String occupation, String incomeSource, String grossIncome, String netIncome) {
+        this.company = company;
+        this.occupation = occupation;
+        this.incomeSource = incomeSource;
+        this.grossIncome = grossIncome;
+        this.netIncome = netIncome;
+        this.accounts = new ArrayList<>();
+    } */
+
+
 
     public void addSavingAccount(SavingsAccount newSavingAccount) {
         this.savingsAccounts.add(newSavingAccount);
@@ -90,6 +107,17 @@ public class User {
         return this.transactions;
     }
 
+    /*public String getOccupation() {return this.occupation;}
+
+    public String getCompany() {return this.company;}
+
+    public String getIncomeSource() {return this.incomeSource;}
+
+    public String getGrossIncome() {return this.grossIncome;}
+
+    public String getNetIncome() {return this.netIncome;}*/
+
+
     public List<Loan> getLoans() {
         return this.loans;
     }
@@ -98,7 +126,7 @@ public class User {
     //@Override
     /*public String toString() {
         return "User: " + username + " | Total Accounts: " + accounts.size();
-    }*/
+    }
 
     // setter
     public void setName(String name) {
@@ -148,4 +176,25 @@ public class User {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
+//==============================
+     */
+    /*public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public void setCompany(String company) {this.company = company;}
+
+    public void setIncomeSource(String incomeSource) {
+        this.incomeSource = incomeSource;
+    }
+
+    public void setGrossIncome(String grossIncome) {
+        this.grossIncome = grossIncome;
+    }
+
+    public void setNetIncome(String netIncome) {
+        this.netIncome = netIncome;
+    }*/
+
 }
