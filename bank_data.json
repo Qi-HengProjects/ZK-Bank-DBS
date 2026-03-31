@@ -43,5 +43,20 @@
     "password": "123",
     "userID": "U003",
     "accounts": []
+  },
+  {
+    "name": "idk",
+    "IC_No": "123456789000",
+    "birthday": "2001-03-02",
+    "gender": "Male",
+    "nationality": "Malaysia",
+    "race": "Chinese",
+    "religion": "Hindu",
+    "telNo": "762786786",
+    "address": "idk",
+    "username": "idk",
+    "password": "idk",
+    "userID": "U004",
+    "accounts": []
   }
 ]

@@ -4,15 +4,15 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.lang.reflect.Type;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Consumer;
 import static java.lang.Integer.parseInt;
+import java.util.random.*;
 
 public class DataManager {
+    private List<User> allusers = loadUsers();
     private static final Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
     private String fileName;
     private Gson gson; // Java 和 json 的google translate
@@ -40,11 +40,6 @@ public class DataManager {
             if (users == null) {
                 return new ArrayList<>();
             }
-
-            for (User u : users) {
-                u.convertAccounts();
-            }
-
             return users;
 
         } catch (IOException e) {
@@ -75,7 +70,6 @@ public class DataManager {
 
     public void saveAll(List<User> u) {
         try {
-
             PrintWriter writer = new PrintWriter(new File(fileName));
             writer.println(gsonPretty.toJson(u));
             writer.close();
@@ -86,6 +80,7 @@ public class DataManager {
 
     public void updateData(String targetID, Function<User, String> getter, Consumer<User> setter) {
         try{
+
             List<User> users = loadUsers();
 
             for (User user : users) {
@@ -103,30 +98,51 @@ public class DataManager {
         } catch(Exception e) {
             e.printStackTrace();
         }
-
     }
-    /*
-    public void saveUser(User user) {
-        try {
-            checkFile(new File(fileName));
-            JsonObject stuff = new JsonObject();
-            JsonObject father = new JsonObject();
-            father.addProperty("userID", user.getUsername());
-            father.add("accounts", stuff);
-            stuff.addProperty("accountNumber", user.getPassword());
 
-            PrintWriter saveJSon = new PrintWriter(new FileWriter(fileName));
-            saveJSon.println(gsonPretty.toJson(father));
-            saveJSon.close();
-        } catch (Exception e) {
-            System.out.println("Error while saving user!");
-            e.printStackTrace();
+    public Object search(String target, String userID, String accountNumber, String loanID) {
+        List<User> users = loadUsers();
+        Object object = null;
+        if (Objects.equals(target, "Users")) {
+            for (User user : users) {
+                if (Objects.equals(userID, user.getUserID())) {
+                    System.out.println("User existed!");
+                    return user;
+                }
+            }
         }
+
+        if (target.equalsIgnoreCase("Accounts")) {
+            for (User user : users) {
+                for (SavingsAccount sa : user.getSavingsAccounts()) {
+                    if (Objects.equals(accountNumber, sa.getAccountNumber())) {
+                        System.out.println("Accounts existed");
+                        return sa;
+                    }
+                }
+
+                for  (CurrentAccount ca : user.getCurrentAccounts()) {
+                    if (Objects.equals(accountNumber, ca.getAccountNumber())) {
+                        System.out.println("Account existed");
+                        return ca;
+                    }
+                }
+            }
+        }
+
+
+        if (target.equalsIgnoreCase("Loan")) {
+            for (User user : users) {
+                for (Loan loan : user.getLoans()) {
+                    if (Objects.equals(loanID, loan.getLoanID())) {
+                        System.out.println("Loan existed");
+                        return loan;
+                    }
+                }
+            }
+        }
+        return null;
     }
-
-     */
-
-
 
     private boolean checkFile(File file) {
         try {
@@ -145,7 +161,7 @@ public class DataManager {
         int largestIDnum = 0;
         for (User user : users) {
             String id = user.getUserID().substring(1);
-            int idNum = Integer.parseInt(id.trim());
+            int idNum = parseInt(id.trim());
             if (idNum > largestIDnum) {
                 largestIDnum = idNum;
             }
@@ -154,38 +170,38 @@ public class DataManager {
         return "U" + String.format("%03d", newIDnum);
     }
 
-    public String generateAccountID(List<User> u) {
-        int largestAccNum = 0;
-        for (User user : u) {
-            if (user.getAccounts() != null) {
-                for (Account acc : user.getAccounts()){
-                    if (acc != null) {
-                        try {
-                            int accNum = Integer.parseInt(acc.getAccountNumber().trim());
-                            if (accNum > largestAccNum) {
-                                largestAccNum = accNum;
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            System.out.println("skipping this invalid account number: " + acc.getAccountNumber());
-                        }
-                    }
-                }
+    public String generateAccountID() {
+        String potentialID = null;
+        Random newAcc = new Random();
+        while (true) {
+            int newAccountID = 10000000 + newAcc.nextInt(90000000);;
+            potentialID = String.valueOf(newAccountID);
+            Account result = (Account) search("Accounts", null, potentialID, null);
+            if (result != null) {
+                continue;
+            } else {
+                System.out.println("New account number generated!");
+                break;
             }
+
         }
-        int newAccNum = largestAccNum +1;
-        return String.format("%08d", newAccNum);
+        return potentialID;
     }
 
     public void addNewAccount(String type, double balance) {
-        List<User> users = loadUsers();
-        for (User user : users) {
-            if (Objects.equals(user.getUserID(), Main.currentSession)) {
-                user.addAccount(new Account(generateAccountID(users), type, balance));
-                break;
+        User u = (User) search("User", Main.currentSession, null, null);
+        if (u != null){
+            String accNum = generateAccountID();
+            String date = java.time.LocalDate.now().toString();
+            if (type.equalsIgnoreCase("Savings")) {
+                SavingsAccount sa = new SavingsAccount(accNum, balance, date);
+                u.addSavingAccount(sa);
+            } else if (type.equalsIgnoreCase("Current")) {
+                CurrentAccount ca = new CurrentAccount(accNum, balance, date);
+                u.addCurrentAcccount(ca);
             }
+            saveAll(this.allusers);
         }
-        saveAll(users);
     }
 }
 

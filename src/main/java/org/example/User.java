@@ -17,7 +17,10 @@ public class User {
     private String password;
     private String userID;
 
-    private List<Account> accounts;
+    private List<SavingsAccount> savingsAccounts;
+    private List<CurrentAccount>currentAccounts;
+    private List<Transaction> transactions;
+    private List<Loan> loans;
 
     public User(String name, String IC_No, String birthday, String gender, String nationality, String race, String religion, String telNo, String address, String username, String password, String userID) {
         this.name = name;
@@ -32,22 +35,22 @@ public class User {
         this.username = username;
         this.password = password;
         this.userID = userID;
-        this.accounts = new ArrayList<>();
+        this.savingsAccounts = new ArrayList<>();
+        this.currentAccounts = new ArrayList<>();
+        this.transactions = new ArrayList<>();
+        this.loans = new ArrayList<>();
     }
 
-
-    public void addAccount(Account newAccount) {
-        this.accounts.add(newAccount);
+    public void addSavingAccount(SavingsAccount newSavingAccount) {
+        this.savingsAccounts.add(newSavingAccount);
     }
 
-    public double getTotalBalance() {
-        double total = 0.0;
+    public void addCurrentAcccount(CurrentAccount newCurrentAccount) {
+        this.currentAccounts.add(newCurrentAccount);
+    }
 
-        for (Account acc : this.accounts) {
-            total = total + acc.getBalance();
-        }
-
-        return total;
+    public void addLoan(Loan newLoan) {
+        this.loans.add(newLoan);
     }
 
     // Getter
@@ -75,14 +78,27 @@ public class User {
 
     public String getUserID() {return this.userID;}
 
-    public List<Account> getAccounts() {
-        return this.accounts;
+    public List<SavingsAccount> getSavingsAccounts() {
+        return this.savingsAccounts;
     }
 
-    @Override
-    public String toString() {
-        return "User: " + username + " | Total Accounts: " + accounts.size();
+    public List<CurrentAccount> getCurrentAccounts() {
+        return this.currentAccounts;
     }
+
+    public List<Transaction> getTransactions() {
+        return this.transactions;
+    }
+
+    public List<Loan> getLoans() {
+        return this.loans;
+    }
+
+
+    //@Override
+    /*public String toString() {
+        return "User: " + username + " | Total Accounts: " + accounts.size();
+    }*/
 
     // setter
     public void setName(String name) {
@@ -131,18 +147,5 @@ public class User {
 
     public void setUserID(String userID) {
         this.userID = userID;
-    }
-
-    public void convertAccounts() {
-        if (this.accounts == null ) return;
-
-        for (int i = 0; i < accounts.size(); i++) {
-            Account current = accounts.get(i);
-            if ("Savings".equalsIgnoreCase(current.getType()) && !(current instanceof SavingsAccount)) {
-                SavingsAccount smartAcc = new SavingsAccount(current.getAccountNumber(), current.getBalance());
-                accounts.set(i, smartAcc);
-            }
-
-        }
     }
 }

@@ -19,6 +19,7 @@ public class SignUp extends JDialog {
     GUI ui = new GUI();
     List<JTextField> FieldsStatus = new ArrayList<>();
     UtilDateModel CalendarPop = new UtilDateModel();
+    private JDatePickerImpl CalenderPicker;
 
     public SignUp(Frame owner) {
         super(owner, "Sign Up", true);
@@ -71,7 +72,7 @@ public class SignUp extends JDialog {
         p.put("text.month", "Month");
         p.put("text.year", "Year");
         JDatePanelImpl CalenderPanel = new JDatePanelImpl(CalendarPop, p);
-        JDatePickerImpl CalenderPicker = new JDatePickerImpl(CalenderPanel, new DateComponentFormatter());
+        CalenderPicker = new JDatePickerImpl(CalenderPanel, new DateComponentFormatter());
         ui.setPositionRelative(ICNoTextField, CalenderPicker, 0, 30, 250, 30);
         this.add(CalenderPicker);
 
@@ -203,7 +204,7 @@ public class SignUp extends JDialog {
             } else {
                 String nameRegisterInput = nameRegisterTextField.getText();
                 String IC_NoRegisterInput = ICNoTextField.getText();
-                String birthdayRegisterInput = DOBRegister.getText();
+                String birthdayRegisterInput = getSelectedDateString();
                 String genderComboBoxInput = (String) genderComboBox.getSelectedItem();
                 String nationalityComboBoxInput = (String) nationalityComboBox.getSelectedItem();
                 String RaceRegisterComboBoxInput = (String) RaceRegisterComboBox.getSelectedItem();
@@ -297,5 +298,16 @@ public class SignUp extends JDialog {
             }
         }
         return true; // username is available
+    }
+    
+    public String getSelectedDateString() {
+        Object value = CalenderPicker.getModel().getValue();
+        if (value != null) {
+            java.util.Date date = (java.util.Date) value;
+            // Choose your preferred format: "yyyy-MM-dd" or "dd/MM/yyyy"
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            return sdf.format(date);
+        }
+        return ""; // Return empty string or null if nothing is picked
     }
 }
