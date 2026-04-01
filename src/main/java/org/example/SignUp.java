@@ -213,7 +213,7 @@ public class SignUp extends JDialog {
                 String AddressRegisterInput = AddressRegisterTextField.getText();
                 String UsernameRegisterInput = UsernameRegisterTextField.getText();
                 String PasswordRegisterInput = PasswordRegisterTextField.getText();
-                String PlaceholderValue = "";
+                String PlaceholderValue = "Not specified";
                 String GenerateNewUserID = Main.dataManager.generateUserID(); // need to change to generating the userID
 
                 Main.dataManager.SaveUser(new User(nameRegisterInput, IC_NoRegisterInput, birthdayRegisterInput,

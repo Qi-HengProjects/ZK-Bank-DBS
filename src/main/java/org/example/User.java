@@ -23,11 +23,13 @@ public class User {
     private String netIncome;
 
     private List<SavingsAccount> savingsAccounts;
-    private List<CurrentAccount>currentAccounts;
+    private List<CurrentAccount> currentAccounts;
     private List<Transaction> transactions;
     private List<Loan> loans;
 
-    public User(String name, String IC_No, String birthday, String gender, String nationality, String race, String religion, String telNo, String address, String username, String password, String userID, String company, String occupation, String incomeSource, String grossIncome, String netIncome) {
+    public User(String name, String IC_No, String birthday, String gender, String nationality, String race,
+                String religion, String telNo, String address, String username, String password, String userID,
+                String company, String occupation, String incomeSource, String grossIncome, String netIncome) {
         this.name = name;
         this.IC_No = IC_No;
         this.birthday = birthday;
@@ -120,7 +122,7 @@ public class User {
     //@Override
     /*public String toString() {
         return "User: " + username + " | Total Accounts: " + accounts.size();
-    }
+    } */
 
     // setter
     public void setName(String name) {
@@ -172,7 +174,7 @@ public class User {
     }
 
 //==============================
-     */
+
     public void setOccupation(String occupation) {
         this.occupation = occupation;
     }

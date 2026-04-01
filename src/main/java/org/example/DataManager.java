@@ -51,7 +51,7 @@ public class DataManager {
 
      public void SaveUser(User newUser){
         try {
-            List<User> users = loadUsers();
+            List<User> users = this.allusers;
             for (User user : users) {
                 if (Objects.equals(newUser.getUsername(), user.getUsername())){
                     System.out.println("This username has been used");
@@ -80,24 +80,17 @@ public class DataManager {
 
     // may need change
     public void updateData(String targetID, Function<User, String> getter, Consumer<User> setter) {
-        try{
+        List<User> users = this.allusers;
 
-            List<User> users = loadUsers();
-
-            for (User user : users) {
-                if (Objects.equals(user.getUserID(), targetID)) {
-                    String before = getter.apply(user);
-                    System.out.println("Before" + before);
-                    setter.accept(user);
-                    System.out.println("After: " + getter.apply(user));
-                    break;
-                }
+        for (User user : users) {
+            if (Objects.equals(user.getUserID(), targetID)) {
+                String before = getter.apply(user);
+                System.out.println("Before" + before);
+                setter.accept(user);
+                System.out.println("After: " + getter.apply(user));
+                saveAll(this.allusers);
+                break;
             }
-            PrintWriter writer = new PrintWriter(new FileWriter(fileName));
-            writer.println(gsonPretty.toJson(users));
-            writer.close();
-        } catch(Exception e) {
-            e.printStackTrace();
         }
     }
 
