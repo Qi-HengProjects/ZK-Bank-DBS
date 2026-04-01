@@ -10,7 +10,6 @@ public class TopBlueBar extends JPanel {
     //private HeaderButton LoanApp;
     private final HeaderButton Contact;
     private final HeaderButton TempLbtn;
-    private final HeaderButton Staff;
     private final JButton dropdownBtn = new JButton("Personal ▼");
 
     public TopBlueBar() {
@@ -105,14 +104,6 @@ public class TopBlueBar extends JPanel {
             Main.showPage("Contact");
         });
         this.add(Contact);
-
-        //Staff button
-        Staff = new HeaderButton("Staff");
-        Staff.setBounds(0, 450, 130, 40);
-        Staff.addActionListener(e -> {
-            Main.showPage("Admin");
-        });
-        this.add(Staff);
 
         TempLbtn = new HeaderButton("Login/SignUp");
         TempLbtn.setFont(new Font("Arial", Font.PLAIN, 14));
