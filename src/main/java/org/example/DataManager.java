@@ -78,6 +78,7 @@ public class DataManager {
         }
     }
 
+    // may need change
     public void updateData(String targetID, Function<User, String> getter, Consumer<User> setter) {
         try{
 
@@ -101,9 +102,9 @@ public class DataManager {
     }
 
     public Object search(String target, String userID, String accountNumber, String loanID) {
-        List<User> users = loadUsers();
+        List<User> users = this.allusers;
         Object object = null;
-        if (Objects.equals(target, "Users")) {
+        if (target.equalsIgnoreCase("Users")) {
             for (User user : users) {
                 if (Objects.equals(userID, user.getUserID())) {
                     System.out.println("User existed!");
@@ -131,7 +132,7 @@ public class DataManager {
         }
 
 
-        if (target.equalsIgnoreCase("Loan")) {
+        if (target.equalsIgnoreCase("Loans")) {
             for (User user : users) {
                 for (Loan loan : user.getLoans()) {
                     if (Objects.equals(loanID, loan.getLoanID())) {
@@ -189,7 +190,7 @@ public class DataManager {
     }
 
     public void addNewAccount(String type, double balance) {
-        User u = (User) search("User", Main.currentSession, null, null);
+        User u = (User) search("Users", Main.currentSession, null, null);
         if (u != null){
             String accNum = generateAccountID();
             String date = java.time.LocalDate.now().toString();
@@ -201,6 +202,38 @@ public class DataManager {
                 u.addCurrentAcccount(ca);
             }
             saveAll(this.allusers);
+        }
+    }
+
+    public void performTransfer(String giveAccountNumber, String receiveAccountNumber, double amount) {
+        Account ga = (Account) search("Accounts", null, giveAccountNumber, null);
+        Account ra = (Account) search("Accounts", null, receiveAccountNumber, null);
+        if (ga != null) {
+            if (ra != null) {
+                if (Objects.equals(giveAccountNumber, receiveAccountNumber)) {
+                    System.out.println("You can know transfer to the same account!");
+                } else {
+                    if (ga.getType().equalsIgnoreCase("Current")) {
+                        boolean deduct = ga.withdraw(amount);
+                        if (deduct) {
+                            System.out.println("RM " + amount + " has been deducted!");
+                            System.out.println("RM " + ga.getBalance() + "Left in the account.");
+                            ra.deposit(amount);
+                            saveAll(allusers);
+                        } else {
+                            System.out.println("Transaction failed!");
+                        }
+
+
+                    } else {
+                        System.out.println("You can only transfer to other user using a current account!");
+                    }
+                }
+            } else {
+                System.out.println("Receiver account not found");
+            }
+        } else {
+            System.out.println("Sender account not found");
         }
     }
 }
