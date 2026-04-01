@@ -4,18 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
-import org.jdatepicker.impl.DateComponentFormatter;
-import java.util.Properties;
-import java.time.LocalDate;
-import java.time.Period;
+
+
 
 public class CreateAccount extends JDialog {
     GUI ui = new GUI();
     List<JTextField> FieldsStatus = new ArrayList<>();
-    UtilDateModel CalendarPop = new UtilDateModel();
 
     public CreateAccount(Frame owner) {
         super(owner, "Apply Account", true);
@@ -40,6 +34,7 @@ public class CreateAccount extends JDialog {
         User u = (User) Main.currentObject;
         String currentName = u.getName();
         JTextField nameRegisterTextField = new JTextField(currentName, 15);
+        nameRegisterTextField.setText(currentName);
         nameRegisterTextField.setEditable(false);
         nameRegisterTextField.setFocusable(false);
         nameRegisterTextField.setFont(new Font("Arial", Font.PLAIN, 13));
@@ -47,7 +42,6 @@ public class CreateAccount extends JDialog {
         nameRegisterTextField.setForeground(Color.BLACK);
         ui.setPositionRelative(nameRegister, nameRegisterTextField, 140, 0, 250, 20);
         this.add(nameRegisterTextField);
-        FieldsStatus.add(nameRegisterTextField);
 
         //IC No. label
         JLabel ICnoLabel = new JLabel("IC No. : ");
@@ -58,13 +52,13 @@ public class CreateAccount extends JDialog {
         //ICNo. textfield
         String currentICNO = u.getIC_No();
         JTextField ICNoTextField = new JTextField(currentICNO, 15);
+        ICNoTextField.setText(currentICNO);
         ICNoTextField.setEditable(false);
         ICNoTextField.setFocusable(false);
 
         ICNoTextField.setFont(new Font("Arial", Font.PLAIN, 13));
         ui.setPositionRelative(nameRegisterTextField, ICNoTextField, 0, 30, 250, 20);
         this.add(ICNoTextField);
-        FieldsStatus.add(ICNoTextField);
 
         //Tel No. label
         JLabel TelNoRegister = new JLabel("Tel No. :");
@@ -75,12 +69,12 @@ public class CreateAccount extends JDialog {
         //Tel No. textfield
         String currentTelNo = u.getTelNo();
         JTextField TelNoRegisterTextField = new JTextField(currentTelNo, 15);
+        TelNoRegisterTextField.setText(currentTelNo);
         TelNoRegisterTextField.setEditable(false);
         TelNoRegisterTextField.setFocusable(false);
 
         ui.setPositionRelative(ICNoTextField, TelNoRegisterTextField, 0, 30, 250, 20);
         this.add(TelNoRegisterTextField);
-        FieldsStatus.add(TelNoRegisterTextField);
 
         //Address label
         JLabel AddressRegister = new JLabel("Address :");
@@ -91,12 +85,12 @@ public class CreateAccount extends JDialog {
         //Address textfield
         String currentAddress = u.getAddress();
         JTextField AddressRegisterTextField = new JTextField(currentAddress, 15);
+        AddressRegisterTextField.setText(currentAddress);
         AddressRegisterTextField.setEditable(false);
         AddressRegisterTextField.setFocusable(false);
 
         ui.setPositionRelative(TelNoRegisterTextField, AddressRegisterTextField, 0, 30, 250, 20);
         this.add(AddressRegisterTextField);
-        FieldsStatus.add(AddressRegisterTextField);
 
         //occupation label
         JLabel Occupation = new JLabel("Occupation: ");
@@ -172,9 +166,6 @@ public class CreateAccount extends JDialog {
             //validator
             if (isAnyFieldsEmpty()) {
                 JOptionPane.showMessageDialog(this, "All text fields must be filled in!", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            } else if (isUnderage()) {
-                JOptionPane.showMessageDialog(this, "You must be at least 18 years old.", "Age Requirement", JOptionPane.WARNING_MESSAGE);
-            } else if (!isValidInput(nameRegisterTextField.getText(), ICNoTextField.getText(), TelNoRegisterTextField.getText())) {
             } else {
                 //validate the data here
                 //@Qi Heng fix this part to save into current user not make new user.
@@ -184,11 +175,25 @@ public class CreateAccount extends JDialog {
                 String GrossIncomeRegisterInput = GrossIncomeTextField.getText();
                 String NetIncomeRegisterInput = NetIncomeTextField.getText();
 
-                Main.dataManager.SaveUser(new User(OccupationRegisterInput, CompanyRegisterInput,
-                        IncomeSourceRegisterInput, GrossIncomeRegisterInput, NetIncomeRegisterInput));
+                User currentUser = (User) Main.currentObject;
+                currentUser.setOccupation(OccupationRegisterInput);
+                currentUser.setCompany(CompanyRegisterInput);
+                currentUser.setIncomeSource(IncomeSourceRegisterInput);
+                currentUser.setGrossIncome(GrossIncomeRegisterInput);
+                currentUser.setNetIncome(NetIncomeRegisterInput);
 
-                 */
 
+                Main.dataManager.updateData(
+                        currentUser.getUserID(),
+                        user -> u.getOccupation(),
+                        user -> {
+                            u.setOccupation(OccupationRegisterInput);
+                            u.setCompany(CompanyRegisterInput);
+                            u.setIncomeSource(IncomeSourceRegisterInput);
+                            u.setGrossIncome(GrossIncomeRegisterInput);
+                            u.setNetIncome(NetIncomeRegisterInput);
+                        }
+                );*/
                 this.dispose();
             }
 
@@ -226,23 +231,8 @@ public class CreateAccount extends JDialog {
                 return true;
             }
         }
-        return CalendarPop.getValue() == null;
+        return false;
     }
 
-    private boolean isUnderage() {
-        //get yr mth and day from JDatePicker
-        int year = CalendarPop.getYear();
-        int month = CalendarPop.getMonth() + 1;
-        int day = CalendarPop.getDay();
-
-        //Convert to a LocalDate Object
-        LocalDate birthDate = LocalDate.of(year, month, day);
-        LocalDate today = LocalDate.now();
-
-        //Calculate the period between birth and today
-        int age = Period.between(birthDate, today).getYears();
-        return age < 18;
-
-    }
 
 }

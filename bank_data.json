@@ -11,8 +11,7 @@
     "address": "hfdsjkfjk;lasdj",
     "username": "jayden",
     "password": "password",
-    "userID": "U001",
-    "accounts": []
+    "userID": "U001"
   },
   {
     "name": "kai xiang",
@@ -26,8 +25,7 @@
     "address": "maluri",
     "username": "kaven",
     "password": "password",
-    "userID": "U002",
-    "accounts": []
+    "userID": "U002"
   },
   {
     "name": "jayden",
@@ -41,8 +39,7 @@
     "address": "1212121ff",
     "username": "Jydls",
     "password": "123",
-    "userID": "U003",
-    "accounts": []
+    "userID": "U003"
   },
   {
     "name": "idk",
@@ -56,7 +53,47 @@
     "address": "idk",
     "username": "idk",
     "password": "idk",
-    "userID": "U004",
-    "accounts": []
+    "userID": "U004"
+  },
+  {
+    "name": "zenhao",
+    "IC_No": "065041147485",
+    "birthday": "1999-04-22",
+    "gender": "Male",
+    "nationality": "Malaysia",
+    "race": "Malay",
+    "religion": "Islam",
+    "telNo": "0125468997",
+    "address": "selayang mall",
+    "username": "bananabro",
+    "password": "banana",
+    "userID": "U005",
+    "savingsAccounts": [],
+    "currentAccounts": [],
+    "transactions": [],
+    "loans": []
+  },
+  {
+    "name": "testOne",
+    "IC_No": "010203101234",
+    "birthday": "2006-04-07",
+    "gender": "Male",
+    "nationality": "Malaysia",
+    "race": "Malay",
+    "religion": "Islam",
+    "telNo": "0126559678",
+    "address": "454, Jalan 555, Setapak, Malaysia",
+    "username": "gulp",
+    "password": "123",
+    "userID": "U006",
+    "company": "",
+    "occupation": "",
+    "incomeSource": "",
+    "grossIncome": "",
+    "netIncome": "",
+    "savingsAccounts": [],
+    "currentAccounts": [],
+    "transactions": [],
+    "loans": []
   }
 ]

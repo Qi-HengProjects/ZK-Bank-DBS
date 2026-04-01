@@ -23,5 +23,14 @@ public class transferPage extends JPanel {
         this.add(transfer);
 
         //Select Account Dropdown box
+        User u = (User) Main.currentObject;
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        u.getCurrentAccounts().forEach(acc -> model.addElement(acc.getAccountNumber()));
+        u.getSavingsAccounts().forEach(acc -> model.addElement(acc.getAccountNumber()));
+        JComboBox<String> accountBox = new JComboBox<>(model);
+        String[] AccountChoices = {};
+        JComboBox<String> AccountComboBox = new JComboBox<>(AccountChoices);
+        ui.setPosition(AccountComboBox, 0, 30, 250, 20);
+        this.add(AccountComboBox);
     }
 }

@@ -27,7 +27,7 @@ public class User {
     private List<Transaction> transactions;
     private List<Loan> loans;
 
-    public User(String name, String IC_No, String birthday, String gender, String nationality, String race, String religion, String telNo, String address, String username, String password, String userID) {
+    public User(String name, String IC_No, String birthday, String gender, String nationality, String race, String religion, String telNo, String address, String username, String password, String userID, String company, String occupation, String incomeSource, String grossIncome, String netIncome) {
         this.name = name;
         this.IC_No = IC_No;
         this.birthday = birthday;
@@ -40,21 +40,17 @@ public class User {
         this.username = username;
         this.password = password;
         this.userID = userID;
+        this.company = company;
+        this.occupation = occupation;
+        this.incomeSource = incomeSource;
+        this.grossIncome = grossIncome;
+        this.netIncome = netIncome;
         this.savingsAccounts = new ArrayList<>();
         this.currentAccounts = new ArrayList<>();
         this.transactions = new ArrayList<>();
         this.loans = new ArrayList<>();
     }
 
-
-    public User(String company, String occupation, String incomeSource, String grossIncome, String netIncome) {
-        this.company = company;
-        this.occupation = occupation;
-        this.incomeSource = incomeSource;
-        this.grossIncome = grossIncome;
-        this.netIncome = netIncome;
-
-    }
 
 
 
@@ -99,9 +95,7 @@ public class User {
         return this.savingsAccounts;
     }
 
-    public List<CurrentAccount> getCurrentAccounts() {
-        return this.currentAccounts;
-    }
+    public List<CurrentAccount> getCurrentAccounts() {return this.currentAccounts; }
 
     public List<Transaction> getTransactions() {
         return this.transactions;
