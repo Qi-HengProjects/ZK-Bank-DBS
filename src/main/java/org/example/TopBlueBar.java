@@ -9,12 +9,9 @@ public class TopBlueBar extends JPanel {
 
     //private HeaderButton LoanApp;
     private final HeaderButton Contact;
-    private final HeaderButton Theme;
     private final HeaderButton TempLbtn;
+    private final HeaderButton Staff;
     private final JButton dropdownBtn = new JButton("Personal ▼");
-
-
-    GUI ui = new GUI();
 
     public TopBlueBar() {
         //Var for the name of the window, call it from other classes.
@@ -45,7 +42,8 @@ public class TopBlueBar extends JPanel {
                         "Access Denied. Please log in first.", "Access Denied", JOptionPane.WARNING_MESSAGE);
 
             } else {
-                Main.showPage("Home");            }
+                Main.showPage("Home");
+            }
 
         });
         this.add(Home);
@@ -108,9 +106,17 @@ public class TopBlueBar extends JPanel {
         });
         this.add(Contact);
 
+        //Staff button
+        Staff = new HeaderButton("Staff");
+        Staff.setBounds(0, 450, 130, 40);
+        Staff.addActionListener(e -> {
+            Main.showPage("Admin");
+        });
+        this.add(Staff);
+
         TempLbtn = new HeaderButton("Login/SignUp");
         TempLbtn.setFont(new Font("Arial", Font.PLAIN, 14));
-        TempLbtn.setBounds(0, 550, 120, 40);
+        TempLbtn.setBounds(0, 600, 120, 40);
         TempLbtn.addActionListener(e -> {
             Main.showPage("Login");
         });
@@ -119,49 +125,6 @@ public class TopBlueBar extends JPanel {
         } else {
             this.add(TempLbtn);
         }
-
-        // Theme Changer button
-        Theme = new HeaderButton(GUI.ThemeButton);
-        Theme.setFont(new Font("Arial", Font.PLAIN, 14));
-        Theme.setBounds(0, 600, 120, 40);
-        Theme.addActionListener(e -> {
-            Main.Theme_status = !Main.Theme_status; // toggle
-            ui.ThemeChange(); // update the color strings
-
-            // re-apply colors to TopBlueBar
-            this.setBackground(Color.decode(GUI.DarkBlueColorCode));
-            Home.setForeground(Color.decode(GUI.WhiteColorCode));
-            dropdownBtn.setForeground(Color.decode(GUI.WhiteColorCode));
-            Contact.setForeground(Color.decode(GUI.WhiteColorCode));
-            TempLbtn.setForeground(Color.decode(GUI.WhiteColorCode));
-            Theme.setForeground(Color.decode(GUI.WhiteColorCode));
-            Theme.setText(GUI.ThemeButton);
-
-
-            // re-apply colors to the current center panel
-            Component current = null;
-            for (Component c : Main.mainPanel.getComponents()) {
-                if (c.isVisible()) {
-                    current = c;
-                    break;
-                }
-            }
-            if (current instanceof LoginPanel lp) {
-                lp.applyTheme();
-            } else if (current instanceof Home h) {
-                h.applyTheme();
-            } else if (current instanceof LoanApplicationPanel lap) {
-                lap.applyTheme();
-            } else if (current instanceof SignUp su) {
-                su.applyTheme();
-            }
-
-            Main.showPage(Main.currentPage); // repaint
-        });
-        this.add(Theme);
-
-
-        //Open Temp Login button
 
 
     }

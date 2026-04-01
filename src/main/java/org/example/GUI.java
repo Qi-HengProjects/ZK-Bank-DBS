@@ -158,16 +158,12 @@ public class GUI {
             int h = getHeight();
             int arc = 30;
 
-            // dark transparent base
-            g2.setColor(new Color(0, 0, 0, 60));
+            // color brightness --> a
+            g2.setColor(new Color(0, 0, 0, 30));
             g2.fillRoundRect(0, 0, w, h, arc, arc);
 
-            // top shine (bright white streak)
-            g2.setColor(new Color(255, 255, 255, 80));
-            g2.fillRoundRect(4, 4, w - 8, h / 3, arc, arc);
-
-            // dark transparent base
-            g2.setColor(new Color(255, 255, 255, 70));
+            // color solidness --> a
+            g2.setColor(new Color(255, 255, 255, 100));
             g2.fillRoundRect(0, 0, w, h, arc, arc);
 
             // border
