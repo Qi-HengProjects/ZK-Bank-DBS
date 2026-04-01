@@ -12,7 +12,7 @@ import static java.lang.Integer.parseInt;
 import java.util.random.*;
 
 public class DataManager {
-    private List<User> allusers = loadUsers();
+    private List<User> allusers = new ArrayList<>();
     private static final Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
     private String fileName;
     private Gson gson; // Java 和 json 的google translate
@@ -22,7 +22,7 @@ public class DataManager {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.fileName = fileName;
         // setPrettyPrinting() 让json比较容易读
-
+        this.allusers = loadUsers();
         // .create()  setup 然后让我们用
 
     }

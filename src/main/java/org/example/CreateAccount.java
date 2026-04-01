@@ -177,15 +177,17 @@ public class CreateAccount extends JDialog {
             } else if (!isValidInput(nameRegisterTextField.getText(), ICNoTextField.getText(), TelNoRegisterTextField.getText())) {
             } else {
                 //validate the data here
+                //@Qi Heng fix this part to save into current user not make new user.
+                /*String OccupationRegisterInput = OccupationTextField.getText();
+                String CompanyRegisterInput = CompanyTextField.getText();
+                String IncomeSourceRegisterInput = IncomeSourceTextField.getText();
+                String GrossIncomeRegisterInput = GrossIncomeTextField.getText();
+                String NetIncomeRegisterInput = NetIncomeTextField.getText();
 
-                //String OccupationRegisterInput = OccupationTextField.getText();
-                //String CompanyRegisterInput = CompanyTextField.getText();
-                //String IncomeSourceRegisterInput = IncomeSourceTextField.getText();
-                //String GrossIncomeRegisterInput = GrossIncomeTextField.getText();
-                //String NetIncomeRegisterInput = NetIncomeTextField.getText();
+                Main.dataManager.SaveUser(new User(OccupationRegisterInput, CompanyRegisterInput,
+                        IncomeSourceRegisterInput, GrossIncomeRegisterInput, NetIncomeRegisterInput));
 
-
-                //Main.dataManager.SaveUser(new User(OccupationTextField, CompanyTextField, IncomeSourceTextField, GrossIncomeTextField, NetIncomeTextField));
+                 */
 
                 this.dispose();
             }

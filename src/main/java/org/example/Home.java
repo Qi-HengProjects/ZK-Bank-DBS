@@ -31,6 +31,9 @@ public class Home extends JPanel {
         // Transfer Button
         GUI.GlassButton TransferBtn = new GUI.GlassButton("Transfer");
         ui.setPosition(TransferBtn, 70, 300, 120, 120);
+        TransferBtn.addActionListener( e -> {
+            Main.showPage("Transfer");
+        });
         this.add(TransferBtn);
 
         // Loan Application Button

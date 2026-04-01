@@ -50,6 +50,7 @@ public class Main extends JFrame {
             case "Home" -> mainPanel.add(new Home(), "Home");
             case "Contact" -> mainPanel.add(new Contact(), "Contact");
             case "Profile" -> mainPanel.add(new Profile(), "Profile");
+            case "Transfer" -> mainPanel.add(new transferPage(), "Transfer");
 
         }
 

@@ -119,19 +119,19 @@ public class GUI {
             int arc = 30;
 
             // dark transparent base
-            g2.setColor(new Color(0, 0, 0, 60));
+            g2.setColor(new Color(0, 102, 255, 60));
             g2.fillRoundRect(0, 0, w, h, arc, arc);
 
             // top shine (bright white streak)
-            g2.setColor(new Color(255, 255, 255, 80));
+            g2.setColor(new Color(0, 102, 255,  70));
             g2.fillRoundRect(4, 4, w - 8, h / 3, arc, arc);
 
             // bottom subtle reflection
-            g2.setColor(new Color(255, 255, 255, 20));
-            g2.fillRoundRect(4, h / 2, w - 8, h / 2 - 4, arc, arc);
+            g2.setColor(new Color(0, 102, 255, 60));
+            g2.fillRoundRect(0, 0, w, h, arc, arc);
 
             // border
-            g2.setColor(new Color(255, 255, 255, 120));
+            g2.setColor(new Color(0, 102, 255, 150));
             g2.setStroke(new BasicStroke(1.5f));
             g2.drawRoundRect(1, 1, w - 2, h - 2, arc, arc);
 

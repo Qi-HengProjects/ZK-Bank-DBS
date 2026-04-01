@@ -9,7 +9,7 @@
         // Create the panel
         GUI ui = new GUI();
         JTextField userTextField = new JTextField(15);
-        JTextField passwordTextField = new JTextField(15);
+        JPasswordField passwordTextField = new JPasswordField(15);
         JPanel containerPanel = new JPanel(new GridBagLayout());
         public static String UsernameValue;
 

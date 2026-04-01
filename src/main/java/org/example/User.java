@@ -16,11 +16,11 @@ public class User {
     private String username;
     private String password;
     private String userID;
-    /*private String company;
+    private String company;
     private String occupation;
     private String incomeSource;
     private String grossIncome;
-    private String netIncome;*/
+    private String netIncome;
 
     private List<SavingsAccount> savingsAccounts;
     private List<CurrentAccount>currentAccounts;
@@ -46,15 +46,15 @@ public class User {
         this.loans = new ArrayList<>();
     }
 
-    /* Short constructor - used by createAccount form
+
     public User(String company, String occupation, String incomeSource, String grossIncome, String netIncome) {
         this.company = company;
         this.occupation = occupation;
         this.incomeSource = incomeSource;
         this.grossIncome = grossIncome;
         this.netIncome = netIncome;
-        this.accounts = new ArrayList<>();
-    } */
+
+    }
 
 
 
@@ -107,7 +107,7 @@ public class User {
         return this.transactions;
     }
 
-    /*public String getOccupation() {return this.occupation;}
+    public String getOccupation() {return this.occupation;}
 
     public String getCompany() {return this.company;}
 
@@ -115,7 +115,7 @@ public class User {
 
     public String getGrossIncome() {return this.grossIncome;}
 
-    public String getNetIncome() {return this.netIncome;}*/
+    public String getNetIncome() {return this.netIncome;}
 
 
     public List<Loan> getLoans() {
@@ -179,7 +179,7 @@ public class User {
 
 //==============================
      */
-    /*public void setOccupation(String occupation) {
+    public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
 
@@ -195,6 +195,6 @@ public class User {
 
     public void setNetIncome(String netIncome) {
         this.netIncome = netIncome;
-    }*/
+    }
 
 }
