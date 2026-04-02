@@ -178,6 +178,18 @@ public class GUI {
         @Override
         protected void paintBorder(Graphics g) {}
     }
+
+    public void setTabSelected(JButton button, boolean isSelected) {
+        if (isSelected) {
+            // Show white underline 3px thick
+            button.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
+            button.setForeground(Color.WHITE);
+        } else {
+            // No border, and make text slightly grey/dim
+            button.setBorder(BorderFactory.createEmptyBorder(0, 0, 3, 0));
+            button.setForeground(Color.LIGHT_GRAY);
+        }
+    }
 }
 
 

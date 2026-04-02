@@ -4,12 +4,18 @@ import javax.swing.*;
 
 public class admin extends JPanel {
 
+    TopBlueBar bar = new TopBlueBar();
     public admin(){
         this.setLayout(null);
         JScrollPane adminContainer1 = new JScrollPane();
         adminContainer1.setSize(500,500);
 
         this.add(adminContainer1);
+
+
+
+
+
 
 
         //make a white side bar that has Account Application and Loan Application Approval Pending

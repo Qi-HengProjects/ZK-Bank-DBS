@@ -2,6 +2,9 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 
 public class TopBlueBar extends JPanel {
@@ -11,6 +14,7 @@ public class TopBlueBar extends JPanel {
     private final HeaderButton Contact;
     private final HeaderButton TempLbtn;
     private final JButton dropdownBtn = new JButton("Personal ▼");
+
 
     public TopBlueBar() {
         //Var for the name of the window, call it from other classes.
@@ -164,6 +168,54 @@ public class TopBlueBar extends JPanel {
     public class SignUpFirst extends JOptionPane {
         public SignUpFirst() {
             SignUpFirst.showMessageDialog(null, "Please log in first.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+    public static class sideWhiteBar extends JPanel {
+        // 1. Define the List and Borders locally for this panel
+        private final List<HeaderButton> navButtons = new ArrayList<>();
+        private final javax.swing.border.Border underline = BorderFactory.createMatteBorder(0, 0, 3, 0, Color.decode(GUI.DarkBlueColorCode)); // Using Black for white background
+        private final javax.swing.border.Border noUnderline = BorderFactory.createEmptyBorder(0, 0, 3, 0);
+
+        public sideWhiteBar() {
+            this.setSize(800, 130);
+            this.setBackground(Color.decode(GUI.WhiteColorCode));
+            this.setLayout(null); // Ensure layout is null for setBounds to work
+
+            // 2. Create 'New Account Request' Button
+            HeaderButton accApplySection = new HeaderButton("New Account Request");
+            accApplySection.setBounds(50, 65, 200, 50);
+            setupNavButton(accApplySection);
+            this.add(accApplySection);
+
+            // 3. Create 'New Loan Request' Button
+            HeaderButton loanApplySection = new HeaderButton("New Loan Request");
+            loanApplySection.setBounds(300, 65, 200, 50);
+            setupNavButton(loanApplySection);
+            this.add(loanApplySection);
+
+            // Start with the first one selected
+            setActiveTab(accApplySection);
+        }
+
+        // Helper to add to list and set listener
+        private void setupNavButton(HeaderButton btn) {
+            navButtons.add(btn);
+            btn.addActionListener(e -> setActiveTab(btn));
+        }
+
+        // The logic to switch the underline
+        private void setActiveTab(HeaderButton selectedBtn) {
+            for (HeaderButton btn : navButtons) {
+                if (btn == selectedBtn) {
+                    btn.setBorder(underline);
+                    btn.setForeground(Color.BLACK); // Active color
+                } else {
+                    btn.setBorder(noUnderline);
+                    btn.setForeground(Color.GRAY);  // Inactive color
+                }
+            }
         }
     }
 }

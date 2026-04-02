@@ -13,6 +13,7 @@ public class Main extends JFrame {
     public static Boolean toggle_status = false;
     public static Boolean Theme_status = false;
     public static TopBlueBar bar = new TopBlueBar();
+    public static TopBlueBar.sideWhiteBar whiteBar =  new TopBlueBar.sideWhiteBar();
 
     private static final CardLayout cardLayout = new CardLayout();
     public static final JPanel mainPanel = new JPanel(cardLayout);
@@ -25,19 +26,6 @@ public class Main extends JFrame {
         SignedIn, SignedOut, Freeze
     }
 
-    public Main() {
-        this.setSize(1000, 700);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new BorderLayout());
-
-        this.add(bar, BorderLayout.WEST);
-        this.add(mainPanel, BorderLayout.CENTER);
-
-        showPage("Login"); // start on login page
-        this.setVisible(true);
-    }
-
-    // Call this from anywhere to navigate
     public static void showPage(String pageName) {
         currentPage = pageName;
 
@@ -58,6 +46,28 @@ public class Main extends JFrame {
         cardLayout.show(mainPanel, pageName);
         mainPanel.revalidate();
         mainPanel.repaint();
+    }
+
+    public Main() {
+        this.setSize(1000, 700);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new BorderLayout());
+
+        this.add(bar, BorderLayout.WEST);
+        this.add(mainPanel, BorderLayout.CENTER);
+
+        showPage("Login"); // start on login page
+        if (currentPage.equals("Admin")){
+            bar.setVisible(false);
+            this.add(whiteBar, BorderLayout.NORTH);
+
+
+
+        } else {
+            bar.setVisible(true);
+        }
+
+        this.setVisible(true);
     }
 
     public static void main(String[] args) {
