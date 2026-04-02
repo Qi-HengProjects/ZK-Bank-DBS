@@ -31,7 +31,7 @@ public class Main extends JFrame {
         // remove old panel and add fresh one each time
         mainPanel.removeAll();
 
-        if (currentPage.equals("accountRequest")){
+        if (currentPage.equals("accountRequest") || currentPage.equals("loanRequest")){
             bar.setVisible(false);
             whiteBar.setVisible(true);
 

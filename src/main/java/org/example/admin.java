@@ -15,18 +15,38 @@ public class admin extends JPanel {
             this.setPreferredSize(new Dimension(1000, 650));
 
             // This is where all your content goes
-            JPanel contentPanel = new JPanel();
-            contentPanel.setLayout(null);
-            contentPanel.setPreferredSize(new Dimension(1000, 2000)); // tall enough to scroll
+            JPanel adminContainer1 = new JPanel();
+            adminContainer1.setLayout(null);
+            adminContainer1.setPreferredSize(new Dimension(1000, 2000)); // tall enough to scroll
 
             // Add everything to contentPanel, NOT to this
             JLabel accountRequestTitle = new JLabel("Account Request");
             accountRequestTitle.setFont(new Font("Arial", Font.BOLD, 30));
             accountRequestTitle.setBounds(200, 50, 300, 50);
-            contentPanel.add(accountRequestTitle); // <-- contentPanel, not this
+            adminContainer1.add(accountRequestTitle); // <-- contentPanel, not this
+
+
+
+
+            // Approve Account Btn
+            JButton accountApprove = new JButton("Approve");
+            ui.setPosition(accountApprove, 400, 400, 100, 50);
+            accountApprove.addActionListener( e -> {
+                //@Qi Heng add the apporove logic here                      <-------------------@Qi Heng
+            });
+            this.add(accountApprove);
+
+            // Reject Account Btn
+            JButton accountReject = new JButton("Reject");
+            ui.setPosition(accountReject, 600, 400, 100, 50);
+            accountReject.addActionListener( e -> {
+                //@Qi Heng add the reject logic here                      <-------------------@Qi Heng
+            });
+            this.add(accountReject);
+
 
             // Wrap contentPanel in scrollpane
-            JScrollPane scrollPane = new JScrollPane(contentPanel);
+            JScrollPane scrollPane = new JScrollPane(adminContainer1);
             scrollPane.setBounds(0, 0, 1000, 650);
             this.add(scrollPane); // scrollPane goes on the page
         }
@@ -40,7 +60,43 @@ public class admin extends JPanel {
 
         public newLoanRequest(){
             this.setLayout(null);
+            this.setPreferredSize(new Dimension(1000, 650));
 
+            // This is where all your content goes
+            JPanel adminContainer2 = new JPanel();
+            adminContainer2.setLayout(null);
+            adminContainer2.setPreferredSize(new Dimension(1000, 2000)); // tall enough to scroll
+
+            // Add everything to contentPanel, NOT to this
+            JLabel accountRequestTitle = new JLabel("Loan Request");
+            accountRequestTitle.setFont(new Font("Arial", Font.BOLD, 30));
+            accountRequestTitle.setBounds(200, 50, 300, 50);
+            adminContainer2.add(accountRequestTitle); // <-- contentPanel, not this
+
+
+
+
+
+            // Approve Loan Btn
+            JButton loanApprove = new JButton("Approve");
+            ui.setPosition(loanApprove, 400, 400, 100, 50);
+            loanApprove.addActionListener( e -> {
+                //@Qi Heng add the apporove logic here                      <-------------------@Qi Heng
+            });
+            this.add(loanApprove);
+
+            // Reject Loan Btn
+            JButton loanReject = new JButton("Reject");
+            ui.setPosition(loanReject, 600, 400, 100, 50);
+            loanReject.addActionListener( e -> {
+                //@Qi Heng add the reject logic here                      <-------------------@Qi Heng
+            });
+            this.add(loanReject);
+
+            // Wrap contentPanel in scrollpane
+            JScrollPane scrollPane = new JScrollPane(adminContainer2);
+            scrollPane.setBounds(0, 0, 1000, 650);
+            this.add(scrollPane); // scrollPane goes on the page
 
         }
     }
