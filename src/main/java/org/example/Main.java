@@ -31,6 +31,15 @@ public class Main extends JFrame {
         // remove old panel and add fresh one each time
         mainPanel.removeAll();
 
+        if (currentPage.equals("accountRequest")){
+            bar.setVisible(false);
+            whiteBar.setVisible(true);
+
+        } else {
+            bar.setVisible(true);
+            whiteBar.setVisible(false);
+        }
+
         switch (pageName) {
             case "Login" -> mainPanel.add(new LoginPanel(), "Login");
             case "LoanApp" -> mainPanel.add(new LoanApplicationPanel(), "LoanApp");
@@ -38,13 +47,16 @@ public class Main extends JFrame {
             case "Contact" -> mainPanel.add(new Contact(), "Contact");
             case "Profile" -> mainPanel.add(new Profile(), "Profile");
             case "Transfer" -> mainPanel.add(new transferPage(), "Transfer");
-            case "Admin" -> mainPanel.add(new admin(), "Admin");
+            case "accountRequest" -> mainPanel.add(new admin.newAccountRequest(), "accountRequest");
+            case "loanRequest" -> mainPanel.add(new admin.newLoanRequest(), "loanRequest");
 
         }
 
         cardLayout.show(mainPanel, pageName);
-        mainPanel.revalidate();
-        mainPanel.repaint();
+        if (mainPanel.getParent() != null) {
+            mainPanel.getParent().revalidate();
+            mainPanel.getParent().repaint();
+        }
     }
 
     public Main() {
@@ -53,18 +65,11 @@ public class Main extends JFrame {
         this.setLayout(new BorderLayout());
 
         this.add(bar, BorderLayout.WEST);
+        this.add(whiteBar, BorderLayout.NORTH);
         this.add(mainPanel, BorderLayout.CENTER);
 
-        showPage("Login"); // start on login page
-        if (currentPage.equals("Admin")){
-            bar.setVisible(false);
-            this.add(whiteBar, BorderLayout.NORTH);
+        showPage("Login");
 
-
-
-        } else {
-            bar.setVisible(true);
-        }
 
         this.setVisible(true);
     }

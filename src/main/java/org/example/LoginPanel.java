@@ -116,7 +116,7 @@
             String PasswordInput = passwordTextField.getText();
             List<User> users = Main.dataManager.loadUsers();
             if (Objects.equals(UsernameInput, "admin" ) && (Objects.equals(PasswordInput, "admin123"))) {
-                return; // @jayden can put the admin page gui at this line
+                Main.showPage("accountRequest");
             } else {
                 for (User user : users) {
                     if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {

@@ -15,9 +15,6 @@ public class GUI {
     public static String DarkGreyColorCode = "#525151";
 
 
-
-
-
     // rectangle data type that contain 4 piece of data
     private final Rectangle box = new Rectangle();
 
@@ -78,7 +75,7 @@ public class GUI {
             return button;
         }
     */
-    public void ThemeChange() {
+    /*public void ThemeChange() {
         //if Theme_status == false (default) then light mode else dar mode
         if (Main.Theme_status) {
             ThemeButton = "Dark Theme";
@@ -96,7 +93,7 @@ public class GUI {
         }
 
 
-    }
+    }*/
 
     public static class GlassButton extends JButton {
         public GlassButton(String text) {

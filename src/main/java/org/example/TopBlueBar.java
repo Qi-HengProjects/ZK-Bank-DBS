@@ -37,6 +37,7 @@ public class TopBlueBar extends JPanel {
         // Home button
         Home = new HeaderButton("Home");
         Home.setBounds(0, 150, 130, 40);
+        Home.setBorderPainted(false);
         Home.addActionListener(e -> {
             System.out.println("home");
             if (!Main.toggle_status) {
@@ -103,15 +104,17 @@ public class TopBlueBar extends JPanel {
         // Contact button
         Contact = new HeaderButton("Contact");
         Contact.setBounds(0, 350, 130, 40);
+        Contact.setBorderPainted(false);
         Contact.addActionListener(e -> {
-            System.out.println("C");
             Main.showPage("Contact");
+            //Main.showPage("accountRequest");
         });
         this.add(Contact);
 
         TempLbtn = new HeaderButton("Login/SignUp");
         TempLbtn.setFont(new Font("Arial", Font.PLAIN, 14));
         TempLbtn.setBounds(0, 600, 120, 40);
+        TempLbtn.setBorderPainted(false);
         TempLbtn.addActionListener(e -> {
             Main.showPage("Login");
         });
@@ -152,7 +155,6 @@ public class TopBlueBar extends JPanel {
         public HeaderButton(String text) {
             super(text);
 
-            this.setBorderPainted(false);
             this.setContentAreaFilled(false);
             this.setFocusPainted(false);
             this.setBackground(Color.decode(GUI.DarkBlueColorCode));
@@ -175,24 +177,30 @@ public class TopBlueBar extends JPanel {
     public static class sideWhiteBar extends JPanel {
         // 1. Define the List and Borders locally for this panel
         private final List<HeaderButton> navButtons = new ArrayList<>();
-        private final javax.swing.border.Border underline = BorderFactory.createMatteBorder(0, 0, 3, 0, Color.decode(GUI.DarkBlueColorCode)); // Using Black for white background
+        private final javax.swing.border.Border underline = BorderFactory.createMatteBorder(0, 0, 3, 0, Color.decode(GUI.WhiteColorCode));
         private final javax.swing.border.Border noUnderline = BorderFactory.createEmptyBorder(0, 0, 3, 0);
 
         public sideWhiteBar() {
-            this.setSize(800, 130);
-            this.setBackground(Color.decode(GUI.WhiteColorCode));
+            this.setPreferredSize(new Dimension(1000, 50));
+            this.setBackground(Color.decode(GUI.DarkBlueColorCode));
             this.setLayout(null); // Ensure layout is null for setBounds to work
 
             // 2. Create 'New Account Request' Button
             HeaderButton accApplySection = new HeaderButton("New Account Request");
-            accApplySection.setBounds(50, 65, 200, 50);
+            accApplySection.setBounds(50, 15, 200, 25);
             setupNavButton(accApplySection);
+            accApplySection.addActionListener( e -> {
+                Main.showPage("accountRequest");
+            });
             this.add(accApplySection);
 
             // 3. Create 'New Loan Request' Button
             HeaderButton loanApplySection = new HeaderButton("New Loan Request");
-            loanApplySection.setBounds(300, 65, 200, 50);
+            loanApplySection.setBounds(300, 15, 200, 25);
             setupNavButton(loanApplySection);
+            loanApplySection.addActionListener( e -> {
+                Main.showPage("loanRequest");
+            });
             this.add(loanApplySection);
 
             // Start with the first one selected
@@ -210,7 +218,7 @@ public class TopBlueBar extends JPanel {
             for (HeaderButton btn : navButtons) {
                 if (btn == selectedBtn) {
                     btn.setBorder(underline);
-                    btn.setForeground(Color.BLACK); // Active color
+                    btn.setForeground(Color.WHITE); // Active color
                 } else {
                     btn.setBorder(noUnderline);
                     btn.setForeground(Color.GRAY);  // Inactive color
