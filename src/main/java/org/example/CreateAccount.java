@@ -18,6 +18,14 @@ public class CreateAccount extends JDialog {
         this.getContentPane().setBackground(Color.decode(GUI.WhiteColorCode));
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
+        User u = (User) Main.dataManager.search("Users", Main.currentSession, null, null);
+
+        if (u == null) {
+            JOptionPane.showMessageDialog(this, "Session expired. Please login again.");
+            this.dispose();
+            return;
+        }
+
         //Side Blue Bar
         JPanel sideBlueBar = new JPanel();
         sideBlueBar.setBackground(new Color(0, 51, 102));
@@ -31,7 +39,6 @@ public class CreateAccount extends JDialog {
         this.add(nameRegister);
 
         //name registration textfield
-        User u = (User) Main.currentObject;
         String currentName = u.getName();
         JTextField nameRegisterTextField = new JTextField(currentName, 15);
         nameRegisterTextField.setText(currentName);
@@ -152,11 +159,6 @@ public class CreateAccount extends JDialog {
         this.add(NetIncomeTextField);
         FieldsStatus.add(NetIncomeTextField);
 
-
-
-
-
-
         //Create Acc Button
         JButton CreateButton = new JButton("Apply");
         CreateButton.setForeground(Color.BLACK);
@@ -168,32 +170,16 @@ public class CreateAccount extends JDialog {
                 JOptionPane.showMessageDialog(this, "All text fields must be filled in!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 //validate the data here
-                //@Qi Heng fix this part to save into current user not make new user.
-                /*String OccupationRegisterInput = OccupationTextField.getText();
-                String CompanyRegisterInput = CompanyTextField.getText();
-                String IncomeSourceRegisterInput = IncomeSourceTextField.getText();
-                String GrossIncomeRegisterInput = GrossIncomeTextField.getText();
-                String NetIncomeRegisterInput = NetIncomeTextField.getText();
+                String currentID = Main.currentSession;
 
-                User currentUser = (User) Main.currentObject;
-                currentUser.setOccupation(OccupationRegisterInput);
-                currentUser.setCompany(CompanyRegisterInput);
-                currentUser.setIncomeSource(IncomeSourceRegisterInput);
-                currentUser.setGrossIncome(GrossIncomeRegisterInput);
-                currentUser.setNetIncome(NetIncomeRegisterInput);
+                // FIXED: All variables now match the text field names defined above
+                Main.dataManager.updateData(currentID, User::getCompany, uObj -> uObj.setCompany(CompanyTextField.getText()));
+                Main.dataManager.updateData(currentID, User::getOccupation, uObj -> uObj.setOccupation(OccupationTextField.getText()));
+                Main.dataManager.updateData(currentID, User::getIncomeSource, uObj -> uObj.setIncomeSource(IncomeSourceTextField.getText()));
+                Main.dataManager.updateData(currentID, User::getGrossIncome, uObj -> uObj.setGrossIncome(GrossIncomeTextField.getText()));
+                Main.dataManager.updateData(currentID, User::getNetIncome, uObj -> uObj.setNetIncome(NetIncomeTextField.getText()));
 
-
-                Main.dataManager.updateData(
-                        currentUser.getUserID(),
-                        user -> u.getOccupation(),
-                        user -> {
-                            u.setOccupation(OccupationRegisterInput);
-                            u.setCompany(CompanyRegisterInput);
-                            u.setIncomeSource(IncomeSourceRegisterInput);
-                            u.setGrossIncome(GrossIncomeRegisterInput);
-                            u.setNetIncome(NetIncomeRegisterInput);
-                        }
-                );*/
+                JOptionPane.showMessageDialog(this, "Application Details Saved!");
                 this.dispose();
             }
 
