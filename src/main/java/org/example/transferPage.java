@@ -37,7 +37,6 @@ public class transferPage extends JPanel {
 
         //Select Account Dropdown box
         //Need a validate... if no account number, JOptionPane prompt to create account first.
-        User u = (User) Main.currentObject;
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         //u.getCurrentAccounts().forEach(acc -> model.addElement(acc.getAccountNumber()));
         //u.getSavingsAccounts().forEach(acc -> model.addElement(acc.getAccountNumber()));

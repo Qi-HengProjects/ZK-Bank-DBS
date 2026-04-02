@@ -20,7 +20,6 @@ public class Main extends JFrame {
     public static String currentPage = "Login";
 
     public static String currentSession;
-    public static Object currentObject;
 
     public enum AccountStatus {
         SignedIn, SignedOut, Freeze

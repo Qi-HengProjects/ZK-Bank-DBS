@@ -4,6 +4,7 @@
     import java.awt.*;
     import java.awt.event.ActionEvent;
     import java.util.List;
+    import java.util.Objects;
 
     public class LoginPanel extends JPanel{
         // Create the panel
@@ -114,12 +115,15 @@
             LoginPanel.UsernameValue = UsernameInput;
             String PasswordInput = passwordTextField.getText();
             List<User> users = Main.dataManager.loadUsers();
-            for (User user : users) {
-                if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {
-                    loginSuccess = true;
-                    Main.currentSession = user.getUserID();
-                    Main.currentObject = user;
-                    break;
+            if (Objects.equals(UsernameInput, "admin" ) && (Objects.equals(PasswordInput, "admin123"))) {
+                return; // @jayden can put the admin page gui at this line
+            } else {
+                for (User user : users) {
+                    if (user.getUsername().equals(UsernameInput) && user.getPassword().equals(PasswordInput)) {
+                        loginSuccess = true;
+                        Main.currentSession = user.getUserID();
+                        break;
+                    }
                 }
             }
 
