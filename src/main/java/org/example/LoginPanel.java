@@ -125,24 +125,20 @@
                         break;
                     }
                 }
-            }
-
-            if (loginSuccess) {
-                System.out.println("Login Successfully!");
-                Main.account_status = Main.AccountStatus.SignedIn;
-                Main.bar.LockLogic();
-                for (Component c : Main.mainPanel.getComponents()) {
-                    if (c instanceof Home) {
-                        ((Home) c).refresh();
-                        break;
+                if (loginSuccess) {
+                    System.out.println("Login Successfully!");
+                    Main.account_status = Main.AccountStatus.SignedIn;
+                    Main.bar.LockLogic();
+                    for (Component c : Main.mainPanel.getComponents()) {
+                        if (c instanceof Home) {
+                            ((Home) c).refresh();
+                            break;
+                        }
                     }
+                    Main.showPage("Home");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Username or Password incorrect!");
                 }
-                Main.showPage("Home");
-            } else {
-                JOptionPane.showMessageDialog(this, "Username or Password incorrect!");
             }
-        }
-        public void applyTheme() {
-            this.repaint();
         }
     }
