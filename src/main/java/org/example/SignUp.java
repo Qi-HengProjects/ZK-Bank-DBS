@@ -24,6 +24,7 @@ public class SignUp extends JDialog {
     public SignUp(Frame owner) {
         super(owner, "Sign Up", true);
         this.setSize(600, 600);
+        this.setTitle("Sign Up");
         this.setLayout(null);
         this.getContentPane().setBackground(Color.decode(GUI.WhiteColorCode));
 

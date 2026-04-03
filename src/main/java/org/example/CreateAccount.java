@@ -15,6 +15,7 @@ public class CreateAccount extends JDialog {
         super(owner, "Apply Account", true);
         this.setSize(600, 600);
         this.setLayout(null);
+        this.setTitle("Create Account");
         this.getContentPane().setBackground(Color.decode(GUI.WhiteColorCode));
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
@@ -178,6 +179,7 @@ public class CreateAccount extends JDialog {
                 Main.dataManager.updateData(currentID, User::getIncomeSource, uObj -> uObj.setIncomeSource(IncomeSourceTextField.getText()));
                 Main.dataManager.updateData(currentID, User::getGrossIncome, uObj -> uObj.setGrossIncome(GrossIncomeTextField.getText()));
                 Main.dataManager.updateData(currentID, User::getNetIncome, uObj -> uObj.setNetIncome(NetIncomeTextField.getText()));
+
 
                 JOptionPane.showMessageDialog(this, "Application Details Saved!");
                 this.dispose();
