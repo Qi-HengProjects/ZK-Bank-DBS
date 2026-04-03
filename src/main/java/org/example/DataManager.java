@@ -3,6 +3,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.sun.jdi.request.ClassUnloadRequest;
+
 import java.io.*;
 import java.util.*;
 import java.lang.reflect.Type;
@@ -78,7 +80,6 @@ public class DataManager {
         }
     }
 
-    // may need change
     public void updateData(String targetID, Function<User, String> getter, Consumer<User> setter) {
         List<User> users = this.allusers;
 
@@ -105,6 +106,22 @@ public class DataManager {
                 }
             }
         }
+
+         if (target.equalsIgnoreCase("UsersWithAccount")) {
+             for (User user : users) {
+                 for (SavingsAccount sa : user.getSavingsAccounts()) {
+                    if(Objects.equals(sa.getAccountNumber(), accountNumber)) {
+                        return user;
+                    }
+                 }
+
+                 for (CurrentAccount ca : user.getCurrentAccounts()) {
+                     if(Objects.equals(ca.getAccountNumber(), accountNumber)) {
+                         return user;
+                     }
+                 }
+             }
+         }
 
         if (target.equalsIgnoreCase("Accounts")) {
             for (User user : users) {
@@ -201,30 +218,55 @@ public class DataManager {
     public void performTransfer(String giveAccountNumber, String receiveAccountNumber, double amount) {
         Account ga = (Account) search("Accounts", null, giveAccountNumber, null);
         Account ra = (Account) search("Accounts", null, receiveAccountNumber, null);
+        User checkOwner = (User) search("UsersWithAccounts", null, giveAccountNumber, null);
+        User checkReceiver = (User) search("UsersWithAccounts", null, receiveAccountNumber, null);
+
         if (ga != null) {
             if (ra != null) {
+                if (checkOwner != null) {
+                    if (checkReceiver != null) {
+
+                    } else {
+                    System.out.println("Please make sure the receiving user existed");
+                    }
+                } else {
+                    System.out.println("Please make sure the sending user existed");
+                }
+
                 if (Objects.equals(giveAccountNumber, receiveAccountNumber)) {
                     System.out.println("You can not transfer to the same account!");
                 } else {
                     if (ga.getType().equalsIgnoreCase("Current")) {
                         boolean deduct = ga.withdraw(amount);
                         if (deduct) {
-                            System.out.println("RM " + amount + " has been deducted!");
-                            System.out.println("RM " + ga.getBalance() + "Left in the account.");
                             ra.deposit(amount);
                             saveAll(allusers);
                         } else {
                             System.out.println("Transaction failed!");
                         }
+                        System.out.println("RM " + amount + " has been deducted!");
+                        System.out.println("RM " + ga.getBalance() + "Left in the account.");
 
+                    } else if(ga.getType().equalsIgnoreCase("Savings")) {
+                        if (Objects.equals(checkOwner.getUserID(), checkReceiver.getUserID())) {
+                            boolean deduct = ga.withdraw(amount);
+                            if (deduct) {
+                                ra.deposit(amount);
+                                saveAll(allusers);
+                            }
 
-                    } else {
+                            System.out.println("RM " + amount + " has been deducted!");
+                            System.out.println("RM " + ga.getBalance() + "Left in the account.");
+                        } else {
+                            System.out.println("You can only transfer money in savings acocunt to your own account!");
+                        }
+                    }else {
                         System.out.println("You can only transfer to other user using a current account!");
                     }
                 }
             } else {
                 System.out.println("Receiver account not found");
-            }
+                }
         } else {
             System.out.println("Sender account not found");
         }

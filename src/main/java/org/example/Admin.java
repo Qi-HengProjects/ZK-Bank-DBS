@@ -85,7 +85,8 @@ public class Admin extends JPanel {
             JButton loanApprove = new JButton("Approve");
             ui.setPosition(loanApprove, 400, 400, 100, 50);
             loanApprove.addActionListener( e -> {
-                //@Qi Heng add the apporove logic here                      <-------------------@Qi Heng
+                //Main.dataManager.updateData(something, User::getRequestLoanStatus, uObj -> uObj.setRequestLoanStatus("APPROVED")); @Qi Heng add the approve logic here                      <-------------------@Qi Heng
+                //@jayden put a refresh here so the page will change
             });
             this.add(loanApprove);
 
@@ -93,7 +94,8 @@ public class Admin extends JPanel {
             JButton loanReject = new JButton("Reject");
             ui.setPosition(loanReject, 600, 400, 100, 50);
             loanReject.addActionListener( e -> {
-                //@Qi Heng add the reject logic here                      <-------------------@Qi Heng
+                //Main.dataManager.updateData(something, User::getRequestLoanStatus, uObj -> uObj.setRequestLoanStatus("DENIED")); @Qi Heng add the reject logic here                      <-------------------@Qi Heng
+                //@jayden put a refresh here so the page will change
             });
             this.add(loanReject);
 
