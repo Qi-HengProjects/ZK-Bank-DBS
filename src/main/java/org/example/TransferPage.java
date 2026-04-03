@@ -3,7 +3,7 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
-public class transferPage extends JPanel {
+public class TransferPage extends JPanel {
     GUI ui = new GUI();
     Image chinabackground5 = new ImageIcon("ChinaBackground5.jpg").getImage();
 
@@ -12,7 +12,7 @@ public class transferPage extends JPanel {
         super.paintComponent(g);
         g.drawImage(chinabackground5, 0, 0, getWidth(), getHeight(), this);
     }
-    public transferPage(){
+    public TransferPage(){
         this.setLayout(null);
 
         //Glass Panel

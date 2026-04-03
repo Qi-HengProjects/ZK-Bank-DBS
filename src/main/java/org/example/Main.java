@@ -46,9 +46,9 @@ public class Main extends JFrame {
             case "Home" -> mainPanel.add(new Home(), "Home");
             case "Contact" -> mainPanel.add(new Contact(), "Contact");
             case "Profile" -> mainPanel.add(new Profile(), "Profile");
-            case "Transfer" -> mainPanel.add(new transferPage(), "Transfer");
-            case "accountRequest" -> mainPanel.add(new admin.newAccountRequest(), "accountRequest");
-            case "loanRequest" -> mainPanel.add(new admin.newLoanRequest(), "loanRequest");
+            case "Transfer" -> mainPanel.add(new TransferPage(), "Transfer");
+            case "accountRequest" -> mainPanel.add(new Admin.newAccountRequest(), "accountRequest");
+            case "loanRequest" -> mainPanel.add(new Admin.newLoanRequest(), "loanRequest");
 
         }
 

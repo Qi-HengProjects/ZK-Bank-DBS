@@ -204,7 +204,7 @@ public class DataManager {
         if (ga != null) {
             if (ra != null) {
                 if (Objects.equals(giveAccountNumber, receiveAccountNumber)) {
-                    System.out.println("You can know transfer to the same account!");
+                    System.out.println("You can not transfer to the same account!");
                 } else {
                     if (ga.getType().equalsIgnoreCase("Current")) {
                         boolean deduct = ga.withdraw(amount);
@@ -228,6 +228,49 @@ public class DataManager {
         } else {
             System.out.println("Sender account not found");
         }
+    }
+
+    public List<String[]> makeAccountApplicationList() {
+        List<String[]> accountApplicationList = new ArrayList<>();
+        List<User> users = this.allusers;
+        for (User user : users) {
+            if (!user.getAccountApplication().equalsIgnoreCase("Not specified")) {
+                String[] userApplication =
+                        {user.getUserID(),
+                        user.getCompany(),
+                        user.getOccupation(),
+                        user.getIncomeSource(),
+                        user.getGrossIncome(),
+                        user.getNetIncome(),
+                        user.getAccountApplication(),
+                        user.getApplicationType(),
+                        user.getApplicationStatus()};
+                accountApplicationList.add(userApplication);
+            }
+
+        }
+        return accountApplicationList;
+    }
+
+    public List<String[]> makeLoanApplicationList() {
+        List<String[]> loanApplicationList = new ArrayList<>();
+        List<User> users = this.allusers;
+        for (User user : users) {
+            if (!user.getRequestLoanAmount().equalsIgnoreCase("Not specified")) {
+                String [] userApplication =
+                        {user.getUserID(),
+                        user.getCompany(),
+                        user.getOccupation(),
+                        user.getIncomeSource(),
+                        user.getGrossIncome(),
+                        user.getNetIncome(),
+                        user.getRequestLoanAmount(),
+                        user.getRequestLoanPeriod(),
+                        user.getRequestLoanStatus()};
+                loanApplicationList.add(userApplication);
+            }
+        }
+        return loanApplicationList;
     }
 }
 

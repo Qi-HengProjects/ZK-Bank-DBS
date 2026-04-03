@@ -21,7 +21,12 @@ public class User {
     private String incomeSource;
     private String grossIncome;
     private String netIncome;
-
+    private String requestLoanAmount;
+    private String requestLoanStatus;
+    private String requestLoanPeriod;
+    private String accountApplication;
+    private String applicationStatus;
+    private String applicationType;
     private List<SavingsAccount> savingsAccounts;
     private List<CurrentAccount> currentAccounts;
     private List<Transaction> transactions;
@@ -29,7 +34,9 @@ public class User {
 
     public User(String name, String IC_No, String birthday, String gender, String nationality, String race,
                 String religion, String telNo, String address, String username, String password, String userID,
-                String company, String occupation, String incomeSource, String grossIncome, String netIncome) {
+                String company, String occupation, String incomeSource, String grossIncome, String netIncome,
+                String requestLoanAmount, String requestLoanPeriod, String requestLoanStatus,
+                String accountApplication, String applicationType, String applicationStatus) {
         this.name = name;
         this.IC_No = IC_No;
         this.birthday = birthday;
@@ -42,19 +49,26 @@ public class User {
         this.username = username;
         this.password = password;
         this.userID = userID;
+
         this.company = company;
         this.occupation = occupation;
         this.incomeSource = incomeSource;
         this.grossIncome = grossIncome;
         this.netIncome = netIncome;
+
+        this.requestLoanAmount = requestLoanAmount;
+        this.requestLoanPeriod = requestLoanPeriod;
+        this.requestLoanStatus = requestLoanStatus;
+
+        this.accountApplication = accountApplication;
+        this.applicationType = applicationType;
+        this.applicationStatus = applicationStatus;
+
         this.savingsAccounts = new ArrayList<>();
         this.currentAccounts = new ArrayList<>();
         this.transactions = new ArrayList<>();
         this.loans = new ArrayList<>();
     }
-
-
-
 
     public void addSavingAccount(SavingsAccount newSavingAccount) {
         this.savingsAccounts.add(newSavingAccount);
@@ -93,16 +107,6 @@ public class User {
 
     public String getUserID() {return this.userID;}
 
-    public List<SavingsAccount> getSavingsAccounts() {
-        return this.savingsAccounts;
-    }
-
-    public List<CurrentAccount> getCurrentAccounts() {return this.currentAccounts; }
-
-    public List<Transaction> getTransactions() {
-        return this.transactions;
-    }
-
     public String getOccupation() {return this.occupation;}
 
     public String getCompany() {return this.company;}
@@ -113,16 +117,43 @@ public class User {
 
     public String getNetIncome() {return this.netIncome;}
 
+    public String getRequestLoanAmount() {
+        return this.requestLoanAmount;
+    }
+
+    public String getRequestLoanStatus() {
+        return this.requestLoanStatus;
+    }
+
+    public String getRequestLoanPeriod() {
+        return this.requestLoanPeriod;
+    }
+
+    public String getAccountApplication() {
+        return this.accountApplication;
+    }
+
+    public String getApplicationStatus() {
+        return this.applicationStatus;
+    }
+
+    public String getApplicationType() {
+        return this.applicationType;
+    }
+
+    public List<SavingsAccount> getSavingsAccounts() {
+        return this.savingsAccounts;
+    }
+
+    public List<CurrentAccount> getCurrentAccounts() {return this.currentAccounts; }
+
+    public List<Transaction> getTransactions() {
+        return this.transactions;
+    }
 
     public List<Loan> getLoans() {
         return this.loans;
     }
-
-
-    //@Override
-    /*public String toString() {
-        return "User: " + username + " | Total Accounts: " + accounts.size();
-    } */
 
     // setter
     public void setName(String name) {
@@ -173,8 +204,6 @@ public class User {
         this.userID = userID;
     }
 
-//==============================
-
     public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
@@ -193,4 +222,27 @@ public class User {
         this.netIncome = netIncome;
     }
 
+    public void setAccountApplication(String accountApplication) {
+        this.accountApplication = accountApplication;
+    }
+
+    public void setApplicationStatus(String applicationStatus) {
+        this.applicationStatus = applicationStatus;
+    }
+
+    public void setApplicationType(String applicationType) {
+        this.applicationType = applicationType;
+    }
+
+    public void setRequestLoanAmount(String requestLoanAmount) {
+        this.requestLoanAmount = requestLoanAmount;
+    }
+
+    public void setRequestLoanStatus(String requestLoanStatus) {
+        this.requestLoanStatus = requestLoanStatus;
+    }
+
+    public void setRequestLoanPeriod(String requestLoanPeriod){
+        this.requestLoanPeriod = requestLoanPeriod;
+    }
 }

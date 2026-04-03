@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class admin extends JPanel {
+public class Admin extends JPanel {
 
 
     public static class newAccountRequest extends JPanel {
@@ -97,6 +97,7 @@ public class admin extends JPanel {
             JScrollPane scrollPane = new JScrollPane(adminContainer2);
             scrollPane.setBounds(0, 0, 1000, 650);
             this.add(scrollPane); // scrollPane goes on the page
+
 
         }
     }

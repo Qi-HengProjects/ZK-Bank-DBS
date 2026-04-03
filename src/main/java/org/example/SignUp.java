@@ -219,7 +219,8 @@ public class SignUp extends JDialog {
                 Main.dataManager.SaveUser(new User(nameRegisterInput, IC_NoRegisterInput, birthdayRegisterInput,
                         genderComboBoxInput,nationalityComboBoxInput, RaceRegisterComboBoxInput, ReligionComboBoxInput,
                         TelNoRegisterInput, AddressRegisterInput, UsernameRegisterInput,PasswordRegisterInput,GenerateNewUserID,
-                        PlaceholderValue,PlaceholderValue,PlaceholderValue,PlaceholderValue,PlaceholderValue));
+                        PlaceholderValue,PlaceholderValue,PlaceholderValue,PlaceholderValue,PlaceholderValue, PlaceholderValue,
+                        PlaceholderValue, PlaceholderValue,PlaceholderValue, PlaceholderValue, PlaceholderValue));
 
                 // all good, save and close
                 this.dispose();
