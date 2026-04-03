@@ -14,16 +14,20 @@ public class Admin extends JPanel {
             this.setLayout(null);
             this.setPreferredSize(new Dimension(1000, 650));
 
-            // This is where all your content goes
+            // Container 1
             JPanel adminContainer1 = new JPanel();
             adminContainer1.setLayout(null);
             adminContainer1.setPreferredSize(new Dimension(1000, 2000)); // tall enough to scroll
 
-            // Add everything to contentPanel, NOT to this
+            // Account Request Title Label
             JLabel accountRequestTitle = new JLabel("Account Request");
             accountRequestTitle.setFont(new Font("Arial", Font.BOLD, 30));
             accountRequestTitle.setBounds(200, 50, 300, 50);
-            adminContainer1.add(accountRequestTitle); // <-- contentPanel, not this
+            adminContainer1.add(accountRequestTitle);
+
+            // 
+
+
 
 
 

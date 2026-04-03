@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+
 public class SignUp extends JDialog {
     GUI ui = new GUI();
     List<JTextField> FieldsStatus = new ArrayList<>();
@@ -24,6 +25,7 @@ public class SignUp extends JDialog {
     public SignUp(Frame owner) {
         super(owner, "Sign Up", true);
         this.setSize(600, 600);
+        this.setTitle("Sign Up");
         this.setLayout(null);
         this.getContentPane().setBackground(Color.decode(GUI.WhiteColorCode));
 
