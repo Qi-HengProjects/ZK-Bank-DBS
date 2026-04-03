@@ -8,6 +8,7 @@ public class LoanApplicationPanel extends JPanel{
     private DataManager dataManager;
     GUI ui = new GUI();
 
+
     //Image background
     Image chinabackground2 = new ImageIcon("ChinaBackground2.jpg").getImage();
     @Override

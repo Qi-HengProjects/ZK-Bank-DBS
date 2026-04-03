@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class CreateAccount extends JDialog {
     GUI ui = new GUI();
     List<JTextField> FieldsStatus = new ArrayList<>();

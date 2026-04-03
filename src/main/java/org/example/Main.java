@@ -70,7 +70,6 @@ public class Main extends JFrame {
 
         showPage("Login");
 
-
         if (currentPage.equals("Login")){
             this.setTitle("Login");
 

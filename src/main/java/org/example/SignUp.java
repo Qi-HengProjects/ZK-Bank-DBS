@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+
 public class SignUp extends JDialog {
     GUI ui = new GUI();
     List<JTextField> FieldsStatus = new ArrayList<>();
