@@ -3,20 +3,39 @@ package org.example;
 public class Loan {
     private String loanID;
     private double loanAmount;
+    private double paymentAmount;
     private double remainingAmount;
     private String loanStatus;
     private double interestRate;
     private double monthlyInstallment;
-    private String loanPeriod;
+    private double loanPeriod;
+    private String startingDate;
 
-    public Loan(String loanID,double loanAmount, String loanStatus, double interestRate, double monthlyInstallment, String endDate) {
+    public Loan(String loanID, double loanAmount, double paymentAmount, String loanStatus, double interestRate, double monthlyInstallment, double loanPeriod, String startingDate) {
         this.loanID = loanID;
         this.loanAmount = loanAmount;
-        this.remainingAmount = loanAmount;
+        this.paymentAmount = paymentAmount;
         this.loanStatus = loanStatus;
         this.interestRate = interestRate;
         this.monthlyInstallment = monthlyInstallment;
-        this.loanPeriod = endDate;
+        this.loanPeriod = loanPeriod;
+        this.startingDate = startingDate;
+    }
+
+    public double calculatePaymentAmount(double loanAmount, double loanPeriod) {
+        this.paymentAmount = loanInterest(loanAmount)  *  loanPeriod * loanAmount;
+        return this.paymentAmount;
+    }
+
+    public double loanInterest(double loanAmount) {
+        if (loanAmount < 10000) {
+            this.interestRate = 0.035;
+        } else if (loanAmount < 50000) {
+            this.interestRate = 0.05;
+        } else {
+            this.interestRate = 0.075;
+        }
+        return this.interestRate;
     }
 
     public String getLoanID() {
@@ -25,6 +44,10 @@ public class Loan {
 
     public double getLoanAmount() {
         return this.loanAmount;
+    }
+
+    public double getPaymentAmount() {
+        return  this.paymentAmount;
     }
 
     public double getRemainingAmount() {
@@ -43,9 +66,14 @@ public class Loan {
         return this.monthlyInstallment;
     }
 
-    public String getLoanPeriod() {
+    public double getLoanPeriod() {
         return this.loanPeriod;
     }
+
+    public String getStartingDate() {
+        return this.startingDate;
+    }
+
 
     public void setRemainingAmount(double remainingAmount) {
         this.remainingAmount = remainingAmount;
@@ -63,8 +91,12 @@ public class Loan {
         this.monthlyInstallment = monthlyInstallment;
     }
 
-    public void setLoanPeriod(String loanPeriod) {
+    public void setLoanPeriod(double loanPeriod) {
         this.loanPeriod = loanPeriod;
+    }
+
+    public void setStartingDate(String startingDate) {
+        this.startingDate = startingDate;
     }
 }
 

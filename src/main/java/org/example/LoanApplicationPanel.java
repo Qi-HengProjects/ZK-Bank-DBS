@@ -19,7 +19,7 @@ public class LoanApplicationPanel extends JPanel{
 
     public LoanApplicationPanel() {
         this.setLayout(null);
-        User u = (User) Main.dataManager.search("Users", Main.currentSession, null, null);
+        User u = (User) Main.dataManager.search("Users", Main.currentSession, null, null, null);
 
 
         //Loan Application label (center)

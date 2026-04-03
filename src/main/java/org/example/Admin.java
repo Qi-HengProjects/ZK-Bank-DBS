@@ -13,6 +13,7 @@ public class Admin extends JPanel {
         public newAccountRequest() {
             this.setLayout(null);
             this.setPreferredSize(new Dimension(1000, 650));
+            // temporary location for method
 
             // Container 1
             JPanel adminContainer1 = new JPanel();
@@ -28,15 +29,13 @@ public class Admin extends JPanel {
             // 
 
 
-
-
-
-
             // Approve Account Btn
             JButton accountApprove = new JButton("Approve");
             ui.setPosition(accountApprove, 400, 400, 100, 50);
             accountApprove.addActionListener( e -> {
                 //@Qi Heng add the apporove logic here                      <-------------------@Qi Heng
+                //Main.dataManager.updateData(something, User::getApplicationStatus, uObj -> uObj.setApplicationStatus("APPROVED"));
+                //Main.dataManager.addNewAccount();
             });
             this.add(accountApprove);
 

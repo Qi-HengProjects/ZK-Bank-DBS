@@ -18,7 +18,7 @@ public class CreateAccount extends JDialog {
         this.getContentPane().setBackground(Color.decode(GUI.WhiteColorCode));
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        User u = (User) Main.dataManager.search("Users", Main.currentSession, null, null);
+        User u = (User) Main.dataManager.search("Users", Main.currentSession, null, null, null);
 
         if (u == null) {
             JOptionPane.showMessageDialog(this, "Session expired. Please login again.");

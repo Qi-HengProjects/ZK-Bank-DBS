@@ -78,6 +78,10 @@ public class User {
         this.currentAccounts.add(newCurrentAccount);
     }
 
+    public void addLaon(Loan newLoan) {
+        this.loans.add(newLoan);
+    }
+
     public void addLoan(Loan newLoan) {
         this.loans.add(newLoan);
     }

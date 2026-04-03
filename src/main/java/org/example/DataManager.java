@@ -48,8 +48,9 @@ public class DataManager {
             e.printStackTrace(); // 确保有什么error的话code不会crash
             return new ArrayList<>();
         }
-
     }
+
+
 
      public void SaveUser(User newUser){
         try {
@@ -70,6 +71,8 @@ public class DataManager {
         }
     }
 
+
+
     public void saveAll(List<User> u) {
         try {
             PrintWriter writer = new PrintWriter(new File(fileName));
@@ -79,6 +82,8 @@ public class DataManager {
             e.printStackTrace();
         }
     }
+
+
 
     public void updateData(String targetID, Function<User, String> getter, Consumer<User> setter) {
         List<User> users = this.allusers;
@@ -95,9 +100,10 @@ public class DataManager {
         }
     }
 
-    public Object search(String target, String userID, String accountNumber, String loanID) {
+
+
+    public Object search(String target, String userID, String accountNumber, String loanID, String transactionID) {
         List<User> users = this.allusers;
-        Object object = null;
         if (target.equalsIgnoreCase("Users")) {
             for (User user : users) {
                 if (Objects.equals(userID, user.getUserID())) {
@@ -152,8 +158,22 @@ public class DataManager {
                 }
             }
         }
+
+        if (target.equalsIgnoreCase("Transactions")) {
+            for (User user : users) {
+                for (Transaction transaction : user.getTransactions()) {
+                    if (Objects.equals(transactionID, transaction.getTransactionID())) {
+                        System.out.println("Loan existed");
+                        return transactionID;
+                    }
+                }
+            }
+        }
+
         return null;
     }
+
+
 
     private boolean checkFile(File file) {
         try {
@@ -181,15 +201,17 @@ public class DataManager {
         return "U" + String.format("%03d", newIDnum);
     }
 
+
+
     public String generateAccountID() {
-        String potentialID = null;
+        String potentialID;
         Random newAcc = new Random();
         while (true) {
-            int newAccountID = 10000000 + newAcc.nextInt(90000000);;
+            int newAccountID = 10000000 + newAcc.nextInt(90000000);
             potentialID = String.valueOf(newAccountID);
-            Account result = (Account) search("Accounts", null, potentialID, null);
+            Account result = (Account) search("Accounts", null, potentialID, null, null);
             if (result != null) {
-                continue;
+                System.out.println("Account number existed, generating a new one");
             } else {
                 System.out.println("New account number generated!");
                 break;
@@ -199,70 +221,132 @@ public class DataManager {
         return potentialID;
     }
 
+
+
+    public String generateLoanID() {
+        String potentialID;
+        Random newLoan = new Random();
+        while (true) {
+            int newLoanID = 10000 + newLoan.nextInt(900000);
+            potentialID = "L" + String.valueOf(newLoanID);
+            Loan result = (Loan) search("Loans", null, null, potentialID, null);
+            if (result != null) {
+                System.out.println("LoanID existed, generating a new one");
+            } else {
+                System.out.println("New LoanID generated!");
+                break;
+            }
+        }
+        return potentialID;
+    }
+
+    public String generateTransactionID() {
+        String potentialID;
+        Random newTransaction = new Random();
+        while (true) {
+            int newTransactionID = 10000000 + newTransaction.nextInt(90000000);
+            potentialID = "TXF" + String.valueOf(newTransactionID);
+            Transaction result = (Transaction) search("Transaction", null, null, null, potentialID);
+            if (result != null) {
+                System.out.println("TransactionID existed, generating a new one");
+            } else {
+                System.out.println("New TransactionID generated!");
+                break;
+            }
+        }
+        return potentialID;
+    }
+
+
+
     public void addNewAccount(String type, double balance) {
-        User u = (User) search("Users", Main.currentSession, null, null);
+        User u = (User) search("Users", Main.currentSession, null, null, null);
         if (u != null){
             String accNum = generateAccountID();
             String date = java.time.LocalDate.now().toString();
-            if (type.equalsIgnoreCase("Savings")) {
-                SavingsAccount sa = new SavingsAccount(accNum, balance, date);
-                u.addSavingAccount(sa);
-            } else if (type.equalsIgnoreCase("Current")) {
-                CurrentAccount ca = new CurrentAccount(accNum, balance, date);
-                u.addCurrentAcccount(ca);
+            if (u.getApplicationStatus().equalsIgnoreCase("APPROVED")) {
+                if (type.equalsIgnoreCase("Savings")) {
+                    SavingsAccount sa = new SavingsAccount(accNum, balance, date);
+                    u.addSavingAccount(sa);
+                } else if (type.equalsIgnoreCase("Current")) {
+                    CurrentAccount ca = new CurrentAccount(accNum, balance, date);
+                    u.addCurrentAcccount(ca);
+                }
+                u.setAccountApplication("Not specified");
+                u.setApplicationType("Not specified");
+                u.setApplicationStatus("Not specified");
+                saveAll(this.allusers);
             }
-            saveAll(this.allusers);
         }
     }
 
+
+
+    public void addNewLoan(double loanAmount, double paymentAmount, String loanStatus, double interestRate, double monthlyInstallment, double loanPeriod) {
+        User u = (User) search("Users", Main.currentSession, null, null, null);
+        if (u != null) {
+            String loanID = generateLoanID();
+            String startingDate = java.time.LocalDate.now().toString();
+            if (u.getRequestLoanStatus().equalsIgnoreCase("APPROVED")) {
+                Loan loan = new Loan(loanID, loanAmount,  paymentAmount, loanStatus, interestRate, monthlyInstallment, loanPeriod, startingDate);
+                u.addLoan(loan);
+                u.setRequestLoanAmount("Not specified");
+                u.setRequestLoanPeriod("Not specified");
+                u.setRequestLoanStatus("Not specified");
+                saveAll(this.allusers);
+            }
+        }
+    }
+
+
+
     public void performTransfer(String giveAccountNumber, String receiveAccountNumber, double amount) {
-        Account ga = (Account) search("Accounts", null, giveAccountNumber, null);
-        Account ra = (Account) search("Accounts", null, receiveAccountNumber, null);
-        User checkOwner = (User) search("UsersWithAccounts", null, giveAccountNumber, null);
-        User checkReceiver = (User) search("UsersWithAccounts", null, receiveAccountNumber, null);
+        Account ga = (Account) search("Accounts", null, giveAccountNumber, null, null);
+        Account ra = (Account) search("Accounts", null, receiveAccountNumber, null, null);
+        User checkOwner = (User) search("UsersWithAccounts", null, giveAccountNumber, null, null);
+        User checkReceiver = (User) search("UsersWithAccounts", null, receiveAccountNumber, null, null);
 
         if (ga != null) {
             if (ra != null) {
                 if (checkOwner != null) {
                     if (checkReceiver != null) {
+                        if (Objects.equals(giveAccountNumber, receiveAccountNumber)) {
+                            System.out.println("You can not transfer to the same account!");
+                        } else {
+                            if (ga.getType().equalsIgnoreCase("Current")) {
+                                boolean deduct = ga.withdraw(amount);
+                                if (deduct) {
+                                    ra.deposit(amount);
+                                    saveAll(allusers);
+                                    System.out.println("RM " + amount + " has been deducted!");
+                                    System.out.println("RM " + ga.getBalance() + "Left in the account.");
+                                } else {
+                                    System.out.println("Transaction failed!");
+                                }
 
+                            } else if(ga.getType().equalsIgnoreCase("Savings")) {
+                                if (Objects.equals(checkOwner.getUserID(), checkReceiver.getUserID())) {
+                                    boolean deduct = ga.withdraw(amount);
+                                    if (deduct) {
+                                        ra.deposit(amount);
+                                        saveAll(allusers);
+                                        System.out.println("RM " + amount + " has been deducted!");
+                                        System.out.println("RM " + ga.getBalance() + "Left in the account.");
+                                    } else {
+                                        System.out.println("Insufficient funds in Savings!");
+                                    }
+                                } else {
+                                    System.out.println("You can only transfer money in savings account to your own account!");
+                                }
+                            }else {
+                                System.out.println("You can only transfer to other user using a current account!");
+                            }
+                        }
                     } else {
                     System.out.println("Please make sure the receiving user existed");
                     }
                 } else {
                     System.out.println("Please make sure the sending user existed");
-                }
-
-                if (Objects.equals(giveAccountNumber, receiveAccountNumber)) {
-                    System.out.println("You can not transfer to the same account!");
-                } else {
-                    if (ga.getType().equalsIgnoreCase("Current")) {
-                        boolean deduct = ga.withdraw(amount);
-                        if (deduct) {
-                            ra.deposit(amount);
-                            saveAll(allusers);
-                        } else {
-                            System.out.println("Transaction failed!");
-                        }
-                        System.out.println("RM " + amount + " has been deducted!");
-                        System.out.println("RM " + ga.getBalance() + "Left in the account.");
-
-                    } else if(ga.getType().equalsIgnoreCase("Savings")) {
-                        if (Objects.equals(checkOwner.getUserID(), checkReceiver.getUserID())) {
-                            boolean deduct = ga.withdraw(amount);
-                            if (deduct) {
-                                ra.deposit(amount);
-                                saveAll(allusers);
-                            }
-
-                            System.out.println("RM " + amount + " has been deducted!");
-                            System.out.println("RM " + ga.getBalance() + "Left in the account.");
-                        } else {
-                            System.out.println("You can only transfer money in savings acocunt to your own account!");
-                        }
-                    }else {
-                        System.out.println("You can only transfer to other user using a current account!");
-                    }
                 }
             } else {
                 System.out.println("Receiver account not found");
@@ -271,6 +355,8 @@ public class DataManager {
             System.out.println("Sender account not found");
         }
     }
+
+
 
     public List<String[]> makeAccountApplicationList() {
         List<String[]> accountApplicationList = new ArrayList<>();
@@ -293,6 +379,8 @@ public class DataManager {
         }
         return accountApplicationList;
     }
+
+
 
     public List<String[]> makeLoanApplicationList() {
         List<String[]> loanApplicationList = new ArrayList<>();
