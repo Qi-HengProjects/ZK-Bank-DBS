@@ -3,13 +3,13 @@ package org.example;
 public class Transaction {
     private double transactionAmount;
     private String transactionID;
-    private String receiverType;
+    private String transactionStatus;
     private String transactionDate;
 
-    public Transaction(double transactionAmount, String transactionId, String receiverType, String transactionDate) {
+    public Transaction(double transactionAmount, String transactionID, String transactionStatus, String transactionDate) {
         this.transactionAmount = transactionAmount;
-        this.transactionID = transactionId;
-        this.receiverType = receiverType;
+        this.transactionID = transactionID;
+        this.transactionStatus = transactionStatus;
         this.transactionDate = transactionDate;
     }
 
@@ -22,7 +22,7 @@ public class Transaction {
     }
 
     public String getReceiverType() {
-        return this.receiverType;
+        return this.transactionStatus;
     }
 
     public String getTransactionDate() {
@@ -30,7 +30,7 @@ public class Transaction {
     }
 
     public void setReceiverType(String receiverType) {
-        this.receiverType = receiverType;
+        this.transactionStatus = transactionStatus;
     }
 
     /*public String generateUserID() {

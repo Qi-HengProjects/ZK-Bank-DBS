@@ -2,7 +2,7 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.util.List;
 
 public class Admin extends JPanel {
 
@@ -26,12 +26,24 @@ public class Admin extends JPanel {
             accountRequestTitle.setBounds(200, 50, 300, 50);
             adminContainer1.add(accountRequestTitle);
 
-            // Frontend logic for the for each loop in the request array
-            // Display as long buttons without borders
-            // array for each into the ui element
-            // use setPositionRelative for automated position (in the for each loop)
 
-
+            List<String[]> accountApplicationList = Main.dataManager.makeAccountApplicationList();
+            if (accountApplicationList != null) {
+                for (String[] applications : accountApplicationList) {
+                    if (applications != null) {
+                        //display the things here
+                        JLabel nothingHereLabel = new JLabel("No requests!");
+                        nothingHereLabel.setFont(new Font("Arial", Font.BOLD,20));
+                        ui.setPosition(nothingHereLabel, 450, 315, 100, 20);
+                        adminContainer1.add(nothingHereLabel);
+                    }
+                }
+            } else {
+                // Frontend logic for the for each loop in the request array
+                // Display as long buttons without borders
+                // array for each into the ui element
+                // use setPositionRelative for automated position (in the for each loop)
+            }
 
 
             // Approve Account Btn

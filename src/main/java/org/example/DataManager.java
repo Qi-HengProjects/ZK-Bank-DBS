@@ -300,6 +300,17 @@ public class DataManager {
 
 
 
+
+    public void addNewTransaction(Account ga, Account ra, User checkOwner, User checkReceiver, double amount) {
+        String transactionID = generateTransactionID();
+        String startingDate = java.time.LocalDate.now().toString();
+        Transaction transaction = new Transaction(amount, transactionID, "SUCCESSFUL", startingDate);
+        checkOwner.addTransaction(transaction);
+        checkReceiver.addTransaction(transaction);
+    }
+
+
+
     public void performTransfer(String giveAccountNumber, String receiveAccountNumber, double amount) {
         Account ga = (Account) search("Accounts", null, giveAccountNumber, null, null);
         Account ra = (Account) search("Accounts", null, receiveAccountNumber, null, null);

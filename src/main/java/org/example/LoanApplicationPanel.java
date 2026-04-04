@@ -165,6 +165,7 @@ public class LoanApplicationPanel extends JPanel{
 
 
 
+
                 JOptionPane.showMessageDialog(this, "Application Details Saved!");
 
             }

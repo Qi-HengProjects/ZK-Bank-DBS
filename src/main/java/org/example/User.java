@@ -82,12 +82,12 @@ public class User {
         this.currentAccounts.add(newCurrentAccount);
     }
 
-    public void addLaon(Loan newLoan) {
+    public void addLoan(Loan newLoan) {
         this.loans.add(newLoan);
     }
 
-    public void addLoan(Loan newLoan) {
-        this.loans.add(newLoan);
+    public void addTransaction(Transaction newTransaction) {
+        this.transactions.add(newTransaction);
     }
 
     // Getter
