@@ -1,12 +1,17 @@
 package org.example;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoanApplicationPanel extends JPanel{
     //Var area
     private DataManager dataManager;
     GUI ui = new GUI();
+    List<JTextComponent> FieldsStatus = new ArrayList<>();
+
 
 
     //Image background
@@ -40,7 +45,7 @@ public class LoanApplicationPanel extends JPanel{
         //name registration label
         JLabel nameRegister = new JLabel("Name (as per IC) :");
         nameRegister.setForeground(Color.decode(GUI.BlackColorCode));
-        ui.setPosition(nameRegister, 80, 60, 150, 15);
+        ui.setPosition(nameRegister, 50, 60, 150, 15);
         loanContainer.add(nameRegister);
 
         //name registration textfield
@@ -104,6 +109,71 @@ public class LoanApplicationPanel extends JPanel{
         ui.setPositionRelative(TelNoRegisterTextField, AddressRegisterTextField, 0, 30, 250, 20);
         loanContainer.add(AddressRegisterTextField);
 
+        // Loan Amount Label
+        JLabel loanAmt = new JLabel("Loan Amount: ");
+        loanAmt.setForeground(Color.decode(GUI.BlackColorCode));
+        ui.setPositionRelative(AddressRegister, loanAmt, 0 ,30, 150, 15);
+        loanContainer.add(loanAmt);
+
+        // Loan Amount textfield
+        JTextField loanAmtTextField = new JTextField(15);
+        ui.setPositionRelative(AddressRegisterTextField, loanAmtTextField, 0, 30, 250, 20);
+        loanContainer.add(loanAmtTextField);
+        FieldsStatus.add(loanAmtTextField);
+
+        // Loan Period Label
+        JLabel loanPeriod = new JLabel("Loan Period: ");
+        loanPeriod.setForeground(Color.decode(GUI.BlackColorCode));
+        ui.setPositionRelative(loanAmt, loanPeriod, 0 ,30, 150, 15);
+        loanContainer.add(loanPeriod);
+
+        // Loan Period textfield
+        JTextField loanPeriodTextField = new JTextField(15);
+        ui.setPositionRelative(loanAmtTextField, loanPeriodTextField, 0, 30, 250, 20);
+        loanContainer.add(loanPeriodTextField);
+        FieldsStatus.add(loanPeriodTextField);
+
+        // Loan Purpose Label
+        JLabel loanPurpose = new JLabel("Loan Purpose: ");
+        loanPurpose.setForeground(Color.decode(GUI.BlackColorCode));
+        ui.setPositionRelative(loanPeriod, loanPurpose, 0 ,30, 150, 15);
+        loanContainer.add(loanPurpose);
+
+        // Loan Purpose textArea
+        JTextArea loanPurposeTextArea = new JTextArea(5,20);
+        ui.setPositionRelative(loanPeriodTextField, loanPurposeTextArea, 0, 30, 250, 50);
+        loanContainer.add(loanPurposeTextArea);
+        FieldsStatus.add(loanPurposeTextArea);
+
+        // Apply Button
+        JButton CreateButton = new JButton("Apply");
+        CreateButton.setForeground(Color.BLACK);
+        ui.setPosition(CreateButton, 250, 450, 100, 30);
+        this.add(CreateButton);
+        CreateButton.addActionListener(e -> {
+            //validator
+            if (isAnyFieldsEmpty()) {
+                JOptionPane.showMessageDialog(this, "All text fields must be filled in!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                //validate the data here
+                String currentID = Main.currentSession;
+
+                // FIXED: All variables now match the text field names defined above
+                Main.dataManager.updateData(currentID, User::getRequestLoanAmount, uObj -> uObj.setRequestLoanAmount(loanAmtTextField.getText()));
+                Main.dataManager.updateData(currentID, User::getRequestLoanPeriod, uObj -> uObj.setRequestLoanPeriod(loanPeriodTextField.getText()));
+                Main.dataManager.updateData(currentID, User::getRequestLoanPurpose, uObj -> uObj.setRequestLoanPurpose(loanPurposeTextArea.getText()));
+
+
+
+                JOptionPane.showMessageDialog(this, "Application Details Saved!");
+
+            }
+
+        });
+
+
+
+
 
         //Scroll Panel (always below of the all the elements in the container to encompass)
         JScrollPane LA_SP = new JScrollPane(loanContainer);
@@ -115,10 +185,21 @@ public class LoanApplicationPanel extends JPanel{
 
 
 
+
+
     }
     public void applyTheme() {
         // re-apply whatever colors that panel uses
         this.repaint();
+    }
+
+    private boolean isAnyFieldsEmpty() {
+        for (JTextComponent field : FieldsStatus) {
+            if (field.getText().trim().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

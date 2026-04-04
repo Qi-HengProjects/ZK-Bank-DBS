@@ -21,9 +21,12 @@ public class User {
     private String incomeSource;
     private String grossIncome;
     private String netIncome;
+
     private String requestLoanAmount;
     private String requestLoanStatus;
     private String requestLoanPeriod;
+    private String requestLoanPurpose;
+
     private String accountApplication;
     private String applicationStatus;
     private String applicationType;
@@ -35,7 +38,7 @@ public class User {
     public User(String name, String IC_No, String birthday, String gender, String nationality, String race,
                 String religion, String telNo, String address, String username, String password, String userID,
                 String company, String occupation, String incomeSource, String grossIncome, String netIncome,
-                String requestLoanAmount, String requestLoanPeriod, String requestLoanStatus,
+                String requestLoanAmount, String requestLoanPeriod, String requestLoanStatus, String requestLoanPurpose,
                 String accountApplication, String applicationType, String applicationStatus) {
         this.name = name;
         this.IC_No = IC_No;
@@ -59,6 +62,7 @@ public class User {
         this.requestLoanAmount = requestLoanAmount;
         this.requestLoanPeriod = requestLoanPeriod;
         this.requestLoanStatus = requestLoanStatus;
+        this.requestLoanPurpose = requestLoanPurpose;
 
         this.accountApplication = accountApplication;
         this.applicationType = applicationType;
@@ -132,6 +136,8 @@ public class User {
     public String getRequestLoanPeriod() {
         return this.requestLoanPeriod;
     }
+
+    public String getRequestLoanPurpose() {return this.requestLoanPurpose;}
 
     public String getAccountApplication() {
         return this.accountApplication;
@@ -248,5 +254,9 @@ public class User {
 
     public void setRequestLoanPeriod(String requestLoanPeriod){
         this.requestLoanPeriod = requestLoanPeriod;
+    }
+
+    public void setRequestLoanPurpose(String requestLoanPurpose){
+        this.requestLoanPurpose = requestLoanPurpose;
     }
 }

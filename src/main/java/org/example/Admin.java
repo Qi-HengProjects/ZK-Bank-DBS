@@ -26,7 +26,12 @@ public class Admin extends JPanel {
             accountRequestTitle.setBounds(200, 50, 300, 50);
             adminContainer1.add(accountRequestTitle);
 
-            // 
+            // Frontend logic for the for each loop in the request array
+            // Display as long buttons without borders
+            // array for each into the ui element
+            // use setPositionRelative for automated position (in the for each loop)
+
+
 
 
             // Approve Account Btn
