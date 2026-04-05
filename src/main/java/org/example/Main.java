@@ -64,6 +64,9 @@ public class Main extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+
         this.add(bar, BorderLayout.WEST);
         this.add(whiteBar, BorderLayout.NORTH);
         this.add(mainPanel, BorderLayout.CENTER);

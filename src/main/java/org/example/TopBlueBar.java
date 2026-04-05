@@ -13,6 +13,7 @@ public class TopBlueBar extends JPanel {
     //private HeaderButton LoanApp;
     private final HeaderButton Contact;
     private final HeaderButton TempLbtn;
+    private final HeaderButton LogOutbtn;
     private final JButton dropdownBtn = new JButton("Personal ▼");
 
 
@@ -124,6 +125,19 @@ public class TopBlueBar extends JPanel {
             this.add(TempLbtn);
         }
 
+        LogOutbtn = new HeaderButton("Log Out");
+        LogOutbtn.setFont(new Font("Arial", Font.PLAIN, 14));
+        LogOutbtn.setBounds(0, 550, 120, 40);
+        LogOutbtn.setBorderPainted(false);
+        LogOutbtn.addActionListener(e -> {
+            Main.showPage("Login");
+        });
+        if (Main.account_status == Main.AccountStatus.SignedOut) {
+            this.remove(LogOutbtn);
+        } else {
+            this.add(LogOutbtn);
+        }
+
 
     }
 
@@ -141,8 +155,16 @@ public class TopBlueBar extends JPanel {
         if (Main.account_status == Main.AccountStatus.SignedIn) {
             this.remove(TempLbtn);
         } else {
-            if (!isAncestorOf(TempLbtn)) { // only add if not already added
+            if (!isAncestorOf(TempLbtn)) {
                 this.add(TempLbtn);
+            }
+        }
+
+        if (Main.account_status == Main.AccountStatus.SignedOut) {
+            this.remove(LogOutbtn);
+        } else {
+            if (!isAncestorOf(LogOutbtn)) {
+                this.add(LogOutbtn);
             }
         }
 

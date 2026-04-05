@@ -43,6 +43,8 @@ public class Admin extends JPanel {
                         String userName = applications[0];
                         JButton appButton = new JButton("User: " + userName + " (View Application)");
                         appButton.setBounds(200, currentY, 600, elementHeight);
+                        appButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+
                         appButton.addActionListener(e -> {
                             System.out.println("Opening application for: " + userName);
                             // logic to show details
