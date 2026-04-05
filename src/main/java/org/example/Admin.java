@@ -26,21 +26,33 @@ public class Admin extends JPanel {
             accountRequestTitle.setBounds(200, 50, 300, 50);
             adminContainer1.add(accountRequestTitle);
 
+            int currentY = 120;
+            int elementHeight = 60;
+            int spacing = 10;
+
 
             List<String[]> accountApplicationList = Main.dataManager.makeAccountApplicationList();
             if (accountApplicationList != null) {
                 for (String[] applications : accountApplicationList) {
                     if (applications != null) {
-
-                        //display the things here
                         // Frontend logic for the for each loop in the request array
                         // Display as long buttons without borders
                         // array for each into the ui element
                         // use setPositionRelative for automated position (in the for each loop)
-                        //@jayden done with the admin page then only we can continue with the approval button logic
+
+                        String userName = applications[0];
+                        JButton appButton = new JButton("User: " + userName + " (View Application)");
+                        appButton.setBounds(200, currentY, 600, elementHeight);
+                        appButton.addActionListener(e -> {
+                            System.out.println("Opening application for: " + userName);
+                            // logic to show details
+                        });
+                        adminContainer1.add(appButton);
+                        currentY += (elementHeight + spacing);
                     }
                 }
             } else {
+
                 JLabel nothingHereLabel = new JLabel("No requests!");
                 nothingHereLabel.setFont(new Font("Arial", Font.BOLD,20));
                 ui.setPosition(nothingHereLabel, 450, 315, 100, 20);
