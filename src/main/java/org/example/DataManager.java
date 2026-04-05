@@ -50,8 +50,6 @@ public class DataManager {
         }
     }
 
-
-
      public void SaveUser(User newUser){
         try {
             List<User> users = this.allusers;
@@ -71,8 +69,6 @@ public class DataManager {
         }
     }
 
-
-
     public void saveAll(List<User> u) {
         try {
             PrintWriter writer = new PrintWriter(new File(fileName));
@@ -82,8 +78,6 @@ public class DataManager {
             e.printStackTrace();
         }
     }
-
-
 
     public void updateData(String targetID, Function<User, String> getter, Consumer<User> setter) {
         List<User> users = this.allusers;
@@ -100,8 +94,6 @@ public class DataManager {
         }
     }
 
-
-
     public Object search(String target, String userID, String accountNumber, String loanID, String transactionID) {
         List<User> users = this.allusers;
         if (target.equalsIgnoreCase("Users")) {
@@ -113,7 +105,7 @@ public class DataManager {
             }
         }
 
-         if (target.equalsIgnoreCase("UsersWithAccount")) {
+         if (target.equalsIgnoreCase("UsersWithAccounts")) {
              for (User user : users) {
                  for (SavingsAccount sa : user.getSavingsAccounts()) {
                     if(Objects.equals(sa.getAccountNumber(), accountNumber)) {
@@ -164,7 +156,7 @@ public class DataManager {
                 for (Transaction transaction : user.getTransactions()) {
                     if (Objects.equals(transactionID, transaction.getTransactionID())) {
                         System.out.println("Loan existed");
-                        return transactionID;
+                        return transaction;
                     }
                 }
             }
@@ -172,8 +164,6 @@ public class DataManager {
 
         return null;
     }
-
-
 
     private boolean checkFile(File file) {
         try {
@@ -188,7 +178,7 @@ public class DataManager {
     }
 
     public String generateUserID() {
-        List<User> users = loadUsers();
+        List<User> users = this.allusers;
         int largestIDnum = 0;
         for (User user : users) {
             String id = user.getUserID().substring(1);
@@ -200,8 +190,6 @@ public class DataManager {
         int newIDnum = largestIDnum +1;
         return "U" + String.format("%03d", newIDnum);
     }
-
-
 
     public String generateAccountID() {
         String potentialID;
@@ -220,8 +208,6 @@ public class DataManager {
         }
         return potentialID;
     }
-
-
 
     public String generateLoanID() {
         String potentialID;
@@ -246,7 +232,7 @@ public class DataManager {
         while (true) {
             int newTransactionID = 10000000 + newTransaction.nextInt(90000000);
             potentialID = "TXF" + String.valueOf(newTransactionID);
-            Transaction result = (Transaction) search("Transaction", null, null, null, potentialID);
+            Transaction result = (Transaction) search("Transactions", null, null, null, potentialID);
             if (result != null) {
                 System.out.println("TransactionID existed, generating a new one");
             } else {
@@ -257,10 +243,8 @@ public class DataManager {
         return potentialID;
     }
 
-
-
-    public void addNewAccount(String type, double balance) {
-        User u = (User) search("Users", Main.currentSession, null, null, null);
+    public void addNewAccount(String userID, String type, double balance) {
+        User u = (User) search("Users", userID, null, null, null);
         if (u != null){
             String accNum = generateAccountID();
             String date = java.time.LocalDate.now().toString();
@@ -275,15 +259,14 @@ public class DataManager {
                 u.setAccountApplication("Not specified");
                 u.setApplicationType("Not specified");
                 u.setApplicationStatus("Not specified");
+                u.setInitialDeposit("Not specified");
                 saveAll(this.allusers);
             }
         }
     }
 
-
-
-    public void addNewLoan(double loanAmount, double paymentAmount, String loanStatus, double interestRate, double monthlyInstallment, double loanPeriod) {
-        User u = (User) search("Users", Main.currentSession, null, null, null);
+    public void addNewLoan(String userID, double loanAmount, double paymentAmount, String loanStatus, double interestRate, double monthlyInstallment, double loanPeriod) {
+        User u = (User) search("Users", userID, null, null, null);
         if (u != null) {
             String loanID = generateLoanID();
             String startingDate = java.time.LocalDate.now().toString();
@@ -298,18 +281,16 @@ public class DataManager {
         }
     }
 
-
-
-
     public void addNewTransaction(Account ga, Account ra, User checkOwner, User checkReceiver, double amount) {
         String transactionID = generateTransactionID();
         String startingDate = java.time.LocalDate.now().toString();
-        Transaction transaction = new Transaction(amount, transactionID, "SUCCESSFUL", startingDate);
-        checkOwner.addTransaction(transaction);
-        checkReceiver.addTransaction(transaction);
+        String transactionDetailsGA = "Transferred " + amount + " to account " + ra.getAccountNumber() + ". (-" + amount + ")";
+        String transactionDetailsRA = "Received " + amount + " from account " + ga.getAccountNumber() + ". (+" + amount + ")";
+        Transaction transactionGA = new Transaction(amount, transactionID, "SUCCESSFUL", startingDate, transactionDetailsGA);
+        Transaction transactionRA = new Transaction(amount, transactionID, "SUCCESSFUL", startingDate, transactionDetailsRA);
+        checkOwner.addTransaction(transactionGA);
+        checkReceiver.addTransaction(transactionRA);
     }
-
-
 
     public void performTransfer(String giveAccountNumber, String receiveAccountNumber, double amount) {
         Account ga = (Account) search("Accounts", null, giveAccountNumber, null, null);
@@ -331,6 +312,7 @@ public class DataManager {
                                     saveAll(allusers);
                                     System.out.println("RM " + amount + " has been deducted!");
                                     System.out.println("RM " + ga.getBalance() + "Left in the account.");
+                                    addNewTransaction(ga, ra, checkOwner, checkReceiver, amount);
                                 } else {
                                     System.out.println("Transaction failed!");
                                 }
@@ -343,6 +325,7 @@ public class DataManager {
                                         saveAll(allusers);
                                         System.out.println("RM " + amount + " has been deducted!");
                                         System.out.println("RM " + ga.getBalance() + "Left in the account.");
+                                        addNewTransaction(ga, ra, checkOwner, checkReceiver, amount);
                                     } else {
                                         System.out.println("Insufficient funds in Savings!");
                                     }
@@ -367,13 +350,11 @@ public class DataManager {
         }
     }
 
-
-
     public List<String[]> makeAccountApplicationList() {
         List<String[]> accountApplicationList = new ArrayList<>();
         List<User> users = this.allusers;
         for (User user : users) {
-            if (!user.getAccountApplication().equalsIgnoreCase("Not specified")) {
+            if (user.getApplicationStatus().equalsIgnoreCase("PENDING")) {
                 String[] userApplication =
                         {user.getUserID(),
                         user.getCompany(),
@@ -381,9 +362,8 @@ public class DataManager {
                         user.getIncomeSource(),
                         user.getGrossIncome(),
                         user.getNetIncome(),
-                        user.getAccountApplication(),
-                        user.getApplicationType(),
-                        user.getApplicationStatus()};
+                        user.getAccountApplication(), user.getApplicationType(), user.getApplicationStatus(),
+                        user.getInitialDeposit()};
                 accountApplicationList.add(userApplication);
             }
 
@@ -391,13 +371,11 @@ public class DataManager {
         return accountApplicationList;
     }
 
-
-
     public List<String[]> makeLoanApplicationList() {
         List<String[]> loanApplicationList = new ArrayList<>();
         List<User> users = this.allusers;
         for (User user : users) {
-            if (!user.getRequestLoanAmount().equalsIgnoreCase("Not specified")) {
+            if (user.getRequestLoanStatus().equalsIgnoreCase("PENDING")) {
                 String [] userApplication =
                         {user.getUserID(),
                         user.getCompany(),

@@ -5,12 +5,14 @@ public class Transaction {
     private String transactionID;
     private String transactionStatus;
     private String transactionDate;
+    private String transactionDetails;
 
-    public Transaction(double transactionAmount, String transactionID, String transactionStatus, String transactionDate) {
+    public Transaction(double transactionAmount, String transactionID, String transactionStatus, String transactionDate, String transactionDetails) {
         this.transactionAmount = transactionAmount;
         this.transactionID = transactionID;
         this.transactionStatus = transactionStatus;
         this.transactionDate = transactionDate;
+        this.transactionDetails = transactionDetails;
     }
 
     public double getTransactionAmount() {
@@ -29,14 +31,15 @@ public class Transaction {
         return this.transactionDate;
     }
 
+    public String getTransactionDetails() {
+        return this.transactionDetails;
+    }
+
     public void setReceiverType(String receiverType) {
         this.transactionStatus = transactionStatus;
     }
 
-    /*public String generateUserID() {
-       Random random = new Random();
-       random.nextLong((999999999 - 100000001) + 100000000);
-       String newTransferID = "TXN-" + random.toString();
-       return random.toString();
-    }*/
+    public void setTransactionDetails(String transactionDetails) {
+        this.transactionDetails = transactionDetails;
+    }
 }

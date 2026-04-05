@@ -31,18 +31,20 @@ public class Admin extends JPanel {
             if (accountApplicationList != null) {
                 for (String[] applications : accountApplicationList) {
                     if (applications != null) {
+
                         //display the things here
-                        JLabel nothingHereLabel = new JLabel("No requests!");
-                        nothingHereLabel.setFont(new Font("Arial", Font.BOLD,20));
-                        ui.setPosition(nothingHereLabel, 450, 315, 100, 20);
-                        adminContainer1.add(nothingHereLabel);
+                        // Frontend logic for the for each loop in the request array
+                        // Display as long buttons without borders
+                        // array for each into the ui element
+                        // use setPositionRelative for automated position (in the for each loop)
+                        //@jayden done with the admin page then only we can continue with the approval button logic
                     }
                 }
             } else {
-                // Frontend logic for the for each loop in the request array
-                // Display as long buttons without borders
-                // array for each into the ui element
-                // use setPositionRelative for automated position (in the for each loop)
+                JLabel nothingHereLabel = new JLabel("No requests!");
+                nothingHereLabel.setFont(new Font("Arial", Font.BOLD,20));
+                ui.setPosition(nothingHereLabel, 450, 315, 100, 20);
+                adminContainer1.add(nothingHereLabel);
             }
 
 
@@ -50,8 +52,8 @@ public class Admin extends JPanel {
             JButton accountApprove = new JButton("Approve");
             ui.setPosition(accountApprove, 400, 400, 100, 50);
             accountApprove.addActionListener( e -> {
-                //@Qi Heng add the apporove logic here                      <-------------------@Qi Heng
-                //Main.dataManager.updateData(something, User::getApplicationStatus, uObj -> uObj.setApplicationStatus("APPROVED"));
+
+                //Main.dataManager.updateData(, User::getApplicationStatus, uObj -> uObj.setApplicationStatus("APPROVED"));
                 //Main.dataManager.addNewAccount();
             });
             this.add(accountApprove);
@@ -60,7 +62,7 @@ public class Admin extends JPanel {
             JButton accountReject = new JButton("Reject");
             ui.setPosition(accountReject, 600, 400, 100, 50);
             accountReject.addActionListener( e -> {
-                //@Qi Heng add the reject logic here                      <-------------------@Qi Heng
+
             });
             this.add(accountReject);
 
@@ -93,10 +95,6 @@ public class Admin extends JPanel {
             accountRequestTitle.setBounds(200, 50, 300, 50);
             adminContainer2.add(accountRequestTitle); // <-- contentPanel, not this
 
-
-
-
-
             // Approve Loan Btn
             JButton loanApprove = new JButton("Approve");
             ui.setPosition(loanApprove, 400, 400, 100, 50);
@@ -119,8 +117,6 @@ public class Admin extends JPanel {
             JScrollPane scrollPane = new JScrollPane(adminContainer2);
             scrollPane.setBounds(0, 0, 1000, 650);
             this.add(scrollPane); // scrollPane goes on the page
-
-
         }
     }
 }

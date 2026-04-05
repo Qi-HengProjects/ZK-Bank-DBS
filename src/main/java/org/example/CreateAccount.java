@@ -159,31 +159,54 @@ public class CreateAccount extends JDialog {
         this.add(NetIncomeTextField);
         FieldsStatus.add(NetIncomeTextField);
 
+        // initial deposit label
+        JLabel InitialDeposit = new JLabel("Initial Deposit: ");
+        NetIncome.setForeground(Color.decode(GUI.BlackColorCode));
+        ui.setPositionRelative(NetIncome, InitialDeposit, 0 ,30, 150, 15);
+        this.add(InitialDeposit);
+
+        //initial deposit textfield
+        JTextField InitialDepositTextField = new JTextField(15);
+        ui.setPositionRelative(NetIncomeTextField, InitialDepositTextField, 0, 30, 250, 20);
+        this.add(InitialDepositTextField);
+        FieldsStatus.add(InitialDepositTextField);
+
         //Create Acc Button
         JButton CreateButton = new JButton("Apply");
         CreateButton.setForeground(Color.BLACK);
         ui.setPosition(CreateButton, 250, 450, 100, 30);
         this.add(CreateButton);
+
         CreateButton.addActionListener(e -> {
             //validator
+
             if (isAnyFieldsEmpty()) {
                 JOptionPane.showMessageDialog(this, "All text fields must be filled in!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                //validate the data here
-                String currentID = Main.currentSession;
+                try {
+                    Double InitialDepositAmount = Double.parseDouble(InitialDepositTextField.getText());
+                    if (InitialDepositAmount < 20) {
+                        JOptionPane.showMessageDialog(this, "Minimum initial deposit of RM 20.00 is required!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        //validate the data here
 
-                // FIXED: All variables now match the text field names defined above
-                Main.dataManager.updateData(currentID, User::getCompany, uObj -> uObj.setCompany(CompanyTextField.getText()));
-                Main.dataManager.updateData(currentID, User::getOccupation, uObj -> uObj.setOccupation(OccupationTextField.getText()));
-                Main.dataManager.updateData(currentID, User::getIncomeSource, uObj -> uObj.setIncomeSource(IncomeSourceTextField.getText()));
-                Main.dataManager.updateData(currentID, User::getGrossIncome, uObj -> uObj.setGrossIncome(GrossIncomeTextField.getText()));
-                Main.dataManager.updateData(currentID, User::getNetIncome, uObj -> uObj.setNetIncome(NetIncomeTextField.getText()));
+                    } else {
+                        String currentID = Main.currentSession;
 
+                        Main.dataManager.updateData(currentID, User::getCompany, uObj -> uObj.setCompany(CompanyTextField.getText()));
+                        Main.dataManager.updateData(currentID, User::getOccupation, uObj -> uObj.setOccupation(OccupationTextField.getText()));
+                        Main.dataManager.updateData(currentID, User::getIncomeSource, uObj -> uObj.setIncomeSource(IncomeSourceTextField.getText()));
+                        Main.dataManager.updateData(currentID, User::getGrossIncome, uObj -> uObj.setGrossIncome(GrossIncomeTextField.getText()));
+                        Main.dataManager.updateData(currentID, User::getNetIncome, uObj -> uObj.setNetIncome(NetIncomeTextField.getText()));
+                        Main.dataManager.updateData(currentID, User::getInitialDeposit, uObj -> uObj.setInitialDeposit(InitialDepositTextField.getText()));
+                        Main.dataManager.updateData(currentID, User::getApplicationStatus, uObj -> uObj.setApplicationStatus("PENDING"));
+                        JOptionPane.showMessageDialog(this, "Application Details Saved!");
+                        this.dispose();
+                    }
+                } catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(this, "Please enter a valid numeric amount!");
+                }
 
-                JOptionPane.showMessageDialog(this, "Application Details Saved!");
-                this.dispose();
             }
-
         });
 
         this.setVisible(true);

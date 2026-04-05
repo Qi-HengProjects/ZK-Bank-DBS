@@ -222,7 +222,7 @@ public class SignUp extends JDialog {
                         genderComboBoxInput,nationalityComboBoxInput, RaceRegisterComboBoxInput, ReligionComboBoxInput,
                         TelNoRegisterInput, AddressRegisterInput, UsernameRegisterInput,PasswordRegisterInput,GenerateNewUserID,
                         PlaceholderValue,PlaceholderValue,PlaceholderValue,PlaceholderValue,PlaceholderValue, PlaceholderValue,
-                        PlaceholderValue, PlaceholderValue,PlaceholderValue, PlaceholderValue, PlaceholderValue, PlaceholderValue));
+                        PlaceholderValue, PlaceholderValue,PlaceholderValue, PlaceholderValue, PlaceholderValue, PlaceholderValue,PlaceholderValue));
 
                 // all good, save and close
                 this.dispose();

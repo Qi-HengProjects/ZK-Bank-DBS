@@ -30,6 +30,8 @@ public class User {
     private String accountApplication;
     private String applicationStatus;
     private String applicationType;
+    private String initialDeposit;
+
     private List<SavingsAccount> savingsAccounts;
     private List<CurrentAccount> currentAccounts;
     private List<Transaction> transactions;
@@ -39,7 +41,7 @@ public class User {
                 String religion, String telNo, String address, String username, String password, String userID,
                 String company, String occupation, String incomeSource, String grossIncome, String netIncome,
                 String requestLoanAmount, String requestLoanPeriod, String requestLoanStatus, String requestLoanPurpose,
-                String accountApplication, String applicationType, String applicationStatus) {
+                String accountApplication, String applicationType, String applicationStatus, String initialDeposit) {
         this.name = name;
         this.IC_No = IC_No;
         this.birthday = birthday;
@@ -67,6 +69,7 @@ public class User {
         this.accountApplication = accountApplication;
         this.applicationType = applicationType;
         this.applicationStatus = applicationStatus;
+        this.initialDeposit = initialDeposit;
 
         this.savingsAccounts = new ArrayList<>();
         this.currentAccounts = new ArrayList<>();
@@ -151,6 +154,10 @@ public class User {
         return this.applicationType;
     }
 
+    public String getInitialDeposit() {
+        return this.initialDeposit = initialDeposit;
+    }
+
     public List<SavingsAccount> getSavingsAccounts() {
         return this.savingsAccounts;
     }
@@ -232,18 +239,6 @@ public class User {
         this.netIncome = netIncome;
     }
 
-    public void setAccountApplication(String accountApplication) {
-        this.accountApplication = accountApplication;
-    }
-
-    public void setApplicationStatus(String applicationStatus) {
-        this.applicationStatus = applicationStatus;
-    }
-
-    public void setApplicationType(String applicationType) {
-        this.applicationType = applicationType;
-    }
-
     public void setRequestLoanAmount(String requestLoanAmount) {
         this.requestLoanAmount = requestLoanAmount;
     }
@@ -258,5 +253,21 @@ public class User {
 
     public void setRequestLoanPurpose(String requestLoanPurpose){
         this.requestLoanPurpose = requestLoanPurpose;
+    }
+
+    public void setAccountApplication(String accountApplication) {
+        this.accountApplication = accountApplication;
+    }
+
+    public void setApplicationStatus(String applicationStatus) {
+        this.applicationStatus = applicationStatus;
+    }
+
+    public void setApplicationType(String applicationType) {
+        this.applicationType = applicationType;
+    }
+
+    public void setInitialDeposit(String initialDeposit) {
+        this.initialDeposit = initialDeposit;
     }
 }
