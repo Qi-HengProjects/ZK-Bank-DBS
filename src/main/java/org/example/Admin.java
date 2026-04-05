@@ -32,7 +32,7 @@ public class Admin extends JPanel {
 
 
             List<String[]> accountApplicationList = Main.dataManager.makeAccountApplicationList();
-            if (accountApplicationList != null) {
+            if (accountApplicationList != null && !accountApplicationList.isEmpty()) {
                 for (String[] applications : accountApplicationList) {
                     if (applications != null) {
                         // Frontend logic for the for each loop in the request array
