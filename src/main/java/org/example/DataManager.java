@@ -36,7 +36,8 @@ public class DataManager {
         if (!checkFile(new File(fileName))) return new ArrayList<>();
 
         try (FileReader reader = new FileReader(fileName)) { // 把file开起来读取
-            Type listType = new TypeToken<ArrayList<User>>(){}.getType(); // list的蓝图
+            Type listType = new TypeToken<ArrayList<User>>() {
+            }.getType(); // list的蓝图
             List<User> users = gson.fromJson(reader, listType);// translate 了根据list的蓝图build出来
 
             if (users == null) {
@@ -50,11 +51,11 @@ public class DataManager {
         }
     }
 
-     public void SaveUser(User newUser){
+    public void SaveUser(User newUser) {
         try {
             List<User> users = this.allusers;
             for (User user : users) {
-                if (Objects.equals(newUser.getUsername(), user.getUsername())){
+                if (Objects.equals(newUser.getUsername(), user.getUsername())) {
                     System.out.println("This username has been used");
                     return;
                 }
@@ -63,7 +64,7 @@ public class DataManager {
             PrintWriter writer = new PrintWriter(new FileWriter(fileName));
             writer.println(gsonPretty.toJson(users));
             writer.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error while saving user!");
             e.printStackTrace();
         }
@@ -105,21 +106,21 @@ public class DataManager {
             }
         }
 
-         if (target.equalsIgnoreCase("UsersWithAccounts")) {
-             for (User user : users) {
-                 for (SavingsAccount sa : user.getSavingsAccounts()) {
-                    if(Objects.equals(sa.getAccountNumber(), accountNumber)) {
+        if (target.equalsIgnoreCase("UsersWithAccounts")) {
+            for (User user : users) {
+                for (SavingsAccount sa : user.getSavingsAccounts()) {
+                    if (Objects.equals(sa.getAccountNumber(), accountNumber)) {
                         return user;
                     }
-                 }
+                }
 
-                 for (CurrentAccount ca : user.getCurrentAccounts()) {
-                     if(Objects.equals(ca.getAccountNumber(), accountNumber)) {
-                         return user;
-                     }
-                 }
-             }
-         }
+                for (CurrentAccount ca : user.getCurrentAccounts()) {
+                    if (Objects.equals(ca.getAccountNumber(), accountNumber)) {
+                        return user;
+                    }
+                }
+            }
+        }
 
         if (target.equalsIgnoreCase("Accounts")) {
             for (User user : users) {
@@ -130,7 +131,7 @@ public class DataManager {
                     }
                 }
 
-                for  (CurrentAccount ca : user.getCurrentAccounts()) {
+                for (CurrentAccount ca : user.getCurrentAccounts()) {
                     if (Objects.equals(accountNumber, ca.getAccountNumber())) {
                         System.out.println("Account existed");
                         return ca;
@@ -155,7 +156,7 @@ public class DataManager {
             for (User user : users) {
                 for (Transaction transaction : user.getTransactions()) {
                     if (Objects.equals(transactionID, transaction.getTransactionID())) {
-                        System.out.println("Loan existed");
+                        System.out.println("Transaction existed");
                         return transaction;
                     }
                 }
@@ -187,7 +188,7 @@ public class DataManager {
                 largestIDnum = idNum;
             }
         }
-        int newIDnum = largestIDnum +1;
+        int newIDnum = largestIDnum + 1;
         return "U" + String.format("%03d", newIDnum);
     }
 
@@ -245,7 +246,7 @@ public class DataManager {
 
     public void addNewAccount(String userID, String type, double balance) {
         User u = (User) search("Users", userID, null, null, null);
-        if (u != null){
+        if (u != null) {
             String accNum = generateAccountID();
             String date = java.time.LocalDate.now().toString();
             if (u.getApplicationStatus().equalsIgnoreCase("APPROVED")) {
@@ -271,7 +272,7 @@ public class DataManager {
             String loanID = generateLoanID();
             String startingDate = java.time.LocalDate.now().toString();
             if (u.getRequestLoanStatus().equalsIgnoreCase("APPROVED")) {
-                Loan loan = new Loan(loanID, loanAmount,  paymentAmount, loanStatus, interestRate, monthlyInstallment, loanPeriod, startingDate);
+                Loan loan = new Loan(loanID, loanAmount, paymentAmount, loanStatus, interestRate, monthlyInstallment, loanPeriod, startingDate);
                 u.addLoan(loan);
                 u.setRequestLoanAmount("Not specified");
                 u.setRequestLoanPeriod("Not specified");
@@ -281,13 +282,13 @@ public class DataManager {
         }
     }
 
-    public void addNewTransaction(Account ga, Account ra, User checkOwner, User checkReceiver, double amount) {
+    public void addNewTransaction(Account ga, Account ra, User checkOwner, User checkReceiver, double amount, String transactionStatus) {
         String transactionID = generateTransactionID();
         String startingDate = java.time.LocalDate.now().toString();
         String transactionDetailsGA = "Transferred " + amount + " to account " + ra.getAccountNumber() + ". (-" + amount + ")";
         String transactionDetailsRA = "Received " + amount + " from account " + ga.getAccountNumber() + ". (+" + amount + ")";
-        Transaction transactionGA = new Transaction(amount, transactionID, "SUCCESSFUL", startingDate, transactionDetailsGA);
-        Transaction transactionRA = new Transaction(amount, transactionID, "SUCCESSFUL", startingDate, transactionDetailsRA);
+        Transaction transactionGA = new Transaction(amount, transactionID, transactionStatus, startingDate, transactionDetailsGA);
+        Transaction transactionRA = new Transaction(amount, transactionID, transactionStatus, startingDate, transactionDetailsRA);
         checkOwner.addTransaction(transactionGA);
         checkReceiver.addTransaction(transactionRA);
     }
@@ -312,12 +313,12 @@ public class DataManager {
                                     saveAll(allusers);
                                     System.out.println("RM " + amount + " has been deducted!");
                                     System.out.println("RM " + ga.getBalance() + "Left in the account.");
-                                    addNewTransaction(ga, ra, checkOwner, checkReceiver, amount);
+                                    addNewTransaction(ga, ra, checkOwner, checkReceiver, amount, "SUCCESSFUL");
                                 } else {
                                     System.out.println("Transaction failed!");
                                 }
 
-                            } else if(ga.getType().equalsIgnoreCase("Savings")) {
+                            } else if (ga.getType().equalsIgnoreCase("Savings")) {
                                 if (Objects.equals(checkOwner.getUserID(), checkReceiver.getUserID())) {
                                     boolean deduct = ga.withdraw(amount);
                                     if (deduct) {
@@ -325,26 +326,26 @@ public class DataManager {
                                         saveAll(allusers);
                                         System.out.println("RM " + amount + " has been deducted!");
                                         System.out.println("RM " + ga.getBalance() + "Left in the account.");
-                                        addNewTransaction(ga, ra, checkOwner, checkReceiver, amount);
+                                        addNewTransaction(ga, ra, checkOwner, checkReceiver, amount, "SUCCESSFUL");
                                     } else {
                                         System.out.println("Insufficient funds in Savings!");
                                     }
                                 } else {
                                     System.out.println("You can only transfer money in savings account to your own account!");
                                 }
-                            }else {
+                            } else {
                                 System.out.println("You can only transfer to other user using a current account!");
                             }
                         }
                     } else {
-                    System.out.println("Please make sure the receiving user existed");
+                        System.out.println("Please make sure the receiving user existed");
                     }
                 } else {
                     System.out.println("Please make sure the sending user existed");
                 }
             } else {
                 System.out.println("Receiver account not found");
-                }
+            }
         } else {
             System.out.println("Sender account not found");
         }
@@ -357,13 +358,13 @@ public class DataManager {
             if (user.getApplicationStatus().equalsIgnoreCase("PENDING")) {
                 String[] userApplication =
                         {user.getUserID(),
-                        user.getCompany(),
-                        user.getOccupation(),
-                        user.getIncomeSource(),
-                        user.getGrossIncome(),
-                        user.getNetIncome(),
-                        user.getAccountApplication(), user.getApplicationType(), user.getApplicationStatus(),
-                        user.getInitialDeposit()};
+                                user.getCompany(),
+                                user.getOccupation(),
+                                user.getIncomeSource(),
+                                user.getGrossIncome(),
+                                user.getNetIncome(),
+                                user.getAccountApplication(), user.getApplicationType(), user.getApplicationStatus(),
+                                user.getInitialDeposit()};
                 accountApplicationList.add(userApplication);
             }
 
@@ -376,20 +377,40 @@ public class DataManager {
         List<User> users = this.allusers;
         for (User user : users) {
             if (user.getRequestLoanStatus().equalsIgnoreCase("PENDING")) {
-                String [] userApplication =
+                String[] userApplication =
                         {user.getUserID(),
-                        user.getCompany(),
-                        user.getOccupation(),
-                        user.getIncomeSource(),
-                        user.getGrossIncome(),
-                        user.getNetIncome(),
-                        user.getRequestLoanAmount(),
-                        user.getRequestLoanPeriod(),
-                        user.getRequestLoanStatus()};
+                                user.getCompany(),
+                                user.getOccupation(),
+                                user.getIncomeSource(),
+                                user.getGrossIncome(),
+                                user.getNetIncome(),
+                                user.getRequestLoanAmount(),
+                                user.getRequestLoanPeriod(),
+                                user.getRequestLoanStatus()};
                 loanApplicationList.add(userApplication);
             }
         }
         return loanApplicationList;
+    }
+
+    public List<String[]> generateStatement(String userID) {
+        User u = (User) search("Users", userID, null, null, null);
+        List<String[]> statementList = new ArrayList<>();
+
+        if (u != null) {
+            for (Transaction transaction : u.getTransactions()) {
+                String transactionAmount = String.valueOf(transaction.getTransactionAmount());
+                String[] statement = {
+                        transactionAmount,
+                        transaction.getTransactionID(),
+                        transaction.getTransactionStatus(),
+                        transaction.getTransactionDate(),
+                        transaction.getTransactionDetails()};
+                statementList.add(statement);
+            }
+        }
+        Collections.reverse(statementList);
+        return statementList;
     }
 }
 
