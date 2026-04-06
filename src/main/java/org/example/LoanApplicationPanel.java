@@ -148,8 +148,8 @@ public class LoanApplicationPanel extends JPanel{
         // Apply Button
         JButton CreateButton = new JButton("Apply");
         CreateButton.setForeground(Color.BLACK);
-        ui.setPosition(CreateButton, 250, 450, 100, 30);
-        this.add(CreateButton);
+        ui.setPosition(CreateButton, 350, 300, 100, 30);
+        loanContainer.add(CreateButton);
         CreateButton.addActionListener(e -> {
             //validator
             if (isAnyFieldsEmpty()) {
