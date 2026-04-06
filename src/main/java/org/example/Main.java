@@ -72,30 +72,7 @@ public class Main extends JFrame {
         this.add(mainPanel, BorderLayout.CENTER);
 
         showPage("Login");
-
-        if (currentPage.equals("Login")){
-            this.setTitle("Login");
-
-        } else if (currentPage.equals("Home")){
-            this.setTitle("Home");
-
-        } else if (currentPage.equals("LoanApp")){
-            this.setTitle("Loan Application");
-
-        } else if (currentPage.equals("Contact")){
-            this.setTitle("Contact Us");
-
-        } else if (currentPage.equals("Profile")){
-            this.setTitle("Profile");
-
-        } else if (currentPage.equals("Transfer")){
-            this.setTitle("Transfer");
-
-        } else if (currentPage.equals("accountRequest") || currentPage.equals("loanRequest")){
-            this.setTitle("Admin");
-
-        }
-
+        this.setTitle("Zha Kai Bank");
 
         this.setVisible(true);
     }

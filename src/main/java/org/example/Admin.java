@@ -7,6 +7,7 @@ import java.util.List;
 public class Admin extends JPanel {
 
 
+    GUI ui = new GUI();
     public static class newAccountRequest extends JPanel {
 
         GUI ui = new GUI();
@@ -45,10 +46,16 @@ public class Admin extends JPanel {
                         appButton.setBounds(200, currentY, 600, elementHeight);
                         appButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 
-                        appButton.addActionListener(e -> {
-                            System.out.println("Opening application for: " + userName);
-                            // logic to show details
+
+                        appButton.addActionListener(q -> {
+                            // Pass the 'apps' array to the method above
+                            displayAccApplicationDetails(adminContainer1, applications);
+
+                            // Add Approve/Reject buttons at the bottom relative to the last item
+                            // or show them if they were hidden
                         });
+                        adminContainer1.add(appButton);
+
                         adminContainer1.add(appButton);
                         currentY += (elementHeight + spacing);
                     }
@@ -57,29 +64,9 @@ public class Admin extends JPanel {
 
                 JLabel nothingHereLabel = new JLabel("No requests!");
                 nothingHereLabel.setFont(new Font("Arial", Font.BOLD,20));
-                ui.setPosition(nothingHereLabel, 450, 315, 100, 20);
+                ui.setPosition(nothingHereLabel, 450, 315, 300, 20);
                 adminContainer1.add(nothingHereLabel);
             }
-
-
-            // Approve Account Btn
-            JButton accountApprove = new JButton("Approve");
-            ui.setPosition(accountApprove, 400, 400, 100, 50);
-            accountApprove.addActionListener( e -> {
-
-                //Main.dataManager.updateData(, User::getApplicationStatus, uObj -> uObj.setApplicationStatus("APPROVED"));
-                //Main.dataManager.addNewAccount();
-            });
-            this.add(accountApprove);
-
-            // Reject Account Btn
-            JButton accountReject = new JButton("Reject");
-            ui.setPosition(accountReject, 600, 400, 100, 50);
-            accountReject.addActionListener( e -> {
-
-            });
-            this.add(accountReject);
-
 
             // Wrap contentPanel in scrollpane
             JScrollPane scrollPane = new JScrollPane(adminContainer1);
@@ -87,9 +74,7 @@ public class Admin extends JPanel {
             this.add(scrollPane); // scrollPane goes on the page
         }
     }
-//make a white side bar that has Account Application and Loan Application Approval Pending
-    // Enum status.. pending, approve
-    //can use back the cardlayout from main
+
 
     public static class newLoanRequest extends JPanel{
         GUI ui = new GUI();
@@ -109,23 +94,43 @@ public class Admin extends JPanel {
             accountRequestTitle.setBounds(200, 50, 300, 50);
             adminContainer2.add(accountRequestTitle); // <-- contentPanel, not this
 
-            // Approve Loan Btn
-            JButton loanApprove = new JButton("Approve");
-            ui.setPosition(loanApprove, 400, 400, 100, 50);
-            loanApprove.addActionListener( e -> {
-                //Main.dataManager.updateData(something, User::getRequestLoanStatus, uObj -> uObj.setRequestLoanStatus("APPROVED")); @Qi Heng add the approve logic here                      <-------------------@Qi Heng
-                //@jayden put a refresh here so the page will change
-            });
-            this.add(loanApprove);
 
-            // Reject Loan Btn
-            JButton loanReject = new JButton("Reject");
-            ui.setPosition(loanReject, 600, 400, 100, 50);
-            loanReject.addActionListener( e -> {
-                //Main.dataManager.updateData(something, User::getRequestLoanStatus, uObj -> uObj.setRequestLoanStatus("DENIED")); @Qi Heng add the reject logic here                      <-------------------@Qi Heng
-                //@jayden put a refresh here so the page will change
-            });
-            this.add(loanReject);
+            int currentY = 120;
+            int elementHeight = 60;
+            int spacing = 10;
+
+
+            List<String[]> accountApplicationList = Main.dataManager.makeLoanApplicationList();
+            if (accountApplicationList != null && !accountApplicationList.isEmpty()) {
+                for (String[] loanApplications : accountApplicationList) {
+                    if (loanApplications != null) {
+
+                        String userName = loanApplications[0];
+                        JButton appButton = new JButton("User: " + userName + " (View Application)");
+                        appButton.setBounds(200, currentY, 600, elementHeight);
+                        appButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+
+
+                        appButton.addActionListener(q -> {
+                            // Pass the 'apps' array to the method above
+                            displayLoanApplicationDetails(adminContainer2, loanApplications);
+
+                            // Add Approve/Reject buttons at the bottom relative to the last item
+                            // or show them if they were hidden
+                        });
+                        adminContainer2.add(appButton);
+
+                        adminContainer2.add(appButton);
+                        currentY += (elementHeight + spacing);
+                    }
+                }
+            } else {
+
+                JLabel nothingHereLabel = new JLabel("No requests!");
+                nothingHereLabel.setFont(new Font("Arial", Font.BOLD,20));
+                ui.setPosition(nothingHereLabel, 450, 315, 300, 20);
+                adminContainer2.add(nothingHereLabel);
+            }
 
             // Wrap contentPanel in scrollpane
             JScrollPane scrollPane = new JScrollPane(adminContainer2);
@@ -133,4 +138,149 @@ public class Admin extends JPanel {
             this.add(scrollPane); // scrollPane goes on the page
         }
     }
+
+    public static void displayAccApplicationDetails(JPanel displayAccContainer, String[] applicationData) {
+        GUI ui = new GUI();
+
+        // 1. Clear the container
+        displayAccContainer.removeAll();
+
+        String[] keys = {
+                "User ID:", "Company:", "Occupation:", "Income Source:",
+                "Gross Income:", "Net Income:", "Account Type:",
+                "App Type:", "Status:", "Initial Deposit:"
+        };
+
+        int startX = 50;
+        int startY = 100;
+        int labelWidth = 150;
+        int valueWidth = 300;
+        int height = 30;
+        int verticalSpacing = 40;
+
+        Component lastComponent = null;
+
+        // LOOP ONLY FOR LABELS
+        for (int i = 0; i < keys.length; i++) {
+            JLabel keyLabel = new JLabel(keys[i]);
+            keyLabel.setFont(new Font("Arial", Font.BOLD, 14));
+
+            JLabel valueLabel = new JLabel(applicationData[i]);
+            valueLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+            if (i == 0) {
+                ui.setPosition(keyLabel, startX, startY, labelWidth, height);
+            } else {
+                ui.setPositionRelative(lastComponent, keyLabel, 0, verticalSpacing, labelWidth, height);
+            }
+
+            ui.setPositionRelative(keyLabel, valueLabel, labelWidth + 10, 0, valueWidth, height);
+
+            displayAccContainer.add(keyLabel);
+            displayAccContainer.add(valueLabel);
+            lastComponent = keyLabel; // Keep track of the last label
+        }
+
+        // 2. CREATE BUTTONS OUTSIDE THE LOOP (Prevents duplication)
+        JButton accountApprove = new JButton("Approve");
+        JButton accountReject = new JButton("Reject");
+
+        // Position buttons relative to the LAST label added in the loop
+        // Move them down by 60 pixels from the last row
+        ui.setPositionRelative(lastComponent, accountApprove, 0, 60, 120, 40);
+        ui.setPositionRelative(accountApprove, accountReject, 140, 0, 120, 40);
+
+        accountApprove.addActionListener(e -> {
+            // Your logic here
+            System.out.println("Approved: " + applicationData[0]);
+        });
+
+        accountReject.addActionListener(e -> {
+            // Your logic here
+            System.out.println("Rejected: " + applicationData[0]);
+        });
+
+        displayAccContainer.add(accountApprove);
+        displayAccContainer.add(accountReject);
+
+        // 3. Refresh the UI
+        displayAccContainer.revalidate();
+        displayAccContainer.repaint();
+    }
+
+
+    public static void displayLoanApplicationDetails(JPanel displayLoanContainer, String[] applicationData) {
+        GUI ui = new GUI();
+
+        // 1. Clear the container
+        displayLoanContainer.removeAll();
+
+        String[] keys = {
+                "User ID:", "Company:", "Occupation:", "Income Source:",
+                "Gross Income:", "Net Income:", "Loan Amount:",
+                "Loan Period:", "Status:"
+        };
+
+        int startX = 50;
+        int startY = 100;
+        int labelWidth = 150;
+        int valueWidth = 300;
+        int height = 30;
+        int verticalSpacing = 40;
+
+        Component lastComponent = null;
+
+        // LOOP ONLY FOR LABELS
+        for (int i = 0; i < keys.length; i++) {
+            JLabel keyLabel = new JLabel(keys[i]);
+            keyLabel.setFont(new Font("Arial", Font.BOLD, 14));
+
+            JLabel valueLabel = new JLabel(applicationData[i]);
+            valueLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+            if (i == 0) {
+                ui.setPosition(keyLabel, startX, startY, labelWidth, height);
+            } else {
+                ui.setPositionRelative(lastComponent, keyLabel, 0, verticalSpacing, labelWidth, height);
+            }
+
+            ui.setPositionRelative(keyLabel, valueLabel, labelWidth + 10, 0, valueWidth, height);
+
+            displayLoanContainer.add(keyLabel);
+            displayLoanContainer.add(valueLabel);
+            lastComponent = keyLabel; // Keep track of the last label
+        }
+
+        // 2. CREATE BUTTONS OUTSIDE THE LOOP (Prevents duplication)
+        JButton accountApprove = new JButton("Approve");
+        JButton accountReject = new JButton("Reject");
+
+        // Position buttons relative to the LAST label added in the loop
+        // Move them down by 60 pixels from the last row
+        ui.setPositionRelative(lastComponent, accountApprove, 0, 60, 120, 40);
+        ui.setPositionRelative(accountApprove, accountReject, 140, 0, 120, 40);
+
+        accountApprove.addActionListener(e -> {
+            // Your logic here
+            System.out.println("Approved: " + applicationData[0]);
+        });
+
+        accountReject.addActionListener(e -> {
+            // Your logic here
+            System.out.println("Rejected: " + applicationData[0]);
+        });
+
+        displayLoanContainer.add(accountApprove);
+        displayLoanContainer.add(accountReject);
+
+        // 3. Refresh the UI
+        displayLoanContainer.revalidate();
+        displayLoanContainer.repaint();
+    }
+
+
+
+
+
+
 }

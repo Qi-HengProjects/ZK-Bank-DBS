@@ -46,11 +46,25 @@ public class TransferPage extends JPanel {
         ui.setPositionRelative(selectAccount, AccountComboBox, 250, 0, 200, 20);
         transferContainer.add(AccountComboBox);
 
+        //Transfer Recipient Bank Label
+        JLabel transferRecipientBank = new JLabel("Bank: ");
+        transferRecipientBank.setFont(new Font("Arial", Font.BOLD, 20));
+        transferRecipientBank.setForeground(Color.decode(GUI.BlackColorCode));
+        ui.setPositionRelative(selectAccount, transferRecipientBank, 0, 50, 300, 20);
+        transferContainer.add(transferRecipientBank);
+
+        //Transfer Recipient Bank ComboBox
+        String[] BankChoices = {"ZhaKai Bank", "Others"};
+        JComboBox<String> bankComboBox = new JComboBox<>(BankChoices);
+        ui.setPositionRelative(AccountComboBox, bankComboBox, 0, 40, 200, 20);
+        transferContainer.add(bankComboBox);
+
+
         // Transfer Recipient Name Label
         JLabel transferRecipientName = new JLabel("Recipient Account: ");
         transferRecipientName.setFont(new Font("Arial", Font.BOLD, 20));
         transferRecipientName.setForeground(Color.decode(GUI.BlackColorCode));
-        ui.setPositionRelative(selectAccount, transferRecipientName, 0, 50,300,20);
+        ui.setPositionRelative(transferRecipientBank, transferRecipientName, 0, 50,300,20);
         transferContainer.add(transferRecipientName);
 
         // Transfer Recipient Name TextField

@@ -18,6 +18,7 @@ public class Home extends JPanel {
     public Home(){
         this.setLayout(null);
 
+
         // Hello Label
         HelloLabel.setFont(new Font("Arial", Font.PLAIN, 50));
         HelloLabel.setForeground(Color.decode(GUI.BlackColorCode));
