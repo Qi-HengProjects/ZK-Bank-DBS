@@ -23,7 +23,7 @@ public class Transaction {
         return this.transactionID;
     }
 
-    public String getReceiverType() {
+    public String getTransactionStatus() {
         return this.transactionStatus;
     }
 
