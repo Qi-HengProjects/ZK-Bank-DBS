@@ -17,9 +17,9 @@ public class TransferPage extends JPanel {
 
         //Glass Panel
         GUI.GlassPanel transferContainer = new GUI.GlassPanel();
-        transferContainer.setSize(800, 400);
+        transferContainer.setSize(800, 450);
         transferContainer.setBackground(Color.decode(GUI.WhiteColorCode));
-        ui.setPosition(transferContainer, 27, 200, 800, 400);
+        ui.setPosition(transferContainer, 27, 200, 800, 450);
         this.add(transferContainer);
 
         JLabel transfer = new JLabel("Transfer");
@@ -107,7 +107,7 @@ public class TransferPage extends JPanel {
         transferContainer.add(reference);
 
         // Reference TextField
-        JTextArea referenceTextField = new JTextArea(5, 30);
+        JTextArea referenceTextField = new JTextArea(3, 30);
         referenceTextField.setForeground(Color.decode(GUI.BlackColorCode));
         referenceTextField.setLineWrap(true);
         referenceTextField.setWrapStyleWord(true);
@@ -119,7 +119,7 @@ public class TransferPage extends JPanel {
         JButton transferConfirmBtn = new JButton("Confirm");
         transferConfirmBtn.setFont(new Font("Arial", Font.BOLD, 15));
         transferConfirmBtn.setForeground(Color.decode(GUI.BlackColorCode));
-        ui.setPosition(transferConfirmBtn, 325, 350, 150, 25);
+        ui.setPosition(transferConfirmBtn, 325, 400, 150, 25);
         transferConfirmBtn.addActionListener( e -> {
 
         });
@@ -128,4 +128,9 @@ public class TransferPage extends JPanel {
 
 
     }
+
+
+
 }
+
+

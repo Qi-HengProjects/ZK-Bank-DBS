@@ -100,9 +100,9 @@ public class Admin extends JPanel {
             int spacing = 10;
 
 
-            List<String[]> accountApplicationList = Main.dataManager.makeLoanApplicationList();
-            if (accountApplicationList != null && !accountApplicationList.isEmpty()) {
-                for (String[] loanApplications : accountApplicationList) {
+            List<String[]> loanApplicationList = Main.dataManager.makeLoanApplicationList();
+            if (loanApplicationList != null && !loanApplicationList.isEmpty()) {
+                for (String[] loanApplications : loanApplicationList) {
                     if (loanApplications != null) {
 
                         String userName = loanApplications[0];
@@ -145,7 +145,7 @@ public class Admin extends JPanel {
         // 1. Clear the container
         displayAccContainer.removeAll();
 
-        String[] keys = {
+        String[] accKeys = {
                 "User ID:", "Company:", "Occupation:", "Income Source:",
                 "Gross Income:", "Net Income:", "Account Type:",
                 "App Type:", "Status:", "Initial Deposit:"
@@ -161,8 +161,8 @@ public class Admin extends JPanel {
         Component lastComponent = null;
 
         // LOOP ONLY FOR LABELS
-        for (int i = 0; i < keys.length; i++) {
-            JLabel keyLabel = new JLabel(keys[i]);
+        for (int i = 0; i < accKeys.length; i++) {
+            JLabel keyLabel = new JLabel(accKeys[i]);
             keyLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
             JLabel valueLabel = new JLabel(applicationData[i]);
@@ -215,10 +215,10 @@ public class Admin extends JPanel {
         // 1. Clear the container
         displayLoanContainer.removeAll();
 
-        String[] keys = {
+        String[] loanKeys = {
                 "User ID:", "Company:", "Occupation:", "Income Source:",
                 "Gross Income:", "Net Income:", "Loan Amount:",
-                "Loan Period:", "Status:"
+                "Loan Period:"
         };
 
         int startX = 50;
@@ -231,8 +231,8 @@ public class Admin extends JPanel {
         Component lastComponent = null;
 
         // LOOP ONLY FOR LABELS
-        for (int i = 0; i < keys.length; i++) {
-            JLabel keyLabel = new JLabel(keys[i]);
+        for (int i = 0; i < loanKeys.length; i++) {
+            JLabel keyLabel = new JLabel(loanKeys[i]);
             keyLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
             JLabel valueLabel = new JLabel(applicationData[i]);
@@ -252,26 +252,26 @@ public class Admin extends JPanel {
         }
 
         // 2. CREATE BUTTONS OUTSIDE THE LOOP (Prevents duplication)
-        JButton accountApprove = new JButton("Approve");
-        JButton accountReject = new JButton("Reject");
+        JButton loanApprove = new JButton("Approve");
+        JButton loanReject = new JButton("Reject");
 
         // Position buttons relative to the LAST label added in the loop
         // Move them down by 60 pixels from the last row
-        ui.setPositionRelative(lastComponent, accountApprove, 0, 60, 120, 40);
-        ui.setPositionRelative(accountApprove, accountReject, 140, 0, 120, 40);
+        ui.setPositionRelative(lastComponent, loanApprove, 0, 60, 120, 40);
+        ui.setPositionRelative(loanApprove, loanReject, 140, 0, 120, 40);
 
-        accountApprove.addActionListener(e -> {
+        loanApprove.addActionListener(e -> {
             // Your logic here
             System.out.println("Approved: " + applicationData[0]);
         });
 
-        accountReject.addActionListener(e -> {
+        loanReject.addActionListener(e -> {
             // Your logic here
             System.out.println("Rejected: " + applicationData[0]);
         });
 
-        displayLoanContainer.add(accountApprove);
-        displayLoanContainer.add(accountReject);
+        displayLoanContainer.add(loanApprove);
+        displayLoanContainer.add(loanReject);
 
         // 3. Refresh the UI
         displayLoanContainer.revalidate();

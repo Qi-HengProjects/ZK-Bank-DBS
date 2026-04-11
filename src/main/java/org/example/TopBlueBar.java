@@ -131,6 +131,11 @@ public class TopBlueBar extends JPanel {
         LogOutbtn.setBorderPainted(false);
         LogOutbtn.addActionListener(e -> {
             Main.showPage("Login");
+            Main.toggle_status = false;
+            Main.currentSession = null;
+            this.repaint();
+            this.revalidate();
+
         });
         if (Main.account_status == Main.AccountStatus.SignedOut) {
             this.remove(LogOutbtn);
@@ -188,12 +193,6 @@ public class TopBlueBar extends JPanel {
         }
     }
 
-
-    public class SignUpFirst extends JOptionPane {
-        public SignUpFirst() {
-            SignUpFirst.showMessageDialog(null, "Please log in first.", "Access Denied", JOptionPane.ERROR_MESSAGE);
-        }
-    }
 
 
     public static class sideWhiteBar extends JPanel {
