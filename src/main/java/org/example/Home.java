@@ -5,7 +5,6 @@ import javax.swing.*;
 public class Home extends JPanel {
     GUI ui = new GUI();
     private JLabel HelloLabel = new JLabel("Hello ");
-    private JLabel NameLabel = new JLabel("");
 
     Image chinabackground3 = new ImageIcon("ChinaBackground3.jpg").getImage();
 
@@ -22,12 +21,11 @@ public class Home extends JPanel {
         // Hello Label
         HelloLabel.setFont(new Font("Arial", Font.PLAIN, 50));
         HelloLabel.setForeground(Color.decode(GUI.BlackColorCode));
+        HelloLabel.setHorizontalAlignment((SwingConstants.CENTER));
+        HelloLabel.setBounds(160, 100, 500, 100);
         this.add(HelloLabel);
 
-        // Name Label
-        NameLabel.setFont(new Font("Arial", Font.ITALIC, 50));
-        NameLabel.setForeground(Color.decode(GUI.BlackColorCode));
-        this.add(NameLabel);
+
 
         // Transfer Button
         GUI.GlassButton TransferBtn = new GUI.GlassButton("Transfer");
@@ -72,18 +70,7 @@ public class Home extends JPanel {
     public void refresh() {
         String username = LoginPanel.UsernameValue;
         if (username != null) {
-            NameLabel.setText(username);
-
-            FontMetrics fmPlain = HelloLabel.getFontMetrics(HelloLabel.getFont());
-            FontMetrics fmItalic = NameLabel.getFontMetrics(NameLabel.getFont());
-
-            int helloWidth = fmPlain.stringWidth("Hello ");
-            int nameWidth = fmItalic.stringWidth(username);
-            int startX = 425 - ((helloWidth + nameWidth) / 2);
-
-            HelloLabel.setBounds(startX, 100, helloWidth + 10, 100);
-            NameLabel.setBounds(startX + helloWidth, 100, nameWidth + 20, 100);
-
+            HelloLabel.setText("<html>Hello <i>" + username + "</i></html>");
             this.revalidate();
             this.repaint();
         }
