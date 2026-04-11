@@ -48,8 +48,14 @@ public class TopBlueBar extends JPanel {
 
             } else {
                 Main.showPage("Home");
-            }
+                for (Component c : Main.mainPanel.getComponents()) {
+                    if (c instanceof Home) {
+                        ((Home) c).refresh();
+                        break;
 
+                    }
+                }
+            }
         });
         this.add(Home);
 
@@ -79,7 +85,7 @@ public class TopBlueBar extends JPanel {
 
         TransferOption.addActionListener(e -> {
             System.out.println("Transfer Option clicked");
-            //Main.showPage("Transfer");
+            Main.showPage("Transfer");
         });
 
         LoanApplicationOption.addActionListener(e -> {
@@ -130,9 +136,11 @@ public class TopBlueBar extends JPanel {
         LogOutbtn.setBounds(0, 550, 120, 40);
         LogOutbtn.setBorderPainted(false);
         LogOutbtn.addActionListener(e -> {
-            Main.showPage("Login");
-            Main.toggle_status = false;
+            Main.account_status = Main.AccountStatus.SignedOut; // ← 先改状态
             Main.currentSession = null;
+            LoginPanel.UsernameValue = null;
+            LockLogic();
+            Main.showPage("Login");
             this.repaint();
             this.revalidate();
 
@@ -157,21 +165,15 @@ public class TopBlueBar extends JPanel {
             Main.toggle_status = false;
         }
 
+        this.remove(TempLbtn);
+        this.remove(LogOutbtn);
+
         if (Main.account_status == Main.AccountStatus.SignedIn) {
-            this.remove(TempLbtn);
+            this.add(LogOutbtn);
         } else {
-            if (!isAncestorOf(TempLbtn)) {
-                this.add(TempLbtn);
-            }
+            this.add(TempLbtn);
         }
 
-        if (Main.account_status == Main.AccountStatus.SignedOut) {
-            this.remove(LogOutbtn);
-        } else {
-            if (!isAncestorOf(LogOutbtn)) {
-                this.add(LogOutbtn);
-            }
-        }
 
         this.revalidate();
         this.repaint();

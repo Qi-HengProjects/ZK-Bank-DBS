@@ -182,11 +182,20 @@ public class Admin extends JPanel {
         }
 
         // 2. CREATE BUTTONS OUTSIDE THE LOOP (Prevents duplication)
+        JButton backBtn = new JButton("Back");
+        backBtn.setBounds(100, 50, 100,20);
+        backBtn.addActionListener(e -> {
+            Main.showPage("accountRequest");
+        });
+        displayAccContainer.add(backBtn);
+
+
         JButton accountApprove = new JButton("Approve");
         JButton accountReject = new JButton("Reject");
 
         // Position buttons relative to the LAST label added in the loop
         // Move them down by 60 pixels from the last row
+
         ui.setPositionRelative(lastComponent, accountApprove, 0, 60, 120, 40);
         ui.setPositionRelative(accountApprove, accountReject, 140, 0, 120, 40);
 
@@ -252,6 +261,13 @@ public class Admin extends JPanel {
         }
 
         // 2. CREATE BUTTONS OUTSIDE THE LOOP (Prevents duplication)
+        JButton backBtn = new JButton("Back");
+        backBtn.setBounds(100, 50, 100,20);
+        backBtn.addActionListener(e ->{
+            Main.showPage("loanRequest");
+        });
+        displayLoanContainer.add(backBtn);
+
         JButton loanApprove = new JButton("Approve");
         JButton loanReject = new JButton("Reject");
 
