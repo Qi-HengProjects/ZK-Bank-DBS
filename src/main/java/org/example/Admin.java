@@ -76,66 +76,63 @@ public class Admin extends JPanel {
     }
 
 
-    public static class newLoanRequest extends JPanel{
+    public static class newLoanRequest extends JPanel {
         GUI ui = new GUI();
 
-        public newLoanRequest(){
+        public newLoanRequest() {
             this.setLayout(null);
             this.setPreferredSize(new Dimension(1000, 650));
 
-            // This is where all your content goes
+            // The scrollable content container
             JPanel adminContainer2 = new JPanel();
             adminContainer2.setLayout(null);
-            adminContainer2.setPreferredSize(new Dimension(1000, 2000)); // tall enough to scroll
+            // Set height dynamically or keep it large enough for the list
+            adminContainer2.setPreferredSize(new Dimension(1000, 2000));
 
-            // Add everything to contentPanel, NOT to this
-            JLabel accountRequestTitle = new JLabel("Loan Request");
-            accountRequestTitle.setFont(new Font("Arial", Font.BOLD, 30));
-            accountRequestTitle.setBounds(200, 50, 300, 50);
-            adminContainer2.add(accountRequestTitle); // <-- contentPanel, not this
-
+            JLabel loanRequestTitle = new JLabel("Loan Request");
+            loanRequestTitle.setFont(new Font("Arial", Font.BOLD, 30));
+            loanRequestTitle.setBounds(200, 50, 300, 50);
+            adminContainer2.add(loanRequestTitle); // Added to container
 
             int currentY = 120;
             int elementHeight = 60;
             int spacing = 10;
 
-
             List<String[]> loanApplicationList = Main.dataManager.makeLoanApplicationList();
+
             if (loanApplicationList != null && !loanApplicationList.isEmpty()) {
                 for (String[] loanApplications : loanApplicationList) {
-                    if (loanApplications != null) {
+                    String userName = loanApplications[0];
+                    JButton appButton = new JButton("User: " + userName + " (View Application)");
+                    appButton.setBounds(200, currentY, 600, elementHeight);
+                    appButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 
-                        String userName = loanApplications[0];
-                        JButton appButton = new JButton("User: " + userName + " (View Application)");
-                        appButton.setBounds(200, currentY, 600, elementHeight);
-                        appButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+                    appButton.addActionListener(q -> {
+                        // Logic to clear and show details
+                        displayLoanApplicationDetails(adminContainer2, loanApplications);
+                    });
 
-
-                        appButton.addActionListener(q -> {
-                            // Pass the 'apps' array to the method above
-                            displayLoanApplicationDetails(adminContainer2, loanApplications);
-
-                            // Add Approve/Reject buttons at the bottom relative to the last item
-                            // or show them if they were hidden
-                        });
-                        adminContainer2.add(appButton);
-
-                        adminContainer2.add(appButton);
-                        currentY += (elementHeight + spacing);
-                    }
+                    adminContainer2.add(appButton); // CRITICAL: Add to container
+                    currentY += (elementHeight + spacing);
                 }
-            } else {
 
+                // Adjust container height based on number of items
+                adminContainer2.setPreferredSize(new Dimension(1000, Math.max(700, currentY + 100)));
+
+            } else {
                 JLabel nothingHereLabel = new JLabel("No requests!");
-                nothingHereLabel.setFont(new Font("Arial", Font.BOLD,20));
-                ui.setPosition(nothingHereLabel, 450, 315, 300, 20);
+                nothingHereLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                // Ensure UI helper adds it to adminContainer2
+                ui.setPosition(nothingHereLabel, 400, 200, 300, 50);
                 adminContainer2.add(nothingHereLabel);
             }
 
-            // Wrap contentPanel in scrollpane
+            // Wrap the container in the scroll pane
             JScrollPane scrollPane = new JScrollPane(adminContainer2);
             scrollPane.setBounds(0, 0, 1000, 650);
-            this.add(scrollPane); // scrollPane goes on the page
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+            this.add(scrollPane);
         }
     }
 
@@ -200,12 +197,21 @@ public class Admin extends JPanel {
         ui.setPositionRelative(accountApprove, accountReject, 140, 0, 120, 40);
 
         accountApprove.addActionListener(e -> {
-            // Your logic here
+            String targetID = applicationData[0];
+            String accType = applicationData[7];
+            double initialBalance = Double.parseDouble(applicationData[9]);
+
+            Main.dataManager.updateData(targetID, User::getApplicationStatus, uObj -> uObj.setApplicationStatus("APPROVED"));
+            Main.dataManager.addNewAccount(targetID, accType, initialBalance);
+            JOptionPane.showMessageDialog(displayAccContainer, "Account Created for " + targetID);
             System.out.println("Approved: " + applicationData[0]);
         });
 
         accountReject.addActionListener(e -> {
-            // Your logic here
+            String targetID = applicationData[0];
+
+            Main.dataManager.updateData(targetID, User::getApplicationStatus, uObj -> uObj.setApplicationStatus("REJECTED"));
+            JOptionPane.showMessageDialog(displayAccContainer, "Account Rejected for " + targetID);
             System.out.println("Rejected: " + applicationData[0]);
         });
 
@@ -277,12 +283,34 @@ public class Admin extends JPanel {
         ui.setPositionRelative(loanApprove, loanReject, 140, 0, 120, 40);
 
         loanApprove.addActionListener(e -> {
-            // Your logic here
+            String targetID = applicationData[0];
+            double amount = Double.parseDouble(applicationData[6]); // Loan Amount
+            double period = Double.parseDouble(applicationData[7]); // Loan Period (Years)
+
+            Loan tempCalc = new Loan("", amount, 0, "PENDING", 0, 0, period, "");
+
+            double rate = tempCalc.loanInterest(amount); // Automatically gets 0.035, 0.05, etc.
+            double totalPayment = tempCalc.calculatePaymentAmount(amount, period);
+            double monthly = totalPayment / (period * 12); // Calculate monthly cost
+
+            Main.dataManager.updateData(targetID, User::getRequestLoanStatus, u -> u.setRequestLoanStatus("APPROVED"));
+            Main.dataManager.addNewLoan(
+                    targetID,
+                    amount,
+                    totalPayment,
+                    "ACTIVE",
+                    rate,
+                    monthly,
+                    period
+            );
+            JOptionPane.showMessageDialog(displayLoanContainer, "Loan Approved! Interest Rate: " + (rate * 100) + "%");
             System.out.println("Approved: " + applicationData[0]);
         });
 
         loanReject.addActionListener(e -> {
-            // Your logic here
+            String targetID = applicationData[0];
+            Main.dataManager.updateData(targetID, User::getRequestLoanStatus, u -> u.setRequestLoanStatus("REJECTED"));
+            JOptionPane.showMessageDialog(displayLoanContainer, "Loan Rejected!");
             System.out.println("Rejected: " + applicationData[0]);
         });
 

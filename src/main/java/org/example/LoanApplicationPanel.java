@@ -8,7 +8,6 @@ import java.util.List;
 
 public class LoanApplicationPanel extends JPanel{
     //Var area
-    private DataManager dataManager;
     GUI ui = new GUI();
     List<JTextComponent> FieldsStatus = new ArrayList<>();
 
@@ -163,7 +162,7 @@ public class LoanApplicationPanel extends JPanel{
                 Main.dataManager.updateData(currentID, User::getRequestLoanPeriod, uObj -> uObj.setRequestLoanPeriod(loanPeriodTextField.getText()));
                 Main.dataManager.updateData(currentID, User::getRequestLoanPurpose, uObj -> uObj.setRequestLoanPurpose(loanPurposeTextArea.getText()));
 
-
+                Main.dataManager.updateData(currentID, User::getRequestLoanStatus, uObj -> uObj.setRequestLoanStatus("PENDING"));
 
 
                 JOptionPane.showMessageDialog(this, "Application Details Saved!");
