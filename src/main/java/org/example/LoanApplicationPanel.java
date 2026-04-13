@@ -121,7 +121,7 @@ public class LoanApplicationPanel extends JPanel{
         FieldsStatus.add(loanAmtTextField);
 
         // Loan Period Label
-        JLabel loanPeriod = new JLabel("Loan Period: ");
+        JLabel loanPeriod = new JLabel("Loan Period (Years): ");
         loanPeriod.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(loanAmt, loanPeriod, 0 ,30, 150, 15);
         loanContainer.add(loanPeriod);

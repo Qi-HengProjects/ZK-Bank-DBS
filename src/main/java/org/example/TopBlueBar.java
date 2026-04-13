@@ -95,7 +95,7 @@ public class TopBlueBar extends JPanel {
 
         CurrencyExchangeOption.addActionListener(e -> {
             System.out.println("Currency Exchange");
-            //Main.showPage("SomePage");
+                Main.showPage("Currency");
         });
 
         dropdownBtn.setBorderPainted(false);

@@ -45,19 +45,15 @@ public class Home extends JPanel {
         // Currency Exchange Button
         GUI.GlassButton CurrencyExchangeBtn = new GUI.GlassButton("<html><center>Currency<br>Exchange</center></html>");
         ui.setPositionRelative(LoanApplicationBtn, CurrencyExchangeBtn, 200, 0, 120, 120);
+        CurrencyExchangeBtn.addActionListener(e -> {
+            Main.showPage("Currency");
+        });
         this.add(CurrencyExchangeBtn);
 
-        // Profile Button
-        GUI.GlassButton ProfileBtn = new GUI.GlassButton("Profile");
-        ui.setPositionRelative(CurrencyExchangeBtn, ProfileBtn, 200, 0, 120, 120);
-        ProfileBtn.addActionListener(e -> {
-            Main.showPage("Profile");
-        });
-        this.add(ProfileBtn);
 
         //Create Account Button
-        GUI.GlassButton CreateAccBtn = new GUI.GlassButton("Create Account");
-        ui.setPositionRelative(ProfileBtn, CreateAccBtn, -50, -250, 200, 50);
+        GUI.GlassButton CreateAccBtn = new GUI.GlassButton("<html><center>Create<br>Account</center></html>");
+        ui.setPositionRelative(CurrencyExchangeBtn, CreateAccBtn, 200, 0, 120, 120);
         CreateAccBtn.addActionListener(e -> {
             Window parentWindow = SwingUtilities.getWindowAncestor(this);
             new CreateAccount((Frame) parentWindow);
