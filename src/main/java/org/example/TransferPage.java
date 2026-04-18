@@ -124,18 +124,20 @@ public class TransferPage extends JPanel {
         transferConfirmBtn.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPosition(transferConfirmBtn, 325, 400, 150, 25);
         transferConfirmBtn.addActionListener( e -> {
+            // Show the pop-up warning
+            JOptionPane.showConfirmDialog(null,
+                    "Transfer Complete.",
+                    "Transfer Successful",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+            );
+            transferContainer.add(transferConfirmBtn);
 
+            Main.showPage("statementUI");
         });
         transferContainer.add(transferConfirmBtn);
 
-
-
     }
-
-
-
-
-
 }
 
 
