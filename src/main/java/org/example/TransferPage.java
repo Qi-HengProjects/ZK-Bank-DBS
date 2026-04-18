@@ -2,6 +2,9 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class TransferPage extends JPanel {
     GUI ui = new GUI();
@@ -128,6 +131,8 @@ public class TransferPage extends JPanel {
 
 
     }
+
+
 
 
 

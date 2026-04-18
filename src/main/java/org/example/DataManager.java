@@ -397,21 +397,22 @@ public class DataManager {
         User u = (User) search("Users", userID, null, null, null);
         List<String[]> statementList = new ArrayList<>();
 
-        if (u != null) {
+        // Add a null check for both the user and the transaction list
+        if (u != null && u.getTransactions() != null) {
             for (Transaction transaction : u.getTransactions()) {
-                String transactionAmount = String.valueOf(transaction.getTransactionAmount());
-                String[] statement = {
-                        transactionAmount,
+                statementList.add(new String[]{
+                        String.valueOf(transaction.getTransactionAmount()),
                         transaction.getTransactionID(),
                         transaction.getTransactionStatus(),
                         transaction.getTransactionDate(),
-                        transaction.getTransactionDetails()};
-                statementList.add(statement);
+                        transaction.getTransactionDetails()
+                });
             }
         }
+        // Newest transactions first
         Collections.reverse(statementList);
         return statementList;
     }
-}
 
+}
 
