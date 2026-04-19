@@ -50,6 +50,7 @@ public class Main extends JFrame {
             case "accountRequest" -> mainPanel.add(new Admin.newAccountRequest(), "accountRequest");
             case "loanRequest" -> mainPanel.add(new Admin.newLoanRequest(), "loanRequest");
             case "statement" -> mainPanel.add(new statementUI(), "statement");
+            case "viewStatements" -> mainPanel.add(new viewStatements(), "viewStatements");
 
         }
 

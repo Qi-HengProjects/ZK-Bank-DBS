@@ -28,7 +28,7 @@ public class Home extends JPanel {
 
         // Transfer Button
         GUI.GlassButton TransferBtn = new GUI.GlassButton("Transfer");
-        ui.setPosition(TransferBtn, 70, 300, 120, 120);
+        ui.setPosition(TransferBtn, 70, 250, 120, 120);
         TransferBtn.addActionListener( e -> {
             Main.showPage("Transfer");
         });
@@ -36,7 +36,7 @@ public class Home extends JPanel {
 
         // Loan Application Button
         GUI.GlassButton LoanApplicationBtn = new GUI.GlassButton("<html><center>Loan<br>Application</center></html>");
-        ui.setPositionRelative(TransferBtn, LoanApplicationBtn, 200, 0, 120, 120);
+        ui.setPositionRelative(TransferBtn, LoanApplicationBtn, 300, 0, 120, 120);
         LoanApplicationBtn.addActionListener(e -> {
             Main.showPage("LoanApp");
         });
@@ -44,7 +44,7 @@ public class Home extends JPanel {
 
         // Currency Exchange Button
         GUI.GlassButton CurrencyExchangeBtn = new GUI.GlassButton("<html><center>Currency<br>Exchange</center></html>");
-        ui.setPositionRelative(LoanApplicationBtn, CurrencyExchangeBtn, 200, 0, 120, 120);
+        ui.setPositionRelative(LoanApplicationBtn, CurrencyExchangeBtn, 300, 0, 120, 120);
         CurrencyExchangeBtn.addActionListener(e -> {
             Main.showPage("Currency");
         });
@@ -52,14 +52,32 @@ public class Home extends JPanel {
 
 
         //Create Account Button
-        GUI.GlassButton CreateAccBtn = new GUI.GlassButton("<html><center>Create<br>Account</center></html>");
-        ui.setPositionRelative(CurrencyExchangeBtn, CreateAccBtn, 200, 0, 120, 120);
-        CreateAccBtn.addActionListener(e -> {
+        GUI.GlassButton createAccBtn = new GUI.GlassButton("<html><center>Create<br>Account</center></html>");
+        ui.setPositionRelative(TransferBtn, createAccBtn, 0, 150, 120, 120);
+        createAccBtn.addActionListener(e -> {
             Window parentWindow = SwingUtilities.getWindowAncestor(this);
             new CreateAccount((Frame) parentWindow);
         });
 
-        this.add(CreateAccBtn);
+        this.add(createAccBtn);
+
+        //View Transactions Button
+        GUI.GlassButton viewTransBtn = new GUI.GlassButton("<html><center>View<br>Transactions</center></html>");
+        ui.setPositionRelative(createAccBtn, viewTransBtn, 300, 0, 120, 120);
+        viewTransBtn.addActionListener(e -> {
+            Main.showPage("viewStatements");
+        });
+
+        this.add(viewTransBtn);
+
+        //View Account Button
+        GUI.GlassButton viewAccBtn = new GUI.GlassButton("<html><center>View<br>Transactions</center></html>");
+        ui.setPositionRelative(viewTransBtn, viewAccBtn, 300, 0, 120, 120);
+        viewAccBtn.addActionListener(e -> {
+            //Main.showPage("viewStatements");
+        });
+
+        this.add(viewAccBtn);
     }
 
     public void refresh() {
