@@ -74,7 +74,7 @@ public class Home extends JPanel {
         GUI.GlassButton viewAccBtn = new GUI.GlassButton("<html><center>View<br>Accounts</center></html>");
         ui.setPositionRelative(viewTransBtn, viewAccBtn, 300, 0, 120, 120);
         viewAccBtn.addActionListener(e -> {
-            //Main.showPage("viewStatements");
+            Main.showPage("viewAccounts");
         });
 
         this.add(viewAccBtn);
