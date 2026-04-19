@@ -293,11 +293,45 @@ public class DataManager {
         checkReceiver.addTransaction(transactionRA);
     }
 
-    public void performTransfer(String giveAccountNumber, String receiveAccountNumber, double amount) {
+    public void addExternalTransaction(User checkOwner, double amount, String transactionStatus, String externalBankName, String externalAccountNumber) {
+        String transactionID = generateTransactionID();
+        String startingDate = java.time.LocalDate.now().toString();
+
+        String transactionDetails = "IBG Transfer to " + externalBankName + " Account: " + externalAccountNumber + ". (-" + amount + ")";
+
+        Transaction externalTx = new Transaction(amount, transactionID, transactionStatus, startingDate, transactionDetails);
+
+        checkOwner.addTransaction(externalTx);
+    }
+
+    public boolean performExternalTransfer(String giveAccountNumber, double amount, String externalBankName, String externalAccountNumber) {
+        Account ga = (Account) search("Accounts", null, giveAccountNumber, null, null);
+        User checkOwner = (User) search("UsersWithAccounts", null, giveAccountNumber, null, null);
+        boolean stats = false;
+        if (ga != null && checkOwner != null) {
+            if (ga.getType().equalsIgnoreCase("current")) {
+                boolean deduct = ga.withdraw(amount);
+                if (deduct) {
+                    saveAll(allusers);
+                    System.out.println("RM " + amount + " deducted. Remaining: RM " + ga.getBalance());
+                    addExternalTransaction(checkOwner, amount, "SUCCESSFUL", externalBankName, externalAccountNumber);
+                    return stats = true;
+                }
+            } else {
+                System.out.println("External transfers are only permitted from Current Accounts.");
+            }
+        } else {
+            System.out.println("Sender account or user not found.");
+        }
+        return stats;
+    }
+
+    public boolean performTransfer(String giveAccountNumber, String receiveAccountNumber, double amount) {
         Account ga = (Account) search("Accounts", null, giveAccountNumber, null, null);
         Account ra = (Account) search("Accounts", null, receiveAccountNumber, null, null);
         User checkOwner = (User) search("UsersWithAccounts", null, giveAccountNumber, null, null);
         User checkReceiver = (User) search("UsersWithAccounts", null, receiveAccountNumber, null, null);
+        boolean stats = false;
 
         if (ga != null) {
             if (ra != null) {
@@ -314,6 +348,7 @@ public class DataManager {
                                     System.out.println("RM " + amount + " has been deducted!");
                                     System.out.println("RM " + ga.getBalance() + "Left in the account.");
                                     addNewTransaction(ga, ra, checkOwner, checkReceiver, amount, "SUCCESSFUL");
+                                    return stats = true;
                                 } else {
                                     System.out.println("Transaction failed!");
                                 }
@@ -327,6 +362,7 @@ public class DataManager {
                                         System.out.println("RM " + amount + " has been deducted!");
                                         System.out.println("RM " + ga.getBalance() + "Left in the account.");
                                         addNewTransaction(ga, ra, checkOwner, checkReceiver, amount, "SUCCESSFUL");
+                                        return stats = true;
                                     } else {
                                         System.out.println("Insufficient funds in Savings!");
                                     }
@@ -349,6 +385,7 @@ public class DataManager {
         } else {
             System.out.println("Sender account not found");
         }
+        return stats;
     }
 
     public List<String[]> makeAccountApplicationList() {

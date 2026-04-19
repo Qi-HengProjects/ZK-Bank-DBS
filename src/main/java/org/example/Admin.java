@@ -322,9 +322,4 @@ public class Admin extends JPanel {
         displayLoanContainer.repaint();
     }
 
-
-
-
-
-
 }

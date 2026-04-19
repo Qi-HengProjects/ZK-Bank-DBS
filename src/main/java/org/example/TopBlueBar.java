@@ -226,6 +226,23 @@ public class TopBlueBar extends JPanel {
             });
             this.add(loanApplySection);
 
+            HeaderButton logoutBtn = new HeaderButton("Log Out");
+            logoutBtn.setBounds(850, 15, 100, 25); // Positioned at the far right
+            logoutBtn.setFont(new Font("Arial", Font.BOLD, 14));
+            logoutBtn.setForeground(Color.WHITE);
+            logoutBtn.addActionListener(e -> {
+                // Reset Session Data
+                Main.account_status = Main.AccountStatus.SignedOut;
+                Main.currentSession = null;
+                LoginPanel.UsernameValue = null;
+
+                // Re-lock the main sidebar logic
+                Main.bar.LockLogic();
+
+                // Switch back to Login Page via CardLayout
+                Main.showPage("Login");
+            });
+            this.add(logoutBtn);
             // Start with the first one selected
             setActiveTab(accApplySection);
         }

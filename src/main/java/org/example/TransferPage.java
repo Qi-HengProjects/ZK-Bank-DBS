@@ -39,13 +39,20 @@ public class TransferPage extends JPanel {
         transferContainer.add(selectAccount);
 
         //Select Account Dropdown box
+        User u = (User) Main.dataManager.search("Users", Main.currentSession, null, null, null);
         //Need a validate... if no account number, JOptionPane prompt to create account first.
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        //u.getCurrentAccounts().forEach(acc -> model.addElement(acc.getAccountNumber()));
-        //u.getSavingsAccounts().forEach(acc -> model.addElement(acc.getAccountNumber()));
-        JComboBox<String> accountBox = new JComboBox<>(model);
-        String[] AccountChoices = {};
-        JComboBox<String> AccountComboBox = new JComboBox<>(AccountChoices);
+
+        if (u != null) {
+            for (SavingsAccount sa : u.getSavingsAccounts()) {
+                model.addElement(sa.getAccountNumber() + " (Savings)");
+            }
+            for (CurrentAccount ca : u.getCurrentAccounts()) {
+                model.addElement(ca.getAccountNumber() + " (Current)");
+            }
+        }
+
+        JComboBox<String> AccountComboBox = new JComboBox<>(model);
         ui.setPositionRelative(selectAccount, AccountComboBox, 250, 0, 200, 20);
         transferContainer.add(AccountComboBox);
 
@@ -64,7 +71,7 @@ public class TransferPage extends JPanel {
 
 
         // Transfer Recipient Name Label
-        JLabel transferRecipientName = new JLabel("Recipient Account: ");
+        JLabel transferRecipientName = new JLabel("Recipient Name: ");
         transferRecipientName.setFont(new Font("Arial", Font.BOLD, 20));
         transferRecipientName.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(transferRecipientBank, transferRecipientName, 0, 50,300,20);
@@ -77,7 +84,7 @@ public class TransferPage extends JPanel {
         transferContainer.add(transferRecipientNameTextField);
 
         // Transfer Recipient Account ID Label
-        JLabel transferRecipient = new JLabel("Transaction Amount: ");
+        JLabel transferRecipient = new JLabel("Recipient Account: ");
         transferRecipient.setFont(new Font("Arial", Font.BOLD, 20));
         transferRecipient.setForeground(Color.decode(GUI.BlackColorCode));
         ui.setPositionRelative(transferRecipientName, transferRecipient, 0, 50,300,20);
@@ -122,20 +129,50 @@ public class TransferPage extends JPanel {
         JButton transferConfirmBtn = new JButton("Confirm");
         transferConfirmBtn.setFont(new Font("Arial", Font.BOLD, 15));
         transferConfirmBtn.setForeground(Color.decode(GUI.BlackColorCode));
-        ui.setPosition(transferConfirmBtn, 325, 400, 150, 25);
-        transferConfirmBtn.addActionListener( e -> {
-            // Show the pop-up warning
-            JOptionPane.showConfirmDialog(null,
-                    "Transfer Complete.",
-                    "Transfer Successful",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.PLAIN_MESSAGE
-            );
-            transferContainer.add(transferConfirmBtn);
-
-            Main.showPage("statementUI");
-        });
+        ui.setPositionRelative(reference, transferConfirmBtn, 0, 100, 150, 25);
         transferContainer.add(transferConfirmBtn);
+        transferConfirmBtn.addActionListener(e -> {
+            try {
+                if (AccountComboBox.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(this, "You must select a source account first!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                // 1. Get inputs from GUI
+                String selectedAcc = (String) AccountComboBox.getSelectedItem();
+                String senderAccNum = selectedAcc.split(" ")[0]; // Extract the number
+                String targetBank = (String) bankComboBox.getSelectedItem();
+                String recipientAcc = transferRecipientTextField.getText();
+                double amount = Double.parseDouble(transactionAmountTextField.getText());
+
+                // 2. Branch logic based on Bank selection
+                if (targetBank.equals("ZhaKai Bank")) {
+                    // Use your existing internal transfer method
+                    boolean thisTransaction = Main.dataManager.performTransfer(senderAccNum, recipientAcc, amount);
+                    if (thisTransaction) {
+                        JOptionPane.showMessageDialog(this, "Transfer Successful!");
+                        Main.showPage("Home");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Transfer Failed!");
+                        Main.showPage("Home");
+                    }
+
+                } else {
+                    // Use the new external transfer method we created
+                    boolean thisExternalTransaction = Main.dataManager.performExternalTransfer(senderAccNum, amount, targetBank, recipientAcc);
+
+                    if (thisExternalTransaction) {
+                        JOptionPane.showMessageDialog(this, "Transfer Successful!");
+                        Main.showPage("Home");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Transfer Failed!");
+                        Main.showPage("Home");
+                    }
+                }
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid amount format!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
     }
 }

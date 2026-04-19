@@ -36,7 +36,7 @@ public class Transaction {
     }
 
     public void setReceiverType(String receiverType) {
-        this.transactionStatus = transactionStatus;
+        this.transactionStatus = receiverType;
     }
 
     public void setTransactionDetails(String transactionDetails) {
