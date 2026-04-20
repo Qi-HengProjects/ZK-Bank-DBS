@@ -24,6 +24,11 @@ public class SavingsAccount extends Account {
 
     @Override
     public boolean withdraw(double amount) {
+        if (getBalance() - amount < 20.00) {
+            System.out.println("Transaction Denied: RM 20.00 minimum balance required.");
+            return false;
+        }
+
         if (super.withdraw(amount)) {
             setBalance(getBalance() - amount);
             updateInterestRate();

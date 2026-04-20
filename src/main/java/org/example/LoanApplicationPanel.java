@@ -154,21 +154,34 @@ public class LoanApplicationPanel extends JPanel{
             if (isAnyFieldsEmpty()) {
                 JOptionPane.showMessageDialog(this, "All text fields must be filled in!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                //validate the data here
-                String currentID = Main.currentSession;
+                try {
+                    // BUG FIX: Validate that these are actual numbers before saving!
+                    double testAmount = Double.parseDouble(loanAmtTextField.getText());
+                    double testPeriod = Double.parseDouble(loanPeriodTextField.getText());
 
-                // FIXED: All variables now match the text field names defined above
-                Main.dataManager.updateData(currentID, User::getRequestLoanAmount, uObj -> uObj.setRequestLoanAmount(loanAmtTextField.getText()));
-                Main.dataManager.updateData(currentID, User::getRequestLoanPeriod, uObj -> uObj.setRequestLoanPeriod(loanPeriodTextField.getText()));
-                Main.dataManager.updateData(currentID, User::getRequestLoanPurpose, uObj -> uObj.setRequestLoanPurpose(loanPurposeTextArea.getText()));
+                    if (testAmount <= 0 || testPeriod <= 0) {
+                        JOptionPane.showMessageDialog(this, "Loan amount and period must be greater than 0!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
 
-                Main.dataManager.updateData(currentID, User::getRequestLoanStatus, uObj -> uObj.setRequestLoanStatus("PENDING"));
+                    // If it passes the number test, save the data
+                    String currentID = Main.currentSession;
+                    Main.dataManager.updateData(currentID, User::getRequestLoanAmount, uObj -> uObj.setRequestLoanAmount(loanAmtTextField.getText()));
+                    Main.dataManager.updateData(currentID, User::getRequestLoanPeriod, uObj -> uObj.setRequestLoanPeriod(loanPeriodTextField.getText()));
+                    Main.dataManager.updateData(currentID, User::getRequestLoanPurpose, uObj -> uObj.setRequestLoanPurpose(loanPurposeTextArea.getText()));
+                    Main.dataManager.updateData(currentID, User::getRequestLoanStatus, uObj -> uObj.setRequestLoanStatus("PENDING"));
 
+                    JOptionPane.showMessageDialog(this, "Application Details Saved!");
 
-                JOptionPane.showMessageDialog(this, "Application Details Saved!");
+                    // Optional: clear the fields after applying
+                    loanAmtTextField.setText("");
+                    loanPeriodTextField.setText("");
+                    loanPurposeTextArea.setText("");
 
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Amount and Period!", "Input Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-
         });
 
 
