@@ -308,7 +308,7 @@ public class Admin extends JPanel {
                     monthly,
                     period
             );
-            JOptionPane.showMessageDialog(displayLoanContainer, "Loan Approved! Interest Rate: " + (rate * 100) + "%");
+            JOptionPane.showMessageDialog(displayLoanContainer, "Loan Approved! Interest Rate: " + String.format("%.2f", (rate * 100)) + "%");
             System.out.println("Approved: " + applicationData[0]);
 
             Main.showPage("loanRequest");

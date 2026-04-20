@@ -76,8 +76,16 @@ public class viewAccounts extends JPanel {
             rightY += 40;
         } else {
             for (Loan l : loans) {
-                renderLoanBox(accountContainer, l.getLoanID(), l.getPaymentAmount(), 520, rightY);
-                rightY += 75;
+                // Pass all loan details to the box renderer
+                renderLoanBox(accountContainer,
+                        l.getLoanID(),
+                        l.getPaymentAmount(),
+                        l.getMonthlyInstallment(),
+                        l.getInterestRate(),
+                        l.getLoanPeriod(),
+                        520,
+                        rightY);
+                rightY += 120; // Increased spacing for more detailed boxes
             }
         }
 
@@ -122,7 +130,6 @@ public class viewAccounts extends JPanel {
         }
     }
 
-    // Standard box for Accounts (matches your screenshot style)
     private void renderAccountBox(JPanel p, String type, String num, double bal, int x, int y) {
         JPanel b = new JPanel(null);
         b.setBounds(x, y, 430, 60);
@@ -141,21 +148,40 @@ public class viewAccounts extends JPanel {
         p.add(b);
     }
 
-    // Standard box for Loans
-    private void renderLoanBox(JPanel p, String id, double total, int x, int y) {
+    private void renderLoanBox(JPanel p, String id, double totalAmount, double monthly, double rate, double period, int x, int y) {
         JPanel b = new JPanel(null);
-        b.setBounds(x, y, 430, 60);
+        b.setBounds(x, y, 430, 105);
         b.setBackground(Color.WHITE);
         b.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(192, 57, 43)));
 
-        JLabel i = new JLabel("Loan ID: " + id);
-        i.setFont(new Font("Arial", Font.BOLD, 14));
-        i.setBounds(15, 10, 350, 20);
+        JLabel idLabel = new JLabel("Loan ID: " + id);
+        idLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        idLabel.setBounds(15, 10, 350, 20);
 
-        JLabel t = new JLabel("Outstanding: RM " + String.format("%.2f", total));
-        t.setBounds(15, 30, 350, 20);
+        // FIX: Label changed to Total Loan Amount and formatted to 2 decimals
+        JLabel outLabel = new JLabel("Total Loan Amount: RM " + String.format("%.2f", totalAmount));
+        outLabel.setBounds(15, 30, 350, 20);
 
-        b.add(i); b.add(t);
+        // FIX: Monthly Installment formatted to 2 decimals
+        JLabel monthlyLabel = new JLabel("Monthly Installment: RM " + String.format("%.2f", monthly));
+        monthlyLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        monthlyLabel.setForeground(Color.GRAY);
+        monthlyLabel.setBounds(15, 50, 350, 20);
+
+        // FIX: Interest Rate formatted to 1 decimal place to remove the long trailing digits
+        JLabel rateLabel = new JLabel("Interest Rate: " + String.format("%.1f", (rate * 100)) + "%");
+        rateLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        rateLabel.setBounds(15, 70, 200, 20);
+
+        JLabel periodLabel = new JLabel("Period: " + (int)period + " Years");
+        periodLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        periodLabel.setBounds(220, 70, 150, 20);
+
+        b.add(idLabel);
+        b.add(outLabel);
+        b.add(monthlyLabel);
+        b.add(rateLabel);
+        b.add(periodLabel);
         p.add(b);
     }
 }

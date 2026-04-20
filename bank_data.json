@@ -48,10 +48,10 @@
     "incomeSource": "idk",
     "grossIncome": "7000",
     "netIncome": "5000",
-    "requestLoanAmount": "2223",
-    "requestLoanStatus": "REJECTED",
-    "requestLoanPeriod": "4",
-    "requestLoanPurpose": "for banana",
+    "requestLoanAmount": "Not specified",
+    "requestLoanStatus": "Not specified",
+    "requestLoanPeriod": "Not specified",
+    "requestLoanPurpose": "buy more banana",
     "accountApplication": "Not specified",
     "applicationStatus": "Not specified",
     "applicationType": "Not specified",
@@ -59,16 +59,54 @@
     "savingsAccounts": [],
     "currentAccounts": [
       {
-        "transactionCount": 1,
+        "transactionCount": 3,
         "transactionFee": 0.5,
         "accountNumber": "60691462",
         "type": "current",
-        "balance": 1500.0,
+        "balance": 1612.0,
         "dateCreated": "2026-04-19"
       }
     ],
-    "transactions": [],
-    "loans": []
+    "transactions": [
+      {
+        "transactionAmount": 100.0,
+        "transactionID": "TXF24279030",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Received 100.0 from account 32974235. (+100.0)"
+      },
+      {
+        "transactionAmount": 12.0,
+        "transactionID": "TXF47330473",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Received 12.0 from account 32974235. (+12.0)"
+      }
+    ],
+    "loans": [
+      {
+        "loanID": "L137164",
+        "loanAmount": 4500.0,
+        "paymentAmount": 787.5000000000001,
+        "remainingAmount": 0.0,
+        "loanStatus": "ACTIVE",
+        "interestRate": 0.035,
+        "monthlyInstallment": 13.125000000000002,
+        "loanPeriod": 5.0,
+        "startingDate": "2026-04-20"
+      },
+      {
+        "loanID": "L199368",
+        "loanAmount": 9000.0,
+        "paymentAmount": 12150.0,
+        "remainingAmount": 0.0,
+        "loanStatus": "ACTIVE",
+        "interestRate": 0.035,
+        "monthlyInstallment": 101.25,
+        "loanPeriod": 10.0,
+        "startingDate": "2026-04-20"
+      }
+    ]
   },
   {
     "name": "yifan",
@@ -91,7 +129,7 @@
     "requestLoanAmount": "Not specified",
     "requestLoanStatus": "Not specified",
     "requestLoanPeriod": "Not specified",
-    "requestLoanPurpose": "Not specified",
+    "requestLoanPurpose": "domain",
     "accountApplication": "Not specified",
     "applicationStatus": "Not specified",
     "applicationType": "Not specified",
@@ -99,15 +137,60 @@
     "savingsAccounts": [],
     "currentAccounts": [
       {
-        "transactionCount": 1,
+        "transactionCount": 4,
         "transactionFee": 0.5,
         "accountNumber": "32974235",
         "type": "current",
-        "balance": 499.5,
+        "balance": 286.0,
         "dateCreated": "2026-04-19"
       }
     ],
-    "transactions": [],
-    "loans": []
+    "transactions": [
+      {
+        "transactionAmount": 100.0,
+        "transactionID": "TXF24279030",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Transferred 100.0 to account 60691462. (-100.0)"
+      },
+      {
+        "transactionAmount": 100.0,
+        "transactionID": "TXF90325990",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "IBG Transfer to Others Account: 30090909. (-100.0)"
+      },
+      {
+        "transactionAmount": 12.0,
+        "transactionID": "TXF47330473",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Transferred 12.0 to account 60691462. (-12.0)"
+      }
+    ],
+    "loans": [
+      {
+        "loanID": "L506875",
+        "loanAmount": 1000.0,
+        "paymentAmount": 70.0,
+        "remainingAmount": 0.0,
+        "loanStatus": "ACTIVE",
+        "interestRate": 0.035,
+        "monthlyInstallment": 2.9166666666666665,
+        "loanPeriod": 2.0,
+        "startingDate": "2026-04-20"
+      },
+      {
+        "loanID": "L659852",
+        "loanAmount": 1000.0,
+        "paymentAmount": 1070.0,
+        "remainingAmount": 0.0,
+        "loanStatus": "ACTIVE",
+        "interestRate": 0.035,
+        "monthlyInstallment": 44.583333333333336,
+        "loanPeriod": 2.0,
+        "startingDate": "2026-04-20"
+      }
+    ]
   }
 ]

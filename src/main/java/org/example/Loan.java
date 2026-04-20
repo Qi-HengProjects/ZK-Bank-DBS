@@ -22,18 +22,22 @@ public class Loan {
         this.startingDate = startingDate;
     }
 
+    // Updated Loan.java logic
     public double calculatePaymentAmount(double loanAmount, double loanPeriod) {
-        this.paymentAmount = loanInterest(loanAmount)  *  loanPeriod * loanAmount;
+        // Correct Formula: Total = Principal + (Principal * Rate * Years)
+        double totalInterest = loanAmount * loanInterest(loanAmount) * loanPeriod;
+        this.paymentAmount = loanAmount + totalInterest;
         return this.paymentAmount;
     }
 
     public double loanInterest(double loanAmount) {
+        // Tiered interest based on amount
         if (loanAmount < 10000) {
-            this.interestRate = 0.035;
+            this.interestRate = 0.035; // 3.5%
         } else if (loanAmount < 50000) {
-            this.interestRate = 0.05;
+            this.interestRate = 0.05;  // 5%
         } else {
-            this.interestRate = 0.075;
+            this.interestRate = 0.075; // 7.5%
         }
         return this.interestRate;
     }
