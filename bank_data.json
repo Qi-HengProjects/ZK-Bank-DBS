@@ -277,14 +277,34 @@
     "requestLoanAmount": "Not specified",
     "requestLoanStatus": "Not specified",
     "requestLoanPeriod": "Not specified",
-    "requestLoanPurpose": "Not specified",
+    "requestLoanPurpose": "demo",
     "accountApplication": "Not specified",
-    "applicationStatus": "PENDING",
-    "applicationType": "Savings",
-    "initialDeposit": "500",
-    "savingsAccounts": [],
+    "applicationStatus": "Not specified",
+    "applicationType": "Not specified",
+    "initialDeposit": "Not specified",
+    "savingsAccounts": [
+      {
+        "interestRate": 0.0,
+        "accountNumber": "13987148",
+        "type": "Savings",
+        "balance": 500.0,
+        "dateCreated": "2026-04-20"
+      }
+    ],
     "currentAccounts": [],
     "transactions": [],
-    "loans": []
+    "loans": [
+      {
+        "loanID": "L126345",
+        "loanAmount": 1000.0,
+        "paymentAmount": 1070.0,
+        "remainingAmount": 0.0,
+        "loanStatus": "ACTIVE",
+        "interestRate": 0.035,
+        "monthlyInstallment": 44.583333333333336,
+        "loanPeriod": 2.0,
+        "startingDate": "2026-04-20"
+      }
+    ]
   }
 ]

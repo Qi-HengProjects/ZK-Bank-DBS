@@ -46,7 +46,7 @@ public class viewAccounts extends JPanel {
         if (currentUser.getSavingsAccounts() != null) {
             for (SavingsAccount sa : currentUser.getSavingsAccounts()) {
                 renderAccountBox(accountContainer, "Savings", sa.getAccountNumber(), sa.getBalance(), 50, leftY);
-                leftY += 75;
+                leftY += 100;
             }
         }
 
@@ -54,7 +54,7 @@ public class viewAccounts extends JPanel {
         if (currentUser.getCurrentAccounts() != null) {
             for (CurrentAccount ca : currentUser.getCurrentAccounts()) {
                 renderAccountBox(accountContainer, "Current", ca.getAccountNumber(), ca.getBalance(), 50, leftY);
-                leftY += 75;
+                leftY += 100;
             }
         }
 
@@ -132,7 +132,7 @@ public class viewAccounts extends JPanel {
 
     private void renderAccountBox(JPanel p, String type, String num, double bal, int x, int y) {
         JPanel b = new JPanel(null);
-        b.setBounds(x, y, 430, 60);
+        b.setBounds(x, y, 430, 85); // Increased height to accommodate the preview line
         b.setBackground(Color.WHITE);
         b.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(70, 130, 180)));
 
@@ -140,11 +140,28 @@ public class viewAccounts extends JPanel {
         n.setFont(new Font("Arial", Font.BOLD, 14));
         n.setBounds(15, 10, 350, 20);
 
-        JLabel bl = new JLabel("Balance: RM " + String.format("%.2f", bal));
+        JLabel bl = new JLabel("Current Balance: RM " + String.format("%.2f", bal));
         bl.setFont(new Font("Monospaced", Font.PLAIN, 13));
         bl.setBounds(15, 30, 350, 20);
 
-        b.add(n); b.add(bl);
+        if (type.equalsIgnoreCase("Savings")) {
+            double rate = 0.0;
+            // Apply tiered rates from SavingsAccount logic
+            if (bal < 1000) rate = 0.01;
+            else if (bal < 20000) rate = 0.02;
+            else rate = 0.04;
+
+            double estimatedTotal = bal + (bal * rate);
+
+            JLabel estLabel = new JLabel("Est. Balance (1 Year): RM " + String.format("%.2f", estimatedTotal));
+            estLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+            estLabel.setForeground(new Color(0, 128, 0)); // Green color for interest preview
+            estLabel.setBounds(15, 55, 350, 20);
+            b.add(estLabel);
+        }
+
+        b.add(n);
+        b.add(bl);
         p.add(b);
     }
 
