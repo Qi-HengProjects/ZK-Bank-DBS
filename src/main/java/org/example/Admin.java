@@ -205,6 +205,8 @@ public class Admin extends JPanel {
             Main.dataManager.addNewAccount(targetID, accType, initialBalance);
             JOptionPane.showMessageDialog(displayAccContainer, "Account Created for " + targetID);
             System.out.println("Approved: " + applicationData[0]);
+
+            Main.showPage("accountRequest");
         });
 
         accountReject.addActionListener(e -> {
@@ -213,6 +215,8 @@ public class Admin extends JPanel {
             Main.dataManager.updateData(targetID, User::getApplicationStatus, uObj -> uObj.setApplicationStatus("REJECTED"));
             JOptionPane.showMessageDialog(displayAccContainer, "Account Rejected for " + targetID);
             System.out.println("Rejected: " + applicationData[0]);
+
+            Main.showPage("accountRequest");
         });
 
         displayAccContainer.add(accountApprove);
@@ -305,6 +309,9 @@ public class Admin extends JPanel {
             );
             JOptionPane.showMessageDialog(displayLoanContainer, "Loan Approved! Interest Rate: " + (rate * 100) + "%");
             System.out.println("Approved: " + applicationData[0]);
+
+            Main.showPage("loanRequest");
+
         });
 
         loanReject.addActionListener(e -> {
@@ -312,6 +319,9 @@ public class Admin extends JPanel {
             Main.dataManager.updateData(targetID, User::getRequestLoanStatus, u -> u.setRequestLoanStatus("REJECTED"));
             JOptionPane.showMessageDialog(displayLoanContainer, "Loan Rejected!");
             System.out.println("Rejected: " + applicationData[0]);
+
+            Main.showPage("loanRequest");
+
         });
 
         displayLoanContainer.add(loanApprove);
