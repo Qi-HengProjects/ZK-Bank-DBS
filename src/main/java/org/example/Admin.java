@@ -228,6 +228,7 @@ public class Admin extends JPanel {
     }
 
 
+
     public static void displayLoanApplicationDetails(JPanel displayLoanContainer, String[] applicationData) {
         GUI ui = new GUI();
 
