@@ -166,11 +166,21 @@ public class TransferPage extends JPanel {
                     } else {
                         JOptionPane.showMessageDialog(this, "Transfer Failed!");
                         Main.showPage("Home");
+
                     }
+
                 }
+
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Invalid amount format!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            Main.showPage("Home");
+            for (Component c : Main.mainPanel.getComponents()) {
+                if (c instanceof Home) {
+                    ((Home) c).refresh();
+                    break;
+                }
             }
         });
 
