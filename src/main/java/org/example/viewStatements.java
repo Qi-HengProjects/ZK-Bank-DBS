@@ -67,7 +67,6 @@ public class viewStatements extends JPanel {
         innerStatementContainer.removeAll();
 
         // Matches the order returned by generateStatement()
-        // [amount, transactionID, status, date, details]
         String[] transactionKeys = {
                 "Amount (RM):",
                 "Transaction ID:",
@@ -79,8 +78,8 @@ public class viewStatements extends JPanel {
         int startX = 50;
         int startY = 100;
         int labelWidth = 150;
-        int valueWidth = 300;
-        int height = 30;
+        int valueWidth = 600;
+        int defaultHeight = 30;
         int verticalSpacing = 40;
 
         Component lastComponent = null;
@@ -89,27 +88,44 @@ public class viewStatements extends JPanel {
             JLabel keyLabel = new JLabel(transactionKeys[i]);
             keyLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
-            JLabel valueLabel = new JLabel(transactionData[i]);
-            valueLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-
+            String displayValue = transactionData[i];
             if (i == 0) {
-                ui.setPosition(keyLabel, startX, startY, labelWidth, height);
-            } else {
-                ui.setPositionRelative(lastComponent, keyLabel, 0, verticalSpacing, labelWidth, height);
+                try {
+                    double amt = Double.parseDouble(displayValue);
+                    displayValue = String.format("%.2f", amt);
+                } catch (NumberFormatException ignored) {}
             }
 
-            ui.setPositionRelative(keyLabel, valueLabel, labelWidth + 10, 0, valueWidth, height);
+            // FIX: Use JTextArea instead of JLabel for values to support '\n' newlines
+            JTextArea valueArea = new JTextArea(displayValue);
+            valueArea.setFont(new Font("Arial", Font.PLAIN, 14));
+            valueArea.setEditable(false);
+            valueArea.setOpaque(false); // Makes the background transparent to match the panel
+            valueArea.setLineWrap(true);
+            valueArea.setWrapStyleWord(true);
+
+            // FIX: Increase the height specifically for the Details row (index 4) to fit 2 lines
+            int currentHeight = (i == 4) ? 50 : defaultHeight;
+
+            if (i == 0) {
+                ui.setPosition(keyLabel, startX, startY, labelWidth, defaultHeight);
+            } else {
+                ui.setPositionRelative(lastComponent, keyLabel, 0, verticalSpacing, labelWidth, defaultHeight);
+            }
+
+            // Position the JTextArea next to the key label
+            ui.setPositionRelative(keyLabel, valueArea, labelWidth + 10, 0, valueWidth, currentHeight);
 
             innerStatementContainer.add(keyLabel);
-            innerStatementContainer.add(valueLabel);
+            innerStatementContainer.add(valueArea);
             lastComponent = keyLabel;
         }
 
-        // Back button — goes back to the transaction list
+        // Back button
         JButton backBtn = new JButton("Back");
         backBtn.setBounds(100, 50, 100, 20);
         backBtn.addActionListener(e -> {
-            Main.showPage("viewStatements"); // adjust page name to match yours
+            Main.showPage("viewStatements");
         });
         innerStatementContainer.add(backBtn);
 

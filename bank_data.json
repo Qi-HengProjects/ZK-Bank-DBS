@@ -59,11 +59,11 @@
     "savingsAccounts": [],
     "currentAccounts": [
       {
-        "transactionCount": 3,
+        "transactionCount": 7,
         "transactionFee": 0.5,
         "accountNumber": "60691462",
         "type": "current",
-        "balance": 1612.0,
+        "balance": 1777.0,
         "dateCreated": "2026-04-19"
       }
     ],
@@ -81,6 +81,34 @@
         "transactionStatus": "SUCCESSFUL",
         "transactionDate": "2026-04-20",
         "transactionDetails": "Received 12.0 from account 32974235. (+12.0)"
+      },
+      {
+        "transactionAmount": 50.0,
+        "transactionID": "TXF44546674",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Received 50.0 from account 32974235. (+50.0)"
+      },
+      {
+        "transactionAmount": 15.0,
+        "transactionID": "TXF26874800",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Received 15.0 from account 32974235. (+15.0)"
+      },
+      {
+        "transactionAmount": 50.0,
+        "transactionID": "TXF23591655",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Received RM 50.00 from account 32974235."
+      },
+      {
+        "transactionAmount": 50.0,
+        "transactionID": "TXF26017278",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Received RM 50.00 from account 32974235\n(Internal Transfer)"
       }
     ],
     "loans": [
@@ -137,11 +165,11 @@
     "savingsAccounts": [],
     "currentAccounts": [
       {
-        "transactionCount": 4,
+        "transactionCount": 9,
         "transactionFee": 0.5,
         "accountNumber": "32974235",
         "type": "current",
-        "balance": 286.0,
+        "balance": 113.5,
         "dateCreated": "2026-04-19"
       }
     ],
@@ -166,6 +194,41 @@
         "transactionStatus": "SUCCESSFUL",
         "transactionDate": "2026-04-20",
         "transactionDetails": "Transferred 12.0 to account 60691462. (-12.0)"
+      },
+      {
+        "transactionAmount": 50.0,
+        "transactionID": "TXF44546674",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Transferred 50.0 to account 60691462. (-50.0)"
+      },
+      {
+        "transactionAmount": 15.0,
+        "transactionID": "TXF26874800",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Transferred 15.0 to account 60691462. (-15.0)"
+      },
+      {
+        "transactionAmount": 5.0,
+        "transactionID": "TXF86835707",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "IBG Transfer RM 5.00 to Others Acc: 23323\n(Includes RM 0.50 fee)"
+      },
+      {
+        "transactionAmount": 50.0,
+        "transactionID": "TXF23591655",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Transferred RM 50.00 to account 60691462."
+      },
+      {
+        "transactionAmount": 50.5,
+        "transactionID": "TXF26017278",
+        "transactionStatus": "SUCCESSFUL",
+        "transactionDate": "2026-04-20",
+        "transactionDetails": "Transferred RM 50.00 to account 60691462\n(Includes RM 0.50 fee)"
       }
     ],
     "loans": [
@@ -192,5 +255,36 @@
         "startingDate": "2026-04-20"
       }
     ]
+  },
+  {
+    "name": "testing",
+    "IC_No": "123456789000",
+    "birthday": "2007-04-27",
+    "gender": "Female",
+    "nationality": "Singapore",
+    "race": "Indian",
+    "religion": "Hindu",
+    "telNo": "1234567890",
+    "address": "tarumt",
+    "username": "testing",
+    "password": "test",
+    "userID": "U004",
+    "company": "tarumt",
+    "occupation": "student",
+    "incomeSource": "allowance",
+    "grossIncome": "1000",
+    "netIncome": "1000",
+    "requestLoanAmount": "Not specified",
+    "requestLoanStatus": "Not specified",
+    "requestLoanPeriod": "Not specified",
+    "requestLoanPurpose": "Not specified",
+    "accountApplication": "Not specified",
+    "applicationStatus": "PENDING",
+    "applicationType": "Savings",
+    "initialDeposit": "500",
+    "savingsAccounts": [],
+    "currentAccounts": [],
+    "transactions": [],
+    "loans": []
   }
 ]

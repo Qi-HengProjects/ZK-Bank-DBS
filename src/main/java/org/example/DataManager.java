@@ -285,9 +285,17 @@ public class DataManager {
     public void addNewTransaction(Account ga, Account ra, User checkOwner, User checkReceiver, double amount, String transactionStatus) {
         String transactionID = generateTransactionID();
         String startingDate = java.time.LocalDate.now().toString();
-        String transactionDetailsGA = "Transferred " + amount + " to account " + ra.getAccountNumber() + ". (-" + amount + ")";
-        String transactionDetailsRA = "Received " + amount + " from account " + ga.getAccountNumber() + ". (+" + amount + ")";
-        Transaction transactionGA = new Transaction(amount, transactionID, transactionStatus, startingDate, transactionDetailsGA);
+        String formattedAmount = String.format("%.2f", amount);
+        String transactionDetailsGA = "Transferred RM " + formattedAmount + " to account " + ra.getAccountNumber();
+        if (ga.getType().equalsIgnoreCase("Current")) {
+            transactionDetailsGA += "\n(Includes RM 0.50 fee)";
+        } else {
+            transactionDetailsGA += "\n(Internal Transfer)";
+        }
+
+        String transactionDetailsRA = "Received RM " + formattedAmount + " from account " + ga.getAccountNumber() + "\n(Internal Transfer)";
+        double finalDeductionAmount = ga.getType().equalsIgnoreCase("Current") ? (amount + 0.5) : amount;
+        Transaction transactionGA = new Transaction(finalDeductionAmount, transactionID, transactionStatus, startingDate, transactionDetailsGA);
         Transaction transactionRA = new Transaction(amount, transactionID, transactionStatus, startingDate, transactionDetailsRA);
         checkOwner.addTransaction(transactionGA);
         checkReceiver.addTransaction(transactionRA);
@@ -297,8 +305,8 @@ public class DataManager {
     public void addExternalTransaction(User checkOwner, double amount, String transactionStatus, String externalBankName, String externalAccountNumber) {
         String transactionID = generateTransactionID();
         String startingDate = java.time.LocalDate.now().toString();
-
-        String transactionDetails = "IBG Transfer to " + externalBankName + " Account: " + externalAccountNumber + ". (-" + amount + ")";
+        String formattedAmount = String.format("%.2f", amount);
+        String transactionDetails = "IBG Transfer RM " + formattedAmount + " to " + externalBankName + " Acc: " + externalAccountNumber + "\n(Includes RM 0.50 fee)";
 
         Transaction externalTx = new Transaction(amount, transactionID, transactionStatus, startingDate, transactionDetails);
 
