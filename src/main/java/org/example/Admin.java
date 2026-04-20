@@ -282,8 +282,6 @@ public class Admin extends JPanel {
         JButton loanApprove = new JButton("Approve");
         JButton loanReject = new JButton("Reject");
 
-        // Position buttons relative to the LAST label added in the loop
-        // Move them down by 60 pixels from the last row
         ui.setPositionRelative(lastComponent, loanApprove, 0, 60, 120, 40);
         ui.setPositionRelative(loanApprove, loanReject, 140, 0, 120, 40);
 
@@ -332,5 +330,7 @@ public class Admin extends JPanel {
         displayLoanContainer.revalidate();
         displayLoanContainer.repaint();
     }
+
+
 
 }

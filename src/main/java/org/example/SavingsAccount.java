@@ -7,21 +7,6 @@ public class SavingsAccount extends Account {
         super(accountNumber, "Savings", balance, dateCreated);
     }
 
-    public double getInterestRate() {
-        return this.interestRate;
-    }
-
-    public void updateInterestRate() {
-        double currentBalance = getBalance();
-        if (currentBalance < 1000) {
-            this.interestRate = 0.01; // 1%
-        } else if (currentBalance < 20000) {
-            this.interestRate = 0.02; // 2%
-        } else {
-            this.interestRate = 0.04; // 4%
-        }
-    }
-
     @Override
     public boolean withdraw(double amount) {
         if (getBalance() - amount < 20.00) {
@@ -31,7 +16,7 @@ public class SavingsAccount extends Account {
 
         if (super.withdraw(amount)) {
             setBalance(getBalance() - amount);
-            updateInterestRate();
+            addInterest();
             return true;
         }
         return false;
@@ -41,7 +26,7 @@ public class SavingsAccount extends Account {
     public boolean deposit(double amount) {
         if (super.deposit(amount)) {
             setBalance(getBalance() + amount);
-            updateInterestRate();
+            addInterest();
             return true;
         }
         return false;
@@ -49,8 +34,13 @@ public class SavingsAccount extends Account {
 
     @Override
     public void addInterest() {
-        double interest = getBalance() * interestRate;
-        setBalance(getBalance() + interest);
-        System.out.println("Interest added to " + getAccountNumber());
+        double currentBalance = getBalance();
+        if (currentBalance < 1000) {
+            this.interestRate = 0.01; // 1%
+        } else if (currentBalance < 20000) {
+            this.interestRate = 0.02; // 2%
+        } else {
+            this.interestRate = 0.04; // 4%
+        }
     }
 }
