@@ -291,6 +291,7 @@ public class DataManager {
         Transaction transactionRA = new Transaction(amount, transactionID, transactionStatus, startingDate, transactionDetailsRA);
         checkOwner.addTransaction(transactionGA);
         checkReceiver.addTransaction(transactionRA);
+        saveAll(this.allusers);
     }
 
     public void addExternalTransaction(User checkOwner, double amount, String transactionStatus, String externalBankName, String externalAccountNumber) {
@@ -434,7 +435,6 @@ public class DataManager {
         User u = (User) search("Users", userID, null, null, null);
         List<String[]> statementList = new ArrayList<>();
 
-        // Add a null check for both the user and the transaction list
         if (u != null && u.getTransactions() != null) {
             for (Transaction transaction : u.getTransactions()) {
                 statementList.add(new String[]{
@@ -446,7 +446,7 @@ public class DataManager {
                 });
             }
         }
-        // Newest transactions first
+
         Collections.reverse(statementList);
         return statementList;
     }

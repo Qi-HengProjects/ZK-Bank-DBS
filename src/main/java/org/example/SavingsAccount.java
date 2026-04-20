@@ -7,41 +7,39 @@ public class SavingsAccount extends Account {
         super(accountNumber, "Savings", balance, dateCreated);
     }
 
+    public double getInterestRate() {
+        return this.interestRate;
+    }
+
+    public void updateInterestRate() {
+        double currentBalance = getBalance();
+        if (currentBalance < 1000) {
+            this.interestRate = 0.01; // 1%
+        } else if (currentBalance < 20000) {
+            this.interestRate = 0.02; // 2%
+        } else {
+            this.interestRate = 0.04; // 4%
+        }
+    }
+
     @Override
     public boolean withdraw(double amount) {
-        boolean status = false;
         if (super.withdraw(amount)) {
-            if (amount + 20 > getBalance()){
-                System.out.println("Insufficient savings, minimum of RM 20.00 needed to keep the account active");
-            } else {
-                setBalance(getBalance() - amount);
-                System.out.println("Lastest balance after the transfer: " + getBalance());
-                status = true;
-            }
+            setBalance(getBalance() - amount);
+            updateInterestRate();
+            return true;
         }
-        return status;
+        return false;
     }
 
     @Override
     public boolean deposit(double amount) {
-        boolean status = false;
-
         if (super.deposit(amount)) {
             setBalance(getBalance() + amount);
-            System.out.println(amount + " Money has been added");
-            status = true;
-
-            double currentBalance = getBalance();
-            if (currentBalance < 1000) {
-                this.interestRate =  0.01;
-            } else if (currentBalance < 10000) {
-                interestRate = 0.02;
-                this.interestRate =  0.02;
-            } else if (currentBalance >= 20000) {
-                this.interestRate = 0.04;
-            }
+            updateInterestRate();
+            return true;
         }
-        return status;
+        return false;
     }
 
     @Override
